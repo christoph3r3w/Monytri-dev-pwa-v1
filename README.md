@@ -1,37 +1,38 @@
-> project template
-# Title 
-[project name and and year]:#
+# sv
 
-> main image
-> > :bulb: **Tip:** image should be defined with HTML image tag for flexibility.
-<img src="https://github.com/user-attachments/assets/4c656222-6f05-4f35-85d3-629ea35993eb" alt="template iamge" width=400px; height=400px/>
+Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
 
+## Creating a project
 
-### Table of Contents
+If you're seeing this, you've probably already done this step. Congrats!
 
-- [Description](#Descri[tion)
-- [Resource](#Resource)
-- [Installation](#Installation)
-- ...
+```bash
+# create a new project in the current directory
+npx sv create
 
-## Description 
-> General description and project goals
+# create a new project in my-app
+npx sv create my-app
+```
 
-## resources 
-> All necessary tools used to make the project (run)
+## Developing
 
-[design, fonts, specific npm package,...etc.]:#
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-## Installation
-[installation process (update if necessary)]:#
+```bash
+npm run dev
 
-1. Clone or download repository
-2. open the terminal and find the directory or open it in your code editor
-3. Run `npm i` or `pnpm i` or `yarn` for all dependencies 
-4. Run `npm run dev` to view the project on your local host
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
 
-## Build 
-to build the app
-`npm run build` 
-To preview the the build
-`npm run preview`
+## Building
+
+To create a production version of your app:
+
+```bash
+npm run build
+```
+
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
