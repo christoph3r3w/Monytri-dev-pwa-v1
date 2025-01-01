@@ -1,0 +1,7 @@
+{
+  "name": "monytri-pwa",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}
