@@ -1,5 +1,5 @@
 {
-	"appId": "com.monytri.app",
+	"appId": "monytri.pwa",
 	"appName": "monytri-pwa",
 	"webDir": "build",
 	"plugins": {

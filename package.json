@@ -15,7 +15,7 @@
     "ionic:serve": "npm run dev"
   },
   "devDependencies": {
-    "@capacitor/cli": "^6.2.0",
+    "@capacitor/cli": "6.2.0",
     "@playwright/test": "^1.45.3",
     "@sveltejs/adapter-auto": "^3.0.0",
     "@sveltejs/adapter-static": "^3.0.8",
@@ -32,7 +32,8 @@
   "dependencies": {
     "@capacitor/android": "6.2.0",
     "@capacitor/app": "6.0.2",
-    "@capacitor/core": "^6.2.0",
+    "@capacitor/core": "6.2.0",
+    "@capacitor/haptics": "6.0.2",
     "@capacitor/keyboard": "6.0.3",
     "@capacitor/status-bar": "6.0.2",
     "@tailwindcss/container-queries": "^0.1.1",
