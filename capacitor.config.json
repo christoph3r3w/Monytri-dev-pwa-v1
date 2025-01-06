@@ -1,24 +1,17 @@
 {
-  "appId": "monytri.pwa",
+  "appId": "com.monytri.app",
   "appName": "monytri-pwa",
   "webDir": "build",
-  "bundledWebRuntime": false,
-  
-
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0,
       "launchAutoHide": false,
-      "backgroundColor": "blue",
+      "backgroundColor": "#ffffff",
       "androidSplashScreen": {
         "backgroundColor": "#ffffff",
-        "imageUrl": "assets/icon/splash.png",
+        "imageUrl": "splash.png",
         "showSpinner": false
       }
-    
-
     }
   }
-
-
 }
