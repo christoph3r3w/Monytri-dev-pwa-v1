@@ -1,7 +1,21 @@
 <script>
 	import { onMount } from 'svelte';
+    import {onNavigate} from '$app/navigation'
+	import {Header,Footer} from '$lib'
 	import '../app.css';
 	let { children } = $props();
+
+	onNavigate((navigation) => {
+        if(!document.startViewTransition){return};
+
+        return new Promise((resolve) =>{
+            document.startViewTransition(async ()=>{
+                resolve();
+                await navigation.complete;
+            })
+        })
+    })
+
 
 	async function detectSWUpdate(){
 		const registration = await navigator.serviceWorker.ready;
@@ -31,17 +45,45 @@
 	
 </script>
 
-<header>header</header>
+<section class="body-container">
+	<header>
+		<Header/>
+	</header>
+	
+	<main>
+		{@render children()}
+	</main>
+	
+	<footer>
+		<Footer/>
+	</footer>
+</section>
 
-<main>
-	{@render children()}
-</main>
-
-<footer>footer</footer>
 
 <style>
+
+	.body-container{
+		display: grid;
+		grid-template-columns: auto [content-start] repeat(12,1fr) [content-end] auto;
+		grid-template-rows: [header-start] .15fr [header-end main-start] 2fr [main-end footer-start] 35vh [footer-end];
+		min-height: 100dvh;
+	}
+
+	header{
+		background-color: color-mix(in hsl,var(--general-background-color),rgb(188, 45, 45) 50%);
+		grid-row: header-start/header-end;
+		grid-column: 1/-1;
+	}
 	main {
-		background-color: #43ae57;
+		background-color: var(--general-background-color);
 		display: inline-block;
+		height: 100%;
+		grid-row: main-start/main-end;
+	}
+
+	footer{
+		background-color: color-mix(in hsl,var(--general-background-color),rgba(67, 15, 15, 0.642) 80%);
+		grid-row: footer-start/footer-end;
+		grid-column: 1/-1;
 	}
 </style>
