@@ -1,6 +1,7 @@
 test-results
 node_modules
 build
+src/lib/test components
 
 # Output
 .output
