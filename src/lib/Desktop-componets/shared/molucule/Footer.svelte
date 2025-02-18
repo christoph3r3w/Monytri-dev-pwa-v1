@@ -45,4 +45,8 @@
 		{@render legal()}
 	</ul>
 	<a href="#top">Back to top</a>
-</nav>
+</nav>	@container style(--mobile:1){
+			.footer-one,.footer-two{
+				display: none;
+		}
+	}

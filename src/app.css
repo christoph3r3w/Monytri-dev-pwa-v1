@@ -101,10 +101,13 @@ a {
 		}
 		
 		&:hover{
-			scrollbar-width: var(--scrollbar-width);
-			scrollbar-color: transparent transparent;
-			scrollbar-color: rgb(72, 157, 83) var(--general-background-color);
-	
+			/* scrollbar-width: var(--scrollbar-width, none); */
+		}
+		
+		@container style(--mobile:0){
+			&:hover{
+				scrollbar-width:var(--scrollbar-width, none);
+			}
 		}
 	
 	}
