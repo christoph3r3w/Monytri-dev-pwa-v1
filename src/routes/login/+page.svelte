@@ -1,8 +1,8 @@
 <svelte:head>
-	<title>stock overview</title>
+	<title>profile</title>
 </svelte:head>
 <h1>
-	stock overview
+	profile
 </h1>
 
 <a href="/" style="font-size: 3rem;">go home</a>

@@ -80,7 +80,6 @@
 
 	@container style(--mobile:1){
 		.header{
-			background-color: var(--primary-green-500);
 			border-bottom: none;
 		}
 
