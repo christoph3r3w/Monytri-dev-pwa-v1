@@ -50,20 +50,33 @@ table {
 
 a {
   text-decoration: initial !important;
-  /* color: red; */
-
 }
 
 /* semantic color variables for this project */
 :root {
 	/* basic colors */
-	--general-background-color: #daeadd;
+	/* --general-background-color: #daeadd; */
+	--general-background-color: var(--off-white);
 
+	/* pallet */
+	--primary-green-500:#497951;
+	--primary-darkgreen-550:#406D48;
+	--primary-lightgreen-500:#98C455;
 
-  /* light-dark */
-  --LD-text:light-dark(var(--D-black),var(--D-white));
-  --LD-background:light-dark(var(--D-white),var(--D-black));
+	--primary-purple-500:#6057DB;
 
+	--primary-red-500:#B73229;
+
+	--primary-orange-500:#FF9600;
+
+	--primary-blue-500:#304FFE;
+
+	--black:#101010;
+	--grey-500:#414141;
+	--grey-400:#717171;
+	--neutral-grey:#A0A0A0;
+	--white:#ffffff;
+	--off-white:#F9F7F4;
 
 }
 
@@ -81,24 +94,21 @@ a {
 *,
 *::before,
 *::after {
-	--scrollbar-color-thumb: hotpink;
+	--scrollbar-color-thumb: var(--primary-green-500);
 	--scrollbar-color-track: transparent;
 	--scrollbar-width: thin;
 	--scrollbar-width-legacy: 10px;
-
 
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
 	scrollbar-gutter: stable;
-	/* scrollbar-width: none;   */
-	
-	
 	
 	/* Modern browsers with `scrollbar-*` support */
 	@supports (scrollbar-width: auto) {
 		& {
-			scrollbar-width:none;
+			scrollbar-color: var(--scrollbar-color-thumb) var(--scrollbar-color-track);
+			scrollbar-width: none;
 		}
 		
 		&:hover{
