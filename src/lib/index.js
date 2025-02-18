@@ -7,5 +7,5 @@ export {default as Logo} from './Desktop-componets/shared/atoms/logo.svelte';
 
 
 
-
+// test components
 export {default as PTest} from './test components/page test component.svelte'

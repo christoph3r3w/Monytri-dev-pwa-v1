@@ -25,7 +25,7 @@
 	<li><a href=""></a></li>
 {/snippet}
 
-<menu>
+<menu class="footer-one">	
 	<figure>
 		<Logo/>
 	</figure>
@@ -40,13 +40,18 @@
 	</nav>
 </menu>
 
-<nav>
+<nav class="footer-two">
 	<ul>
 		{@render legal()}
 	</ul>
 	<a href="#top">Back to top</a>
-</nav>	@container style(--mobile:1){
+</nav>
+
+<style>
+	@container style(--mobile:1){
 			.footer-one,.footer-two{
 				display: none;
 		}
 	}
+
+</style>
