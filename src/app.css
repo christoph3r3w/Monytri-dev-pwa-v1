@@ -20,8 +20,9 @@ time, mark, audio, video {
   padding: 0;
   border: 0;
   font-size: 100%;
-  /* font-weight: normal; */
-  /* font: inherit; */
+  font-family: "Lexend", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
