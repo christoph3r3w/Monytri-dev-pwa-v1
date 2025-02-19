@@ -133,9 +133,12 @@
 		display: grid;
 		grid-template-columns: subgrid;
 		
+		container-type: inline-size;
 		container-name:footer;
 		
 		@container style(--mobile:1){
+			--_nav-radius: clamp(8px,8px,8pc);
+
 			background-color: var(--primary-green-500);
 			grid-template-columns: var(--body-padding) [content-start] repeat(6,1fr) [content-end] var(--body-padding);
 			grid-template-rows: 1fr;
@@ -144,6 +147,8 @@
 			bottom: 0;
 			inset-inline: 0;
 			height:clamp(50px, 10dvh, 10dvh);
+			border-radius:var(--_nav-radius) var(--_nav-radius) 0 0;
+
 		}
 	}
 
