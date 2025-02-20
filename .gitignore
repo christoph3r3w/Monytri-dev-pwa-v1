@@ -1,11 +1,12 @@
 test-results
 node_modules
 build
+android
 src/lib/test components
 
 # Output
 .output
-.vercel
+# .vercel
 .netlify
 .wrangler
 /.svelte-kit
@@ -22,7 +23,7 @@ Thumbs.db
 !.env.test
 
 # Vite
-vite.config.js.timestamp-*
-vite.config.ts.timestamp-*
+# vite.config.js.timestamp-*
+# vite.config.ts.timestamp-*
 
 resources/android/**/*
