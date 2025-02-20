@@ -2,7 +2,7 @@ test-results
 node_modules
 build
 android
-src/lib/test components
+# src/lib/test components
 
 # Output
 .output
