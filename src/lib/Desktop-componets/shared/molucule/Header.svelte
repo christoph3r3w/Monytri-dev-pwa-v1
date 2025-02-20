@@ -7,8 +7,8 @@
 {#snippet navigation()}
 	<li><a href="/">home</a></li>
 	<li><a href="/gift">gift</a></li>
-	<li><a href="/how it works">how it works</a></li>
-	<li><a href="/learn more">learn more</a></li>
+	<li><a href="/how-it-works">how it works</a></li>
+	<li><a href="/learn-more">learn more</a></li>
 {/snippet}
 
 <div class="header">
@@ -23,6 +23,8 @@
 	<nav>
 		<a href="/"><img src="generic.png" alt="generic person"></a>
 	</nav>
+
+	<!-- {@render children()} -->
 </div>
 
 <style>
