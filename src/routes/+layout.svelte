@@ -1,9 +1,82 @@
 <script>
 	import { onMount } from 'svelte';
-    import {onNavigate} from '$app/navigation'
+    import {onNavigate,afterNavigate} from '$app/navigation'
 	import {Header,Footer} from '$lib'
+	import {current} from '../lib/store.js'
 	import '../app.css';
 	let { children } = $props();
+
+
+
+	async function detectSWUpdate(){
+		const registration = await navigator.serviceWorker.ready;
+		
+		registration.addEventListener('updatefound', () => {
+			const newSW = registration.installing;
+			newSW?.addEventListener('statechange', () => {
+				if (newSW.state === 'installed') {
+					if (confirm('A new version of the app is available. Reload to update?')) {
+						newSW.postMessage({ type: 'SKIP_WAITING' });
+						window.location.reload();
+						return
+					}
+				}
+				
+				
+			});
+		});
+	}
+
+	
+	function currentPage(){
+		const currentPath = window.location.pathname;
+
+		switch(currentPath){
+			case '/':
+				current.set('home');
+				break;
+			case '/gift':
+				current.set('gift');
+				break;
+			case '/how-it-works':
+				current.set('how-it-works');
+				break;
+			case '/learn-more':
+				current.set('learn-more');
+				break;
+			case '/transactions':
+				current.set('transactions');
+				break;
+			case '/stock-overview':
+				current.set('stock');
+				break;
+			case '/inbox':
+				current.set('inbox');
+				break;
+			case '/profile':
+				current.set('profile');
+				break;
+			default:
+				current.set('/');
+				break;
+		}
+		
+		current.subscribe(value => {
+			console.log('Current store value:', value);
+			
+		});
+		return
+	}
+
+	
+	onMount(() => {
+		detectSWUpdate()
+		console.log(
+			'%c%s',
+			'color: white; background: blue; font-size: 24px;',
+			'PWA with service worker and page transition on android',
+		);
+	});
 
 	onNavigate((navigation) => {
         if(!document.startViewTransition){return};
@@ -17,37 +90,19 @@
     })
 
 
-	async function detectSWUpdate(){
-		const registration = await navigator.serviceWorker.ready;
-		
-		registration.addEventListener('updatefound', () => {
-			const newSW = registration.installing;
-			newSW?.addEventListener('statechange', () => {
-				if (newSW.state === 'installed') {
-					if (confirm('A new version of the app is available. Reload to update?')) {
-						newSW.postMessage({ type: 'SKIP_WAITING' });
-						window.location.reload();
-					}
-				}
+	afterNavigate(() => {
+		currentPage();
+	});
 
-				
-			});
-		});
-	}
 
-	onMount(() => {detectSWUpdate()});
-
-	console.log(
-		'%c%s',
-		'color: white; background: blue; font-size: 24px;',
-		'PWA with service worker'
-	);
 	
 </script>
 
 <section class="body-container">
 	<header>
-		<Header/>
+		<Header>
+			<!-- {#snippet navigation()} -->
+		</Header>
 	</header>
 	
 	<main>
@@ -71,9 +126,7 @@
 			initial-value: 0;
 			inherits: true;
     	}
-
 	}
-
 
 	:global(.body-container){
 		display: grid;
@@ -81,11 +134,6 @@
 		grid-template-rows: [header-start] 9dvh [header-end main-start] 2fr [main-end footer-start] 35dvh [footer-end];
 		min-height: 100dvh;
 	}
-
-	/* .body-container > :nth-child(n) > :first-child{
-		container-type: inline-size;
-		outline: solid yellow 1px;
-	} */
 
 	header{
 		background-color: var(--general-background-color);
