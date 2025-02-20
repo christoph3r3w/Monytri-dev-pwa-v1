@@ -1,4 +1,5 @@
 <script>
+	import {current} from '$lib/store.js';
 
 let explain = `
 	1. make function in +page.js that takes in all the section from the backend.
@@ -9,8 +10,12 @@ let explain = `
 	6. if the payment and forms are valid they can "confirm" submit and recieve a completion screen 
 `
 </script>
+<svelte:head>
+	<title>{$current}</title>	
+</svelte:head>
+
 <h1>
-	gift page
+	{$current}
 </h1>
 <p>
 	{explain}

@@ -3,9 +3,8 @@
 </script>
 
 <svelte:head>
-	<title>blog</title>
+	<title>transactions</title>
 </svelte:head>
-
 <h1>
 	{$current}
 </h1>

@@ -1,5 +1,13 @@
+<script>
+	import {current} from '$lib/store.js';
+</script>
+
+<svelte:head>
+	<title>{$current}</title>
+</svelte:head>
+
 <h1>
-	about page
+	{$current}
 </h1>
 
 <a href="/" style="font-size: 3rem;">go home</a>
