@@ -21,8 +21,6 @@
 						return
 					}
 				}
-				
-				
 			});
 		});
 	}
@@ -60,14 +58,8 @@
 				current.set('/');
 				break;
 		}
-		
-		current.subscribe(value => {
-			console.log('Current store value:', value);
-			
-		});
 		return
 	}
-
 	
 	onMount(() => {
 		detectSWUpdate()
@@ -101,7 +93,6 @@
         })
     })
 
-
 	afterNavigate(() => {
 		currentPage();
 	});
@@ -112,9 +103,7 @@
 
 <section class="body-container">
 	<header>
-		<Header>
-			<!-- {#snippet navigation()} -->
-		</Header>
+		<Header {current}/>	
 	</header>
 	
 	<main>
@@ -122,13 +111,14 @@
 	</main>
 	
 	<footer>
-		<Footer/>
+		<Footer {current}/>
 	</footer>
 </section>
 
 
 <style >
-
+	/* property that controls the toggle od desktop and mobile */
+	/* and other styling properties */
 	:root{
 		--mobile:0;
 		--body-padding: 3%;
@@ -177,17 +167,16 @@
 			grid-column: content;
 		}
 
+		/* main content layout styling for when the --mobile property is = 1 */
 		@container style(--mobile:1){
 			min-height: unset;
 			height: 300dvh;
 			overflow-y: scroll;
 			overflow-x: clip;
 		}
-		
 	}
 
 	footer{
-		background-color: color-mix(in hsl,var(--general-background-color),rgba(67, 15, 15, 0.642) 80%);
 		grid-row: footer;
 		grid-column: 1/-1;
 		display: grid;
@@ -196,6 +185,7 @@
 		container-type: inline-size;
 		container-name:footer;
 		
+		/* footer styling for when the --mobile property is = 1 */
 		@container style(--mobile:1){
 			--_nav-radius: clamp(8px,8px,8pc);
 
