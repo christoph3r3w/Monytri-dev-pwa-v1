@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
     import {onNavigate,afterNavigate} from '$app/navigation'
 	import {Header,Footer} from '$lib'
-	import {current} from '../lib/store.js'
+	import {current,isMobile} from '../lib/store.js'
 	import '../app.css';
 	let { children } = $props();
 
@@ -76,6 +76,18 @@
 			'color: white; background: blue; font-size: 24px;',
 			'PWA with service worker and page transition on android',
 		);
+
+		const updateIsMobile = () => {
+			isMobile.set(getComputedStyle(document.documentElement).getPropertyValue('--mobile') === '1');
+		};
+
+		updateIsMobile();
+		window.addEventListener('resize', updateIsMobile);
+
+		return () => {
+			window.removeEventListener('resize', updateIsMobile);
+		};
+
 	});
 
 	onNavigate((navigation) => {
@@ -200,6 +212,7 @@
 		}
 	}
 
+	/* media query for mobile view */
 	@media  (width < 900px) and (orientation: portrait), (height < 800px) and (orientation: landscape) {
 		:root{
 			--mobile:1;
