@@ -18,7 +18,7 @@
 
 <style>
 	div {
-		grid-column: 2/8;
+		grid-column: 1/-1;
 	}
 
 </style>

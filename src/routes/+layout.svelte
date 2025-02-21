@@ -137,14 +137,20 @@
 		min-height: 100dvh;
 	}
 
-	header{
+	:global(header){
 		background-color: var(--general-background-color);
 		grid-row: header;
 		grid-column: 1/-1;
-
-		/* &:first-child{container-name:header;} */
-
+		
+		container-type: inline-size;
+		container-name:header;
+		
+		/* header styling for when the --mobile property is = 1 */
 		@container style(--mobile:1){
+			display: grid;
+			grid-template-columns: var(--body-padding) [content-start] repeat(6,1fr) [content-end] var(--body-padding);
+			grid-template-rows: 1fr;
+
 			background-color: var(--primary-green-500);
 			height: clamp(50px, 10dvh, 10dvh);
 			position: fixed;
@@ -155,16 +161,19 @@
 
 	main {
 		background-color: var(--general-background-color);
+		grid-row: main;
+		grid-column: 1/-1;
 		display: grid;
 		grid-template-columns: subgrid;
 		min-height: 100dvh;
-		grid-row: main;
-		grid-column: 1/-1;
 		
 		container-name: main;
 
-		> :nth-child(n){
+		/* grid positioning for all main content */
+		&:nth-child(n){
 			grid-column: content;
+			display: grid;
+			grid-template-columns: subgrid;
 		}
 
 		/* main content layout styling for when the --mobile property is = 1 */
