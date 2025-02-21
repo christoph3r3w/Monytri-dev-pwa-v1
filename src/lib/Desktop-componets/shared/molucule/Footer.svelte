@@ -7,22 +7,14 @@
 	// create a store to keep track of the current page
 	// this will be used to set the active class on the mobile navigation
 	// and to set the active class on the footer/header navigation
-	let navSelect;
+	// at the moemnt the store and the current page are not in sync
+	// the store is updated when the page is loaded but the current page is not
+	let navSelect = $derived($current);
 	
-	onMount(() => {
-		navSelect = $current;
-	});
-
 	afterNavigate(() => {
-		navSelect = $current;
+		console.log('current page is',navSelect);
 	});
 
-    // let isMobile = false;
-
-    // $effect(() => {
-    //     const style = getComputedStyle(document.documentElement);
-    //     isMobile = style.getPropertyValue('--mobile').trim() === '1';
-    // });
 </script>
 
 {#snippet about()}
@@ -183,7 +175,6 @@
 			inset-block: -35%;
 			bottom: -70%;
 			z-index: 100;
-			/* outline: solid aqua; */
 		}
     }
 </style>
