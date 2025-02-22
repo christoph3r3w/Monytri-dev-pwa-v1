@@ -132,7 +132,7 @@
 	/* property that controls the toggle od desktop and mobile */
 	/* and other styling properties */
 	:root{
-		--mobile:0;
+		--mobile:1;
 		--body-padding: 3%;
 
 		@property --mobile{
