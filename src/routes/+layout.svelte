@@ -75,6 +75,8 @@
 
 		updateIsMobile();
 		window.addEventListener('resize', updateIsMobile);
+		window.addEventListener('load', updateIsMobile);
+		window.addEventListener('load', currentPage);
 
 		return () => {
 			window.removeEventListener('resize', updateIsMobile);

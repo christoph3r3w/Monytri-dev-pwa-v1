@@ -158,7 +158,9 @@
 
 		.mobile-nav li:nth-of-type(1):is(:hover,:focus-within,:visited) svg path,
 		.mobile-nav ul li:nth-of-type(1):has(a.active) svg path{
-			fill:none !important;
+			/* fill:none !important; */
+			/* test */
+			fill: var(--primary-orange-500);
 			stroke:var(--primary-green-500) ;
 		}
 		
