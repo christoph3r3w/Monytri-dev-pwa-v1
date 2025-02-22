@@ -97,6 +97,16 @@
 		currentPage();
 	});
 
+	// loggoing the current store value
+	current.subscribe(value => {
+		console.log('Current store value:', value);
+	});
+
+	isMobile.subscribe(value => {
+		console.log('isMobile store value:', value);
+	});
+
+
 
 	
 </script>
@@ -212,7 +222,14 @@
 	}
 
 	/* media query for mobile view */
-	@media  (width < 900px) and (orientation: portrait), (height < 800px) and (orientation: landscape) {
+	@media 
+	/* screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3)and (orientation: portrait),  */
+	(-webkit-min-device-pixel-ratio: 3),
+	screen and (device-width < 900px) and (orientation: portrait) , 
+	screen and (device-height <= 900px) and (orientation: landscape),
+	(device-width < 900px) and (orientation: portrait) , 
+	(device-height <= 900px) and (orientation: landscape)
+	{
 		:root{
 			--mobile:1;
 			--body-padding: 5%;
