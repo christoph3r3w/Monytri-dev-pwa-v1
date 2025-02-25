@@ -75,8 +75,8 @@
 
 		updateIsMobile();
 		window.addEventListener('resize', updateIsMobile);
-		window.addEventListener('load', updateIsMobile);
-		window.addEventListener('load', currentPage);
+		// window.addEventListener('load', updateIsMobile);
+		// window.addEventListener('load', currentPage);
 
 		return () => {
 			window.removeEventListener('resize', updateIsMobile);
@@ -145,7 +145,7 @@
 	:global(.body-container){
 		display: grid;
 		grid-template-columns: var(--body-padding) [content-start] repeat(12,1fr) [content-end] var(--body-padding);
-		grid-template-rows: [header-start] 9dvh [header-end main-start] 2fr [main-end footer-start] 35dvh [footer-end];
+		grid-template-rows: [header-start] 9dvh [header-end main-start] 2fr [main-end footer-start] 55dvh [footer-end];
 		min-height: 100dvh;
 	}
 
@@ -171,14 +171,14 @@
 		}
 	}
 
-	main {
+	:global(main) {
 		background-color: var(--general-background-color);
 		grid-row: main;
 		grid-column: 1/-1;
 		display: grid;
 		grid-template-columns: subgrid;
 		min-height: 100dvh;
-		
+		overflow-y: clip;
 		container-name: main;
 
 		/* grid positioning for all main content */
@@ -186,6 +186,11 @@
 			grid-column: content;
 			display: grid;
 			grid-template-columns: subgrid;
+			/* background-color:  rgba(172, 255, 47, 0.582); */
+
+			& :nth-child(n){
+				outline: solid orange;
+			}
 		}
 
 		/* main content layout styling for when the --mobile property is = 1 */
@@ -212,7 +217,7 @@
 
 			background-color: var(--primary-green-500);
 			grid-template-columns: var(--body-padding) [content-start] repeat(6,1fr) [content-end] var(--body-padding);
-			grid-template-rows: 1fr;
+			grid-template-rows: 1fr .3fr;
 
 			position: fixed;
 			bottom: 0;
