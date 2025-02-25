@@ -131,7 +131,7 @@
 	}
 
 	.profile img{
-		width: clamp(100%, 100%, 60px);
+		width: clamp(100%, 100%, 65px);
 		aspect-ratio: 1;
 	}
 
@@ -180,7 +180,7 @@
 		}
 
 		.pageTitle h2{
-			font-size: clamp(1.5rem, 1vw, 1.8rem);
+			font-size: clamp(1.4rem, 1vw, 1.8rem);
 			font-weight: 300;
 			text-transform: capitalize;
 			color: var(--off-white);
