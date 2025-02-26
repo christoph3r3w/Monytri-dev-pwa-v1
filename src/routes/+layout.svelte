@@ -60,7 +60,7 @@
 		return
 	}
 	
-	onMount(() => {
+	$effect(() => {
 		detectSWUpdate();
 		
 		const updateIsMobile = () => {
