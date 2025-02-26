@@ -18,6 +18,11 @@
         }
 	}
 
+	$effect(() => {
+		console.log(is_mobile);
+		
+	});
+
 </script>
 
 {#snippet routes()}
@@ -71,7 +76,7 @@
 {/snippet}
 
 <div class="header">
-	{#if is_mobile}
+	{#if is_mobile == true || is_mobile == 1 || is_mobile == '1'|| is_mobile == 'true'}
 		{@render mobileHeadNav()}
 	{:else}
 		{@render desktopNav()}
