@@ -1,11 +1,10 @@
 <script>
-	import { onMount,onMounted } from 'svelte';
+	import { onMount} from 'svelte';
     import {onNavigate,afterNavigate} from '$app/navigation'
 	import {Header,Footer} from '$lib'
 	import {current,isMobile} from '../lib/store.js'
 	import '../app.css';
 	let { children } = $props();
-
 
 
 	async function detectSWUpdate(){
@@ -62,32 +61,46 @@
 	}
 	
 	onMount(() => {
-		detectSWUpdate()
-		// console.log(
-		// 	'%c%s',
-		// 	'color: white; background: blue; font-size: 24px;',
-		// 	'PWA with service worker and page transition on android',
-		// );
-
+		detectSWUpdate();
+		
 		const updateIsMobile = () => {
 			isMobile.set(getComputedStyle(document.documentElement).getPropertyValue('--mobile') === '1');
 		};
 
+		// Run updateIsMobile immediately on mount
 		updateIsMobile();
-		window.addEventListener('resize', updateIsMobile);
-		// window.addEventListener('load', updateIsMobile);
-		// window.addEventListener('load', currentPage);
+		currentPage();
 
+		 // Listen for page navigation
+		window.addEventListener('popstate', () => {
+			// Update current page in store when navigation happens
+			currentPage();
+		});
+		
+		// Also run when window resizes
+		window.addEventListener('resize', updateIsMobile);
+		
+		// Run when page fully loads (including all resources)
+		const handleFullPageLoad = () => {
+			console.log('Page fully loaded with all resources');
+			updateIsMobile(); // Update mobile detection after full page load
+			// Any other code you want to run after page is fully loaded
+		};
+		
+		// Check if page is already loaded
+		if (document.readyState === 'complete') {
+			handleFullPageLoad();
+		} else {
+			window.addEventListener('load', handleFullPageLoad);
+		}
+		
+		// Cleanup function
 		return () => {
 			window.removeEventListener('resize', updateIsMobile);
+			window.removeEventListener('load', handleFullPageLoad);
+			window.removeEventListener('popstate', currentPage);
 		};
-
 	});
-
-	onMounted(() => {
-		// currentPage();
-		updateIsMobile();
-	})
 
 	onNavigate((navigation) => {
         if(!document.startViewTransition){return};
