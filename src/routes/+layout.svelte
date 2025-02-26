@@ -75,6 +75,8 @@
 
 		updateIsMobile();
 		window.addEventListener('resize', updateIsMobile);
+		// window.addEventListener('load', updateIsMobile);
+		// window.addEventListener('load', currentPage);
 
 		return () => {
 			window.removeEventListener('resize', updateIsMobile);
@@ -96,6 +98,16 @@
 	afterNavigate(() => {
 		currentPage();
 	});
+
+	// loggoing the current store value
+	current.subscribe(value => {
+		console.log('Current store value:', value);
+	});
+
+	isMobile.subscribe(value => {
+		console.log('isMobile store value:', value);
+	});
+
 
 
 	
@@ -120,7 +132,7 @@
 	/* property that controls the toggle od desktop and mobile */
 	/* and other styling properties */
 	:root{
-		--mobile:0;
+		--mobile:1;
 		--body-padding: 3%;
 
 		@property --mobile{
@@ -133,7 +145,7 @@
 	:global(.body-container){
 		display: grid;
 		grid-template-columns: var(--body-padding) [content-start] repeat(12,1fr) [content-end] var(--body-padding);
-		grid-template-rows: [header-start] 9dvh [header-end main-start] 2fr [main-end footer-start] 35dvh [footer-end];
+		grid-template-rows: [header-start] 9dvh [header-end main-start] 2fr [main-end footer-start] 55dvh [footer-end];
 		min-height: 100dvh;
 	}
 
@@ -159,14 +171,14 @@
 		}
 	}
 
-	main {
+	:global(main) {
 		background-color: var(--general-background-color);
 		grid-row: main;
 		grid-column: 1/-1;
 		display: grid;
 		grid-template-columns: subgrid;
 		min-height: 100dvh;
-		
+		overflow-y: clip;
 		container-name: main;
 
 		/* grid positioning for all main content */
@@ -174,6 +186,11 @@
 			grid-column: content;
 			display: grid;
 			grid-template-columns: subgrid;
+			/* background-color:  rgba(172, 255, 47, 0.582); */
+
+			& :nth-child(n){
+				outline: solid orange;
+			}
 		}
 
 		/* main content layout styling for when the --mobile property is = 1 */
@@ -200,19 +217,28 @@
 
 			background-color: var(--primary-green-500);
 			grid-template-columns: var(--body-padding) [content-start] repeat(6,1fr) [content-end] var(--body-padding);
-			grid-template-rows: 1fr;
+			grid-template-rows: 1fr .3fr;
 
 			position: fixed;
 			bottom: 0;
-			inset-inline: 0;
-			height:clamp(50px, 10dvh, 10dvh);
+			/* inset-inline: 0; */
+			right: 0;
+			left: 0;
+			height:clamp(50px, 16dvh, 91px);
 			border-radius:var(--_nav-radius) var(--_nav-radius) 0 0;
 
 		}
 	}
 
 	/* media query for mobile view */
-	@media  (width < 900px) and (orientation: portrait), (height < 800px) and (orientation: landscape) {
+	@media 
+	/* screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3)and (orientation: portrait),  */
+	(-webkit-min-device-pixel-ratio: 3),
+	screen and (device-width < 900px) and (orientation: portrait) , 
+	screen and (device-height <= 900px) and (orientation: landscape),
+	(device-width < 900px) and (orientation: portrait) , 
+	(device-height <= 900px) and (orientation: landscape)
+	{
 		:root{
 			--mobile:1;
 			--body-padding: 5%;

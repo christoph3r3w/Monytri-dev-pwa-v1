@@ -122,9 +122,10 @@
 		.mobile-nav{
 			position: relative;
 			grid-column: 1/-1;
+			grid-row: 1/2;
 			display: grid;
 			grid-template-columns: subgrid;	
-			grid-template-rows: min(23px, 15%) [content-start] 2fr [content-end] min(30px, 25%);		
+			grid-template-rows: min(23px, 15%) [content-start] 2fr [content-end] min(30px, 45%);		
 			width: 100cqw;
 			border-radius:inherit;
 		}
@@ -137,7 +138,8 @@
 			align-items: safe center;
 			width: 100%;
 			height: auto;
-			gap: 10cqw;
+			gap: clamp(10px,10cqw);
+			gap: clamp(10px, 10cqw, 100px);
 		}
 
 		.mobile-nav ul li{
@@ -159,6 +161,8 @@
 		.mobile-nav li:nth-of-type(1):is(:hover,:focus-within,:visited) svg path,
 		.mobile-nav ul li:nth-of-type(1):has(a.active) svg path{
 			fill:none !important;
+			/* test */
+			/* fill: var(--primary-orange-500); */
 			stroke:var(--primary-green-500) ;
 		}
 		
