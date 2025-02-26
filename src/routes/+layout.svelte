@@ -1,5 +1,5 @@
 <script>
-	import { onMount } from 'svelte';
+	import { onMount,onMounted } from 'svelte';
     import {onNavigate,afterNavigate} from '$app/navigation'
 	import {Header,Footer} from '$lib'
 	import {current,isMobile} from '../lib/store.js'
@@ -63,11 +63,11 @@
 	
 	onMount(() => {
 		detectSWUpdate()
-		console.log(
-			'%c%s',
-			'color: white; background: blue; font-size: 24px;',
-			'PWA with service worker and page transition on android',
-		);
+		// console.log(
+		// 	'%c%s',
+		// 	'color: white; background: blue; font-size: 24px;',
+		// 	'PWA with service worker and page transition on android',
+		// );
 
 		const updateIsMobile = () => {
 			isMobile.set(getComputedStyle(document.documentElement).getPropertyValue('--mobile') === '1');
@@ -83,6 +83,11 @@
 		};
 
 	});
+
+	onMounted(() => {
+		// currentPage();
+		updateIsMobile();
+	})
 
 	onNavigate((navigation) => {
         if(!document.startViewTransition){return};
