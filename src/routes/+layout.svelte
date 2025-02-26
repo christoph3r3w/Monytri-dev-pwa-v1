@@ -132,7 +132,7 @@
 	/* property that controls the toggle od desktop and mobile */
 	/* and other styling properties */
 	:root{
-		--mobile:1;
+		--mobile:0;
 		--body-padding: 3%;
 
 		@property --mobile{
@@ -221,8 +221,10 @@
 
 			position: fixed;
 			bottom: 0;
-			inset-inline: 0;
-			height:clamp(50px, 10dvh, 10dvh);
+			/* inset-inline: 0; */
+			right: 0;
+			left: 0;
+			height:clamp(50px, 16dvh, 91px);
 			border-radius:var(--_nav-radius) var(--_nav-radius) 0 0;
 
 		}

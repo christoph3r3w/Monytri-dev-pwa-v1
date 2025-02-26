@@ -138,7 +138,8 @@
 			align-items: safe center;
 			width: 100%;
 			height: auto;
-			gap: 10cqw;
+			gap: clamp(10px,10cqw);
+			gap: clamp(10px, 10cqw, 100px);
 		}
 
 		.mobile-nav ul li{
