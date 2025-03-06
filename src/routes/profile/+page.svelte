@@ -8,4 +8,6 @@
 	{$current}
 </h1>
 
+<img src="generic.png" alt="generic." width="200">
+
 <a href="/" style="font-size: 3rem;">go home</a>
