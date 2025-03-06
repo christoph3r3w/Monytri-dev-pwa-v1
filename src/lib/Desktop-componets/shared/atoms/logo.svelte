@@ -1,6 +1,6 @@
 <a href="/">
 	<picture>
-		<img src="Monytri-01-1.png" alt="logo" />
+		<img src="Monytri-01-1.png" alt="logo" width="40px" />
 	</picture>
 	<h1>monytri</h1>
 </a>
@@ -24,6 +24,10 @@
 	picture img {
 		aspect-ratio: 1 / 1;
 		width: 40px;
+
+		@starting-style{
+			width: 40px;
+		}
 	}
 
 	h1 {
