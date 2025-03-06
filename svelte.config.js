@@ -17,7 +17,7 @@ const config = {
             strict: true
         }),
 		files: {
-			appTemplate: 'src/index.html', // Tell SvelteKit to use index.html
+			appTemplate: 'src/index.html', 
 		  },
 	}
 };
