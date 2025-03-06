@@ -130,9 +130,6 @@
 	isMobile.subscribe(value => {
 		console.log('isMobile store value:', value);
 	});
-
-
-
 	
 </script>
 
@@ -179,7 +176,7 @@
 		
 		container-type: inline-size;
 		container-name:header;
-		
+
 		/* header styling for when the --mobile property is = 1 */
 		@container style(--mobile:1){
 			display: grid;
@@ -230,7 +227,7 @@
 		grid-column: 1/-1;
 		display: grid;
 		grid-template-columns: subgrid;
-		
+
 		container-type: inline-size;
 		container-name:footer;
 		
@@ -244,12 +241,10 @@
 
 			position: fixed;
 			bottom: 0;
-			/* inset-inline: 0; */
 			right: 0;
 			left: 0;
 			height:clamp(50px, 16dvh, 91px);
 			border-radius:var(--_nav-radius) var(--_nav-radius) 0 0;
-
 		}
 	}
 
