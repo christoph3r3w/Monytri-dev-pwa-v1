@@ -69,7 +69,12 @@
 
 		// Run updateIsMobile immediately on mount
 		updateIsMobile();
+
 		currentPage();
+
+		window.addEventListener('resize', updateIsMobile);
+		// window.addEventListener('load', updateIsMobile);
+		// window.addEventListener('load', currentPage);
 
 		 // Listen for page navigation
 		window.addEventListener('popstate', () => {
@@ -150,7 +155,7 @@
 	/* property that controls the toggle od desktop and mobile */
 	/* and other styling properties */
 	:root{
-		--mobile:0;
+		--mobile:1;
 		--body-padding: 3%;
 
 		@property --mobile{
