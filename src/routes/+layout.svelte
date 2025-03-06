@@ -152,8 +152,10 @@
 	/* property that controls the toggle od desktop and mobile */
 	/* and other styling properties */
 	:root{
-		--mobile:1;
+		--mobile:0;
 		--body-padding: 3%;
+		--header-height: 10dvh;
+		--footer-height: 91px;
 
 		@property --mobile{
 			syntax: "<number>"; 
