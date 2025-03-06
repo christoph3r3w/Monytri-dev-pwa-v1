@@ -8,7 +8,7 @@
 </svelte:head>
 
 
-<div>
+<div class="home-wrapper">
 	<PTest/>
 	<br>
 	<PTest/>
@@ -17,7 +17,7 @@
 </div>
 
 <style>
-	div {
+	.home-wrapper{ 
 		grid-column: 1/-1;
 		
 	}

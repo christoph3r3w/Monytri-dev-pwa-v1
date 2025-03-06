@@ -130,9 +130,6 @@
 	isMobile.subscribe(value => {
 		console.log('isMobile store value:', value);
 	});
-
-
-
 	
 </script>
 
@@ -155,8 +152,10 @@
 	/* property that controls the toggle od desktop and mobile */
 	/* and other styling properties */
 	:root{
-		--mobile:1;
+		--mobile:0;
 		--body-padding: 3%;
+		--header-height: 10dvh;
+		--footer-height: 91px;
 
 		@property --mobile{
 			syntax: "<number>"; 
@@ -168,26 +167,27 @@
 	:global(.body-container){
 		display: grid;
 		grid-template-columns: var(--body-padding) [content-start] repeat(12,1fr) [content-end] var(--body-padding);
-		grid-template-rows: [header-start] 9dvh [header-end main-start] 2fr [main-end footer-start] 55dvh [footer-end];
+		grid-template-rows: [header-start] var(--header-height) [header-end main-start] 2fr [main-end footer-start] 15dvh [footer-end];
 		min-height: 100dvh;
+		background-color: var(--general-background-color);
 	}
 
 	:global(header){
-		background-color: var(--general-background-color);
 		grid-row: header;
 		grid-column: 1/-1;
 		
 		container-type: inline-size;
 		container-name:header;
-		
+
 		/* header styling for when the --mobile property is = 1 */
 		@container style(--mobile:1){
 			display: grid;
 			grid-template-columns: var(--body-padding) [content-start] repeat(6,1fr) [content-end] var(--body-padding);
 			grid-template-rows: 1fr;
+			align-content: start;
 
 			background-color: var(--primary-green-500);
-			height: clamp(50px, 10dvh, 10dvh);
+			height: clamp(50px, 100%, var(--header-height));
 			position: fixed;
 			top: 0;
 			inset-inline: 0;
@@ -200,39 +200,71 @@
 		grid-column: 1/-1;
 		display: grid;
 		grid-template-columns: subgrid;
+		grid-template-rows: subgrid;
+		align-content: start;
 		min-height: 100dvh;
-		overflow-y: clip;
+		overflow-y: hidden;
+		overflow-x: hidden;
+
 		container-name: main;
 
 		/* grid positioning for all main content */
 		&:nth-child(n){
 			grid-column: content;
+			grid-row: main;
 			display: grid;
 			grid-template-columns: subgrid;
-			/* background-color:  rgba(172, 255, 47, 0.582); */
+			grid-template-rows: auto;
+			align-content: start;
+			overflow-y: hidden;
+			overflow-x: hidden;
 
-			& :nth-child(n){
-				outline: solid orange;
-			}
+			/* background-color:  rgba(172, 255, 47, 0.582);
+ */
+		}
+
+		&:nth-child(n) > .home-wrapper{
+			grid-column: 1/-1;
+			grid-row: main;
+			display: grid;
+			grid-template-columns: subgrid;
+			align-content: start;
+			width: 100%;
+			height: auto;
+		}
+
+		&:nth-child(n) > :is(:global(*)) {
+			grid-column: 1/-1;
+			grid-row: auto;
+			/* outline: solid rgb(55, 0, 255); */
+		}
+
+		&:nth-child(n) * > *{
+			grid-column: 1/-1;
+			width: 100%;
+			height: auto;
+			/* outline: solid red; */
 		}
 
 		/* main content layout styling for when the --mobile property is = 1 */
 		@container style(--mobile:1){
 			min-height: unset;
+			margin-bottom: var(--footer-height);
 			height: 300dvh;
 			overflow-y: scroll;
 			overflow-x: clip;
 		}
 	}
 
-	footer{
+	:global(footer){
+		position: relative;
 		grid-row: footer;
 		grid-column: 1/-1;
 		display: grid;
 		grid-template-columns: subgrid;
-		
+
 		container-type: inline-size;
-		container-name:footer;
+		container-name: footer;
 		
 		/* footer styling for when the --mobile property is = 1 */
 		@container style(--mobile:1){
@@ -244,12 +276,10 @@
 
 			position: fixed;
 			bottom: 0;
-			/* inset-inline: 0; */
 			right: 0;
 			left: 0;
 			height:clamp(50px, 16dvh, 91px);
 			border-radius:var(--_nav-radius) var(--_nav-radius) 0 0;
-
 		}
 	}
 
@@ -270,7 +300,7 @@
 		.body-container{
 			/*chris - greate a grid that would move */
 			grid-template-columns: var(--body-padding) [content-start] repeat(6,1fr) [content-end] var(--body-padding);
-			grid-template-rows: [header-start] clamp(50px, 10vh, 10vh) [header-end main-start] 4fr [main-end footer-start] clamp(50px, 10vh, 10vh) [footer-end];
+			grid-template-rows: [header-start] clamp(50px, 10vh, 10vh) [header-end main-start] repeat(4,min(clamp(10px,.5fr,1fr))) [main-end footer-start] clamp(50px, 10vh, 10vh) [footer-end];
 			overflow: hidden;
 		}
 	}

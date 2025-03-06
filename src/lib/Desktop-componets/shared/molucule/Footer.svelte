@@ -19,16 +19,16 @@
 
 {#snippet about()}
     <li>about us</li>
-    <li><a href=""></a></li>
-    <li><a href=""></a></li>
-    <li><a href=""></a></li>
+    <li><a href="">1</a></li>
+    <li><a href="">2</a></li>
+    <li><a href="">3</a></li>
 {/snippet}
 
 {#snippet social()}
     <li>social</li>
-    <li><a href=""></a></li>
-    <li><a href=""></a></li>
-    <li><a href=""></a></li>
+    <li><a href="">a</a></li>
+    <li><a href="">b</a></li>
+    <li><a href="">c</a></li>
 {/snippet}
 
 {#snippet legal()}

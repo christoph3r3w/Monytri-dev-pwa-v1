@@ -1,5 +1,5 @@
 {
-	"name": "monytri-pwa",
+	"name": "monytri-app",
 	"short_name": "monytri",
 	"start_url": "/",
 	"display": "standalone",
