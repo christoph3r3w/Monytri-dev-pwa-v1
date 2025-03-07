@@ -175,6 +175,7 @@
 	:global(header){
 		grid-row: header;
 		grid-column: 1/-1;
+		z-index: 100;
 		
 		container-type: inline-size;
 		container-name:header;
@@ -219,8 +220,8 @@
 			overflow-y: hidden;
 			overflow-x: hidden;
 
-			/* background-color:  rgba(172, 255, 47, 0.582);
- */
+			background-color:  rgba(172, 255, 47, 0.582);
+
 		}
 
 		&:nth-child(n) > .home-wrapper{
