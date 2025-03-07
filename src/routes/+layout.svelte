@@ -186,12 +186,14 @@
 			grid-template-columns: var(--body-padding) [content-start] repeat(6,1fr) [content-end] var(--body-padding);
 			grid-template-rows: 1fr;
 			align-content: start;
+			will-change: transform, height, background-color, box-shadow, border-radius,position;
 
 			background-color: var(--primary-green-500);
 			height: clamp(50px, 100%, var(--header-height));
 			position: fixed;
 			top: 0;
 			inset-inline: 0;
+			transform: translate3d(0,0,0);
 		}
 	}
 
@@ -281,6 +283,9 @@
 			left: 0;
 			height:clamp(50px, 16dvh, 91px);
 			border-radius:var(--_nav-radius) var(--_nav-radius) 0 0;
+			transform: translate3d(0,0,0);
+			will-change: transform, height, background-color, box-shadow, border-radius,position;
+
 		}
 	}
 
