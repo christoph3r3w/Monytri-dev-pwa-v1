@@ -6,7 +6,6 @@
 	import '../app.css';
 	let { children } = $props();
 
-
 	async function detectSWUpdate(){
 		const registration = await navigator.serviceWorker.ready;
 		
@@ -83,10 +82,11 @@
 		window.addEventListener('popstate', () => {
 			currentPage();
 		});
-													window.addEventListener('resize', updateIsMobile);
+
+		window.addEventListener('resize', debouncedUpdateIsMobile);
 		
 		// Handle orientation change explicitly (useful for mobile)
-		window.addEventListener('orientationchange', updateIsMobile);
+		window.addEventListener('orientationchange', debouncedUpdateIsMobile);
 		
 		// Run when page fully loads (including all resources)
 		const handleFullPageLoad = () => {
