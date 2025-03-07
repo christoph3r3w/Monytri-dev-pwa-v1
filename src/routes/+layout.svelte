@@ -65,31 +65,33 @@
 		
 		const updateIsMobile = () => {
 			isMobile.set(getComputedStyle(document.documentElement).getPropertyValue('--mobile') === '1');
+			currentPage();
 		};
+
+		// Debounce the updateIsMobile function to prevent it from running too frequently
+		const debouncedUpdateIsMobile = debounce(updateIsMobile, 100);
 
 		// Run updateIsMobile immediately on mount
 		updateIsMobile();
 
-		currentPage();
+		// Use ResizeObserver to update isMobile when the viewport size changes
+		const resizeObserver = new ResizeObserver(() => {
+			debouncedUpdateIsMobile();
+		});
 
-		window.addEventListener('resize', updateIsMobile);
-		// window.addEventListener('load', updateIsMobile);
-		// window.addEventListener('load', currentPage);
-
-		 // Listen for page navigation
+		// Listen for page navigation
 		window.addEventListener('popstate', () => {
-			// Update current page in store when navigation happens
 			currentPage();
 		});
+													window.addEventListener('resize', updateIsMobile);
 		
-		// Also run when window resizes
-		window.addEventListener('resize', updateIsMobile);
+		// Handle orientation change explicitly (useful for mobile)
+		window.addEventListener('orientationchange', updateIsMobile);
 		
 		// Run when page fully loads (including all resources)
 		const handleFullPageLoad = () => {
 			console.log('Page fully loaded with all resources');
 			updateIsMobile(); // Update mobile detection after full page load
-			// Any other code you want to run after page is fully loaded
 		};
 		
 		// Check if page is already loaded
@@ -99,9 +101,23 @@
 			window.addEventListener('load', handleFullPageLoad);
 		}
 		
+		// Simple debounce function (if you don't already have one)
+		function debounce(func, wait) {
+			let timeout;
+			return function executedFunction(...args) {
+				const later = () => {
+					clearTimeout(timeout);
+					func(...args);
+				};
+				clearTimeout(timeout);
+				timeout = setTimeout(later, wait);
+			};
+		}
+		
 		// Cleanup function
 		return () => {
-			window.removeEventListener('resize', updateIsMobile);
+			resizeObserver.disconnect();
+			window.removeEventListener('orientationchange', updateIsMobile);
 			window.removeEventListener('load', handleFullPageLoad);
 			window.removeEventListener('popstate', currentPage);
 		};
@@ -190,7 +206,7 @@
 
 			background-color: var(--primary-green-500);
 			height: clamp(50px, 100%, var(--header-height));
-			position: sticky;
+			position: fixed;
 			top: 0;
 			inset-inline: 0;
 			transform: translate3d(0,0,0);
@@ -277,7 +293,7 @@
 			grid-template-columns: var(--body-padding) [content-start] repeat(6,1fr) [content-end] var(--body-padding);
 			grid-template-rows: 1fr .3fr;
 
-			position: relative;
+			position: fixed;
 			bottom: 0;
 			right: 0;
 			left: 0;
