@@ -190,7 +190,7 @@
 
 			background-color: var(--primary-green-500);
 			height: clamp(50px, 100%, var(--header-height));
-			position: fixed;
+			position: sticky;
 			top: 0;
 			inset-inline: 0;
 			transform: translate3d(0,0,0);
@@ -277,7 +277,7 @@
 			grid-template-columns: var(--body-padding) [content-start] repeat(6,1fr) [content-end] var(--body-padding);
 			grid-template-rows: 1fr .3fr;
 
-			position: fixed;
+			position: relative;
 			bottom: 0;
 			right: 0;
 			left: 0;
