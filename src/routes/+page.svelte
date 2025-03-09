@@ -19,7 +19,6 @@
 <style>
 	.home-wrapper{ 
 		grid-column: 1/-1;
-		
 	}
 
 </style>

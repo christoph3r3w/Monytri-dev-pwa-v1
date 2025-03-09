@@ -7,21 +7,30 @@
 	let { children } = $props();
 
 
-	async function detectSWUpdate(){
-		const registration = await navigator.serviceWorker.ready;
-		
-		registration.addEventListener('updatefound', () => {
-			const newSW = registration.installing;
-			newSW?.addEventListener('statechange', () => {
-				if (newSW.state === 'installed') {
-					if (confirm('A new version of the app is available. Reload to update?')) {
-						newSW.postMessage({ type: 'SKIP_WAITING' });
-						window.location.reload();
-						return
-					}
-				}
-			});
-		});
+	async function detectSWUpdate() {
+		if ('serviceWorker' in navigator) {
+			try {
+				const registration = await navigator.serviceWorker.register('/service-worker.js', {
+					scope: '/', // Explicitly set scope to root
+					type: 'module'
+				});
+				
+				registration.addEventListener('updatefound', () => {
+					const newSW = registration.installing;
+					newSW?.addEventListener('statechange', () => {
+						if (newSW.state === 'installed') {
+							if (confirm('A new version of the app is available. Reload to update?')) {
+								newSW.postMessage({ type: 'SKIP_WAITING' });
+								window.location.reload();
+								return;
+							}
+						}
+					});
+				});
+			} catch (error) {
+				console.error('Service worker registration failed:', error);
+			}
+		}
 	}
 
 	
@@ -278,7 +287,7 @@
 			bottom: 0;
 			right: 0;
 			left: 0;
-			height:clamp(50px, 16dvh, 91px);
+			height:clamp(50px, 16dvh, calc(71px + env(safe-area-inset-bottom)));	
 			border-radius:var(--_nav-radius) var(--_nav-radius) 0 0;
 		}
 	}
@@ -287,6 +296,7 @@
 	@media 
 	/* screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3)and (orientation: portrait),  */
 	(-webkit-min-device-pixel-ratio: 3),
+	(-webkit-min-device-pixel-ratio: 2),
 	screen and (device-width < 900px) and (orientation: portrait) , 
 	screen and (device-height <= 900px) and (orientation: landscape),
 	(device-width < 900px) and (orientation: portrait) , 
