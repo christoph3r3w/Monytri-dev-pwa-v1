@@ -1,6 +1,6 @@
 {
   "appId": "monytri.pwa",
-  "appName": "monytri-pwa",
+  "appName": "monytri-app",
   "webDir": "build",
   "plugins": {
     "SplashScreen": {
