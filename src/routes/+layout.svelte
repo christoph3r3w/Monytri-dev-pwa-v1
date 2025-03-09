@@ -123,16 +123,16 @@
 		};
 	});
 
-	onNavigate((navigation) => {
-        if(!document.startViewTransition){return};
+	// onNavigate((navigation) => {
+    //     if(!document.startViewTransition){return};
 
-        return new Promise((resolve) =>{
-            document.startViewTransition(async ()=>{
-                resolve();
-                await navigation.complete;
-            })
-        })
-    })
+    //     return new Promise((resolve) =>{
+    //         document.startViewTransition(async ()=>{
+    //             resolve();
+    //             await navigation.complete;
+    //         })
+    //     })
+    // })
 
 	afterNavigate(() => {
 		currentPage();
