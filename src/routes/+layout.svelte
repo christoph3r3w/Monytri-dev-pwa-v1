@@ -5,7 +5,6 @@
 	import {current,isMobile,menuOpen} from '../lib/store.js'
 	import '../app.css';
 
-	let { children } = $props();
 	let menu_Open = $derived($menuOpen);
 
 	async function detectSWUpdate() {
