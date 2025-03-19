@@ -1,7 +1,7 @@
 
 <script>
 	import {Logo} from '$lib'
-	import {current,isMobile} from '$lib/store.js'
+	import {current,isMobile,menuOpen} from '$lib/store.js'
 
 	import { onMount } from 'svelte';
 	import { afterNavigate } from '$app/navigation';
