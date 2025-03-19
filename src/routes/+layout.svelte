@@ -169,23 +169,32 @@
 		grid-template-columns: var(--body-padding) [content-start] repeat(12,1fr) [content-end] var(--body-padding);
 		grid-template-rows: [header-start] var(--header-height) [header-end main-start] 2fr [main-end footer-start] 15dvh [footer-end];
 		min-height: 100dvh;
-		background-color: var(--general-background-color);
+		
+		@container style(--mobile:1){
+			/*chris - create a grid that would move */
+			display:flex ;	
+			flex-direction: column;		
+			overflow: hidden;
+			min-height: 0;
+			height: 100dvh;
+			background-color: var(--general-background-color);
+		}
 	}
-
+	
 	:global(header){
 		grid-row: header;
 		grid-column: 1/-1;
 		
 		container-type: inline-size;
 		container-name:header;
-
+		
 		/* header styling for when the --mobile property is = 1 */
 		@container style(--mobile:1){
 			display: grid;
 			grid-template-columns: var(--body-padding) [content-start] repeat(6,1fr) [content-end] var(--body-padding);
 			grid-template-rows: 1fr;
 			align-content: start;
-
+			
 			background-color: var(--primary-green-500);
 			height: clamp(50px, 100%, var(--header-height));
 			position: fixed;
@@ -196,18 +205,16 @@
 
 	:global(main) {
 		background-color: var(--general-background-color);
-		grid-row: main;
-		grid-column: 1/-1;
 		display: grid;
 		grid-template-columns: subgrid;
 		grid-template-rows: subgrid;
 		align-content: start;
 		min-height: 100dvh;
 		overflow-y: hidden;
-		overflow-x: hidden;
-
+		overflow-x: clip;
+		
 		container-name: main;
-
+		
 		/* grid positioning for all main content */
 		&:nth-child(n){
 			grid-column: content;
@@ -217,12 +224,11 @@
 			grid-template-rows: auto;
 			align-content: start;
 			overflow-y: hidden;
-			overflow-x: hidden;
+			overflow-x: clip;
 
-			/* background-color:  rgba(172, 255, 47, 0.582);
- */
+			
 		}
-
+		
 		&:nth-child(n) > .home-wrapper{
 			grid-column: 1/-1;
 			grid-row: main;
@@ -232,27 +238,47 @@
 			width: 100%;
 			height: auto;
 		}
-
+		
 		&:nth-child(n) > :is(:global(*)) {
 			grid-column: 1/-1;
 			grid-row: auto;
 			/* outline: solid rgb(55, 0, 255); */
 		}
-
+		
 		&:nth-child(n) * > *{
 			grid-column: 1/-1;
 			width: 100%;
 			height: auto;
 			/* outline: solid red; */
 		}
-
+		
 		/* main content layout styling for when the --mobile property is = 1 */
 		@container style(--mobile:1){
-			min-height: unset;
-			margin-bottom: var(--footer-height);
-			height: 300dvh;
-			overflow-y: scroll;
-			overflow-x: clip;
+
+			&{
+				flex: 3 1 100dvh;
+				grid-template-columns: var(--grid--mobile-collums) !important;
+				min-height: revert !important;
+				max-height: 100%;
+				overflow-y: scroll !important;
+				padding-top: calc(var(--header-height) + 1rem);
+				padding-bottom: 1rem;
+			}
+			
+			&:nth-child(n) > :is(:global(*)) {
+				grid-column: content ;
+				grid-row: revert;
+				
+				display: grid;
+				grid-template-columns: subgrid;
+				grid-template-rows: auto;
+				overflow-y: scroll;
+				overflow-x: clip;
+			}
+
+			&:nth-child(n) > .home-wrapper{
+				grid-column: content ;
+			}
 		}
 	}
 
