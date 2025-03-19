@@ -20,6 +20,7 @@
 
 	function toggleMenu(){
 		menuOpen.set(!$menuOpen);
+		console.log('menu open is',$menuOpen);
 	}
 
 	$effect(() => {
