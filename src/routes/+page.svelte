@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import {PTest} from '$lib'
+	import { PTest } from '$lib'
 </script>
 
 <svelte:head>
@@ -19,7 +19,6 @@
 <style>
 	.home-wrapper{ 
 		grid-column: 1/-1;
-		
 	}
 
 </style>

@@ -1,9 +1,10 @@
 <script>
 	import { onMount} from 'svelte';
-    import {onNavigate,afterNavigate} from '$app/navigation'
-	import {Header,Footer} from '$lib'
+  import {onNavigate,afterNavigate} from '$app/navigation'
+	import {Header,Footer,Menu} from '$lib'
 	import {current,isMobile,menuOpen} from '../lib/store.js'
 	import '../app.css';
+  
 	let { children } = $props();
 
 	let menu_Open = $derived($menuOpen);
@@ -23,6 +24,7 @@
 				}
 			});
 		});
+
 	}
 
 	
@@ -66,31 +68,34 @@
 		
 		const updateIsMobile = () => {
 			isMobile.set(getComputedStyle(document.documentElement).getPropertyValue('--mobile') === '1');
+			currentPage();
 		};
+
+		// Debounce the updateIsMobile function to prevent it from running too frequently
+		const debouncedUpdateIsMobile = debounce(updateIsMobile, 100);
 
 		// Run updateIsMobile immediately on mount
 		updateIsMobile();
 
-		currentPage();
+		// Use ResizeObserver to update isMobile when the viewport size changes
+		const resizeObserver = new ResizeObserver(() => {
+			debouncedUpdateIsMobile();
+		});
 
-		window.addEventListener('resize', updateIsMobile);
-		// window.addEventListener('load', updateIsMobile);
-		// window.addEventListener('load', currentPage);
-
-		 // Listen for page navigation
+		// Listen for page navigation
 		window.addEventListener('popstate', () => {
-			// Update current page in store when navigation happens
 			currentPage();
 		});
+
+		window.addEventListener('resize', debouncedUpdateIsMobile);
 		
-		// Also run when window resizes
-		window.addEventListener('resize', updateIsMobile);
+		// Handle orientation change explicitly (useful for mobile)
+		window.addEventListener('orientationchange', debouncedUpdateIsMobile);
 		
 		// Run when page fully loads (including all resources)
 		const handleFullPageLoad = () => {
 			console.log('Page fully loaded with all resources');
 			updateIsMobile(); // Update mobile detection after full page load
-			// Any other code you want to run after page is fully loaded
 		};
 		
 		// Check if page is already loaded
@@ -100,24 +105,38 @@
 			window.addEventListener('load', handleFullPageLoad);
 		}
 		
+		// Simple debounce function (if you don't already have one)
+		function debounce(func, wait) {
+			let timeout;
+			return function executedFunction(...args) {
+				const later = () => {
+					clearTimeout(timeout);
+					func(...args);
+				};
+				clearTimeout(timeout);
+				timeout = setTimeout(later, wait);
+			};
+		}
+		
 		// Cleanup function
 		return () => {
-			window.removeEventListener('resize', updateIsMobile);
+			resizeObserver.disconnect();
+			window.removeEventListener('orientationchange', updateIsMobile);
 			window.removeEventListener('load', handleFullPageLoad);
 			window.removeEventListener('popstate', currentPage);
 		};
 	});
 
-	onNavigate((navigation) => {
-        if(!document.startViewTransition){return};
+	// onNavigate((navigation) => {
+    //     if(!document.startViewTransition){return};
 
-        return new Promise((resolve) =>{
-            document.startViewTransition(async ()=>{
-                resolve();
-                await navigation.complete;
-            })
-        })
-    })
+    //     return new Promise((resolve) =>{
+    //         document.startViewTransition(async ()=>{
+    //             resolve();
+    //             await navigation.complete;
+    //         })
+    //     })
+    // })
 
 	afterNavigate(() => {
 		currentPage();
@@ -138,7 +157,9 @@
 	<header>
 		<Header {current}/>	
 	</header>
-	
+	{#if menu_Open}
+		<Menu/>
+	{/if}
 	<main>
 		{@render children()}
 	</main>
@@ -161,7 +182,6 @@
 		
 		/* application general grid structure */
 		--grid--mobile-collums: var(--body-padding) [content-start] repeat(6,1fr) [content-end] var(--body-padding);
-
 		--grid-collums-gutter: 1rem;
 		--grid-collums-rows: [header-start] var(--header-height) [header-end main-start] 2fr [main-end footer-start] minmax(316px,15dvh) [footer-end];
 		--grid-collums-rows-gutter: 1rem;
@@ -174,17 +194,33 @@
     	}
 	}
 
+	:global(body){
+		margin: 0;
+		padding: 0;
+		overflow-x: hidden;
+		max-height:100svh;
+		height: 100svh;
+
+		@container style(--mobile:1){
+			overflow: hidden;
+		}
+	}
+	
 	:global(.body-container){
 		display: grid;
 		grid-template-columns: var(--body-padding) [content-start] repeat(12,1fr) [content-end] var(--body-padding);
 		grid-template-rows: [header-start] var(--header-height) [header-end main-start] 2fr [main-end footer-start] minmax(316px,15dvh) [footer-end];
 		min-height: 100dvh;
 		background-color: var(--general-background-color);
+		overflow-y: scroll;
+
 
 		@container style(--mobile:1){
 			/*chris - create a grid that would move */
 			display:flex ;	
 			flex-direction: column;		
+			min-height: revert !important;
+			max-height: 100%;
 			overflow: hidden;
 		}
 	}
@@ -192,6 +228,7 @@
 	:global(header){
 		grid-row: header;
 		grid-column: 1/-1;
+		z-index: 100;
 		
 		container-type: inline-size;
 		container-name:header;
@@ -203,12 +240,13 @@
 			grid-template-columns: var(--grid--mobile-collums);
 			grid-template-rows: 1fr;
 			align-content: start;
-			
+			will-change: transform, height, background-color, box-shadow, border-radius,position;
 			background-color: var(--primary-green-500);
 			height: clamp(50px, 100%, var(--header-height));
-			position: fixed;
+			position: absolute;
 			top: 0;
 			inset-inline: 0;
+			transform: translate3d(0,0,0);
 		}
 	}
 
@@ -216,9 +254,8 @@
 		background-color: var(--general-background-color);
 		display: grid;
 		grid-template-columns: subgrid;
-		grid-template-rows: subgrid;
 		align-content: start;
-		min-height: 100dvh;
+		min-height: calc(100dvh - var(--footer-height));
 		overflow-y: hidden;
 		overflow-x: clip;
 		
@@ -234,7 +271,6 @@
 			align-content: start;
 			overflow-y: hidden;
 			overflow-x: clip;
-
 			/* background-color:  rgba(172, 255, 47, 0.582); */
 		}
 		
@@ -263,16 +299,15 @@
 		
 		/* main content layout styling for when the --mobile property is = 1 */
 		@container style(--mobile:1){
-
-			&{
-				flex: 3 1 100dvh;
+				flex: 2 1 99svh;
 				grid-template-columns: var(--grid--mobile-collums) !important;
 				min-height: revert !important;
 				max-height: 100%;
-				overflow-y: scroll !important;
+				overflow-y: scroll ;
 				padding-top: calc(var(--header-height) + 1rem);
-				padding-bottom: 1rem;
-			}
+				padding-bottom:1rem ;
+				margin-bottom: -1rem;
+				background-color: rgb(61, 112, 153);
 			
 			&:nth-child(n) > :is(:global(*)) {
 				grid-column: content ;
@@ -297,7 +332,7 @@
 		grid-column: 1/-1;
 		display: grid;
 		grid-template-columns: subgrid;
-
+		
 		container-type: inline-size;
 		container-name: footer;
 		
@@ -305,17 +340,19 @@
 		@container style(--mobile:1){
 			--_nav-radius: clamp(8px,8px,8pc);
 			flex: 0 1 auto;
-
 			background-color: var(--primary-green-500);
 			grid-template-columns: var(--grid--mobile-collums);
 			grid-template-rows: 1fr .3fr;
 
 			position: relative;
-			bottom: 0;
+			bottom: -1px;
 			right: 0;
 			left: 0;
 			height:clamp(50px, 16dvh, 91px);
 			border-radius:var(--_nav-radius) var(--_nav-radius) 0 0;
+			transform: translate3d(0,0,0);
+			will-change: transform, height, background-color, box-shadow, border-radius,position;
+
 		}
 	}
 
