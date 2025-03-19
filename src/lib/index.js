@@ -4,7 +4,7 @@
 export { default as Footer } from './Desktop-componets/shared/molucule/Footer.svelte';
 export { default as Header } from './Desktop-componets/shared/molucule/Header.svelte';
 export {default as Logo} from './Desktop-componets/shared/atoms/logo.svelte';
-
+export {default as Menu} from './Desktop-componets/shared/molucule/Menu.svelte';
 
 
 // test components

@@ -1,7 +1,7 @@
 
 <script>
 	import {Logo} from '$lib'
-	import {current,isMobile} from '$lib/store.js'
+	import {current,isMobile,menuOpen} from '$lib/store.js'
 
 	import { onMount } from 'svelte';
 	import { afterNavigate } from '$app/navigation';
@@ -18,9 +18,12 @@
         }
 	}
 
+	function toggleMenu(){
+		menuOpen.set(!$menuOpen);
+	}
+
 	$effect(() => {
 		console.log(is_mobile);
-		
 	});
 
 </script>
@@ -42,7 +45,7 @@
 		</menu>
 	</nav>
 	<nav class="profile">
-		<a href="/profile"><img src="generic.png" alt="generic person"></a>
+		<button onclick={toggleMenu}><img src="generic.png" alt="generic person"></button>
 	</nav>
 	
 {/snippet}
@@ -93,7 +96,7 @@
 		padding-inline: 1rem;
 		gap: 1%;
 		border-bottom: solid 2px color-mix(in hsl, var(--grey-400), white 80%);
-		box-shadow: 0 10px 5px -10px var(--grey-400);
+		/* box-shadow: 0 10px 5px -10px var(--grey-400); */
 	}
 
 	nav {
@@ -103,13 +106,17 @@
 		gap: 1rem;
 	}
 
-	nav:nth-of-type(1){
+	nav.logo{
 		flex: 0 1 fit-content;
 	}
 
 	nav:nth-of-type(2){
 		flex: 1 1 fit-content ;
 		justify-content: end;
+
+		@container (width < 730px){
+			display: none;
+		}
 	}
 
 	nav menu {

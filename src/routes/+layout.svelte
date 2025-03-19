@@ -1,8 +1,11 @@
 <script>
 	import {onMount} from 'svelte';
     import {onNavigate,afterNavigate} from '$app/navigation'
+	import {Header,Footer,Menu} from '$lib'
+	import {current,isMobile,menuOpen} from '../lib/store.js'
 	import '../app.css';
 
+	let menu_Open = $derived($menuOpen);
 
 	async function detectSWUpdate() {
 		if ('serviceWorker' in navigator) {
@@ -140,9 +143,12 @@
 </script>
 
 <section class="body-container">
-	<header>
+	<header >
 		<Header {current}/>	
 	</header>
+	{#if menu_Open}
+		<Menu/>
+	{/if}
 	
 	<main>
 		{@render children()}
