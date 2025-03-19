@@ -52,7 +52,7 @@ table {
 }
 
 a {
-  text-decoration: initial !important;
+  text-decoration: initial ;
 }
 
 /* semantic color variables for this project */
@@ -78,6 +78,7 @@ a {
 	--grey-500:#414141;
 	--grey-400:#717171;
 	--neutral-grey:#A0A0A0;
+	--neutral-grey-footer:#a0a0a05a;
 	--white:#ffffff;
 	--off-white:#F9F7F4;
 
