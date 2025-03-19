@@ -148,6 +148,7 @@
 		aspect-ratio: 1;
 	}
 
+
 	@container style(--mobile:1){
 		.header{
 			grid-column: content;

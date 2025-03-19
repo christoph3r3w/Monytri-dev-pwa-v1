@@ -29,7 +29,7 @@
 			width: 40px;
 		}
 	}
-
+	
 	h1 {
 		flex: 0 0 50%;
 		font-size: clamp(1rem,2rem,2rem);

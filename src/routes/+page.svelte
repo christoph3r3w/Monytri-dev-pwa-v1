@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import {PTest} from '$lib'
+	import { PTest } from '$lib'
 </script>
 
 <svelte:head>

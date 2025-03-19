@@ -1,10 +1,7 @@
 <script>
-	import { onMount} from 'svelte';
+	import {onMount} from 'svelte';
     import {onNavigate,afterNavigate} from '$app/navigation'
-	import {Header,Footer} from '$lib'
-	import {current,isMobile} from '../lib/store.js'
 	import '../app.css';
-	let { children } = $props();
 
 
 	async function detectSWUpdate() {
@@ -93,7 +90,7 @@
 		
 		// Also run when window resizes
 		window.addEventListener('resize', updateIsMobile);
-		
+
 		// Run when page fully loads (including all resources)
 		const handleFullPageLoad = () => {
 			console.log('Page fully loaded with all resources');
@@ -139,7 +136,7 @@
 	isMobile.subscribe(value => {
 		console.log('isMobile store value:', value);
 	});
-	
+
 </script>
 
 <section class="body-container">
