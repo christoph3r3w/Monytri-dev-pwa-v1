@@ -179,17 +179,22 @@
 	:global(body){
 		margin: 0;
 		padding: 0;
-		overflow: auto;
-		outline: saddlebrown solid;
+		overflow-x: hidden;
 		max-height:100svh;
 		height: 100svh;
+
+		@container style(--mobile:1){
+			overflow: hidden;
+		}
 	}
+	
 	:global(.body-container){
 		display: grid;
 		grid-template-columns: var(--body-padding) [content-start] repeat(12,1fr) [content-end] var(--body-padding);
 		grid-template-rows: [header-start] var(--header-height) [header-end main-start] 2fr [main-end footer-start] minmax(316px,15dvh) [footer-end];
 		min-height: 100dvh;
 		background-color: var(--general-background-color);
+		overflow-y: scroll;
 
 		@container style(--mobile:1){
 			/*chris - create a grid that would move */
@@ -228,9 +233,8 @@
 		background-color: var(--general-background-color);
 		display: grid;
 		grid-template-columns: subgrid;
-		grid-template-rows: subgrid;
 		align-content: start;
-		min-height: 100dvh;
+		min-height: calc(100dvh - var(--footer-height));
 		overflow-y: hidden;
 		overflow-x: clip;
 		
@@ -275,13 +279,14 @@
 		
 		/* main content layout styling for when the --mobile property is = 1 */
 		@container style(--mobile:1){
-				flex: 2 1 100svh;
+				flex: 2 1 99svh;
 				grid-template-columns: var(--grid--mobile-collums) !important;
 				min-height: revert !important;
 				max-height: 100%;
 				overflow-y: scroll ;
 				padding-top: calc(var(--header-height) + 1rem);
-				/* padding-bottom: 1rem; */
+				padding-bottom:1rem ;
+				margin-bottom: -1rem;
 				background-color: rgb(61, 112, 153);
 			
 			
@@ -308,7 +313,7 @@
 		grid-column: 1/-1;
 		display: grid;
 		grid-template-columns: subgrid;
-
+		
 		container-type: inline-size;
 		container-name: footer;
 		
@@ -316,13 +321,13 @@
 		@container style(--mobile:1){
 			--_nav-radius: clamp(8px,8px,8pc);
 			flex: 0 1 auto;
-
+			
 			background-color: var(--primary-green-500);
 			grid-template-columns: var(--grid--mobile-collums);
 			grid-template-rows: 1fr .3fr;
 
 			position: relative;
-			bottom: 0;
+			bottom: -1px;
 			right: 0;
 			left: 0;
 			height:clamp(50px, 16dvh, 91px);

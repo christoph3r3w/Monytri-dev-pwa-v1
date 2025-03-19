@@ -247,7 +247,7 @@
 			text-decoration: none;
 			position: absolute;
 			right: var(--body-padding);
-			bottom: 35vh;
+			bottom: 25vh;
 		}
 	}
 
