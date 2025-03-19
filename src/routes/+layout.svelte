@@ -7,30 +7,22 @@
 	let { children } = $props();
 
 
-	async function detectSWUpdate() {
-		if ('serviceWorker' in navigator) {
-			try {
-				const registration = await navigator.serviceWorker.register('/service-worker.js', {
-					scope: '/', // Explicitly set scope to root
-					type: 'module'
-				});
-				
-				registration.addEventListener('updatefound', () => {
-					const newSW = registration.installing;
-					newSW?.addEventListener('statechange', () => {
-						if (newSW.state === 'installed') {
-							if (confirm('A new version of the app is available. Reload to update?')) {
-								newSW.postMessage({ type: 'SKIP_WAITING' });
-								window.location.reload();
-								return;
-							}
-						}
-					});
-				});
-			} catch (error) {
-				console.error('Service worker registration failed:', error);
-			}
-		}
+	async function detectSWUpdate(){
+		const registration = await navigator.serviceWorker.ready;
+		
+		registration.addEventListener('updatefound', () => {
+			const newSW = registration.installing;
+			newSW?.addEventListener('statechange', () => {
+				if (newSW.state === 'installed') {
+					if (confirm('A new version of the app is available. Reload to update?')) {
+						newSW.postMessage({ type: 'SKIP_WAITING' });
+						window.location.reload();
+						return
+					}
+				}
+			});
+		});
+
 	}
 
 	
@@ -74,31 +66,34 @@
 		
 		const updateIsMobile = () => {
 			isMobile.set(getComputedStyle(document.documentElement).getPropertyValue('--mobile') === '1');
+			currentPage();
 		};
+
+		// Debounce the updateIsMobile function to prevent it from running too frequently
+		const debouncedUpdateIsMobile = debounce(updateIsMobile, 100);
 
 		// Run updateIsMobile immediately on mount
 		updateIsMobile();
 
-		currentPage();
+		// Use ResizeObserver to update isMobile when the viewport size changes
+		const resizeObserver = new ResizeObserver(() => {
+			debouncedUpdateIsMobile();
+		});
 
-		window.addEventListener('resize', updateIsMobile);
-		// window.addEventListener('load', updateIsMobile);
-		// window.addEventListener('load', currentPage);
-
-		 // Listen for page navigation
+		// Listen for page navigation
 		window.addEventListener('popstate', () => {
-			// Update current page in store when navigation happens
 			currentPage();
 		});
+
+		window.addEventListener('resize', debouncedUpdateIsMobile);
 		
-		// Also run when window resizes
-		window.addEventListener('resize', updateIsMobile);
+		// Handle orientation change explicitly (useful for mobile)
+		window.addEventListener('orientationchange', debouncedUpdateIsMobile);
 		
 		// Run when page fully loads (including all resources)
 		const handleFullPageLoad = () => {
 			console.log('Page fully loaded with all resources');
 			updateIsMobile(); // Update mobile detection after full page load
-			// Any other code you want to run after page is fully loaded
 		};
 		
 		// Check if page is already loaded
@@ -108,24 +103,38 @@
 			window.addEventListener('load', handleFullPageLoad);
 		}
 		
+		// Simple debounce function (if you don't already have one)
+		function debounce(func, wait) {
+			let timeout;
+			return function executedFunction(...args) {
+				const later = () => {
+					clearTimeout(timeout);
+					func(...args);
+				};
+				clearTimeout(timeout);
+				timeout = setTimeout(later, wait);
+			};
+		}
+		
 		// Cleanup function
 		return () => {
-			window.removeEventListener('resize', updateIsMobile);
+			resizeObserver.disconnect();
+			window.removeEventListener('orientationchange', updateIsMobile);
 			window.removeEventListener('load', handleFullPageLoad);
 			window.removeEventListener('popstate', currentPage);
 		};
 	});
 
-	onNavigate((navigation) => {
-        if(!document.startViewTransition){return};
+	// onNavigate((navigation) => {
+    //     if(!document.startViewTransition){return};
 
-        return new Promise((resolve) =>{
-            document.startViewTransition(async ()=>{
-                resolve();
-                await navigation.complete;
-            })
-        })
-    })
+    //     return new Promise((resolve) =>{
+    //         document.startViewTransition(async ()=>{
+    //             resolve();
+    //             await navigation.complete;
+    //         })
+    //     })
+    // })
 
 	afterNavigate(() => {
 		currentPage();
@@ -184,6 +193,7 @@
 	:global(header){
 		grid-row: header;
 		grid-column: 1/-1;
+		z-index: 100;
 		
 		container-type: inline-size;
 		container-name:header;
@@ -194,12 +204,14 @@
 			grid-template-columns: var(--body-padding) [content-start] repeat(6,1fr) [content-end] var(--body-padding);
 			grid-template-rows: 1fr;
 			align-content: start;
+			will-change: transform, height, background-color, box-shadow, border-radius,position;
 
 			background-color: var(--primary-green-500);
 			height: clamp(50px, 100%, var(--header-height));
 			position: fixed;
 			top: 0;
 			inset-inline: 0;
+			transform: translate3d(0,0,0);
 		}
 	}
 
@@ -228,8 +240,8 @@
 			overflow-y: hidden;
 			overflow-x: hidden;
 
-			/* background-color:  rgba(172, 255, 47, 0.582);
- */
+			background-color:  rgba(172, 255, 47, 0.582);
+
 		}
 
 		&:nth-child(n) > .home-wrapper{
@@ -289,6 +301,9 @@
 			left: 0;
 			height:clamp(50px, 16dvh, calc(71px + env(safe-area-inset-bottom)));	
 			border-radius:var(--_nav-radius) var(--_nav-radius) 0 0;
+			transform: translate3d(0,0,0);
+			will-change: transform, height, background-color, box-shadow, border-radius,position;
+
 		}
 	}
 
