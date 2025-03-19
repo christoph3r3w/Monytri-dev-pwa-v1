@@ -275,8 +275,6 @@
 		
 		/* main content layout styling for when the --mobile property is = 1 */
 		@container style(--mobile:1){
-
-			
 				flex: 2 1 100svh;
 				grid-template-columns: var(--grid--mobile-collums) !important;
 				min-height: revert !important;
@@ -284,7 +282,7 @@
 				overflow-y: scroll ;
 				padding-top: calc(var(--header-height) + 1rem);
 				/* padding-bottom: 1rem; */
-				/* background-color: red; */
+				background-color: rgb(61, 112, 153);
 			
 			
 			&:nth-child(n) > :is(:global(*)) {
