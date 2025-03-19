@@ -1,36 +1,28 @@
 <script>
-	import {onMount} from 'svelte';
+	import { onMount} from 'svelte';
     import {onNavigate,afterNavigate} from '$app/navigation'
 	import {Header,Footer,Menu} from '$lib'
 	import {current,isMobile,menuOpen} from '../lib/store.js'
 	import '../app.css';
+	let { children } = $props();
 
 	let menu_Open = $derived($menuOpen);
 
-	async function detectSWUpdate() {
-		if ('serviceWorker' in navigator) {
-			try {
-				const registration = await navigator.serviceWorker.register('/service-worker.js', {
-					scope: '/', // Explicitly set scope to root
-					type: 'module'
-				});
-				
-				registration.addEventListener('updatefound', () => {
-					const newSW = registration.installing;
-					newSW?.addEventListener('statechange', () => {
-						if (newSW.state === 'installed') {
-							if (confirm('A new version of the app is available. Reload to update?')) {
-								newSW.postMessage({ type: 'SKIP_WAITING' });
-								window.location.reload();
-								return;
-							}
-						}
-					});
-				});
-			} catch (error) {
-				console.error('Service worker registration failed:', error);
-			}
-		}
+	async function detectSWUpdate(){
+		const registration = await navigator.serviceWorker.ready;
+		
+		registration.addEventListener('updatefound', () => {
+			const newSW = registration.installing;
+			newSW?.addEventListener('statechange', () => {
+				if (newSW.state === 'installed') {
+					if (confirm('A new version of the app is available. Reload to update?')) {
+						newSW.postMessage({ type: 'SKIP_WAITING' });
+						window.location.reload();
+						return
+					}
+				}
+			});
+		});
 	}
 
 	
@@ -93,7 +85,7 @@
 		
 		// Also run when window resizes
 		window.addEventListener('resize', updateIsMobile);
-
+		
 		// Run when page fully loads (including all resources)
 		const handleFullPageLoad = () => {
 			console.log('Page fully loaded with all resources');
@@ -139,17 +131,16 @@
 	isMobile.subscribe(value => {
 		console.log('isMobile store value:', value);
 	});
-
+	
 </script>
 
 <section class="body-container">
-	<header >
+	<header>
 		<Header {current}/>	
 	</header>
 	{#if menu_Open}
 		<Menu/>
 	{/if}
-	
 	<main>
 		{@render children()}
 	</main>
@@ -185,6 +176,14 @@
     	}
 	}
 
+	:global(body){
+		margin: 0;
+		padding: 0;
+		overflow: auto;
+		outline: saddlebrown solid;
+		max-height:100svh;
+		height: 100svh;
+	}
 	:global(.body-container){
 		display: grid;
 		grid-template-columns: var(--body-padding) [content-start] repeat(12,1fr) [content-end] var(--body-padding);
@@ -196,17 +195,19 @@
 			/*chris - create a grid that would move */
 			display:flex ;	
 			flex-direction: column;		
+			min-height: revert !important;
+			max-height: 100%;
 			overflow: hidden;
 		}
 	}
-
+	
 	:global(header){
 		grid-row: header;
 		grid-column: 1/-1;
 		
 		container-type: inline-size;
 		container-name:header;
-
+		
 		/* header styling for when the --mobile property is = 1 */
 		@container style(--mobile:1){
 			flex: 0 1 auto;
@@ -214,10 +215,10 @@
 			grid-template-columns: var(--grid--mobile-collums);
 			grid-template-rows: 1fr;
 			align-content: start;
-
+			
 			background-color: var(--primary-green-500);
 			height: clamp(50px, 100%, var(--header-height));
-			position: fixed;
+			position: absolute;
 			top: 0;
 			inset-inline: 0;
 		}
@@ -225,18 +226,16 @@
 
 	:global(main) {
 		background-color: var(--general-background-color);
-		grid-row: main;
-		grid-column: 1/-1;
 		display: grid;
 		grid-template-columns: subgrid;
 		grid-template-rows: subgrid;
 		align-content: start;
 		min-height: 100dvh;
 		overflow-y: hidden;
-		overflow-x: hidden;
-
+		overflow-x: clip;
+		
 		container-name: main;
-
+		
 		/* grid positioning for all main content */
 		&:nth-child(n){
 			grid-column: content;
@@ -246,11 +245,11 @@
 			grid-template-rows: auto;
 			align-content: start;
 			overflow-y: hidden;
-			overflow-x: hidden;
+			overflow-x: clip;
 
 			/* background-color:  rgba(172, 255, 47, 0.582); */
 		}
-
+		
 		&:nth-child(n) > .home-wrapper{
 			grid-column: 1/-1;
 			grid-row: main;
@@ -260,29 +259,48 @@
 			width: 100%;
 			height: auto;
 		}
-
+		
 		&:nth-child(n) > :is(:global(*)) {
 			grid-column: 1/-1;
 			grid-row: auto;
 			/* outline: solid rgb(55, 0, 255); */
 		}
-
+		
 		&:nth-child(n) * > *{
 			grid-column: 1/-1;
 			width: 100%;
 			height: auto;
 			/* outline: solid red; */
 		}
-
+		
 		/* main content layout styling for when the --mobile property is = 1 */
 		@container style(--mobile:1){
-			flex: 1 1 auto;
-			margin-top: var(--header-height);
-			/* min-height: unset;
-			margin-bottom: var(--footer-height);
-			overflow-x: clip; */
-			overflow-y: scroll;
-			grid-template-columns: var(--grid--mobile-collums);
+
+			
+				flex: 2 1 100svh;
+				grid-template-columns: var(--grid--mobile-collums) !important;
+				min-height: revert !important;
+				max-height: 100%;
+				overflow-y: scroll ;
+				padding-top: calc(var(--header-height) + 1rem);
+				/* padding-bottom: 1rem; */
+				/* background-color: red; */
+			
+			
+			&:nth-child(n) > :is(:global(*)) {
+				grid-column: content ;
+				grid-row: revert;
+				
+				display: grid;
+				grid-template-columns: subgrid;
+				grid-template-rows: auto;
+				overflow-y: scroll;
+				overflow-x: clip;
+			}
+
+			&:nth-child(n) > .home-wrapper{
+				grid-column: content ;
+			}
 		}
 	}
 
@@ -309,7 +327,7 @@
 			bottom: 0;
 			right: 0;
 			left: 0;
-			height:clamp(50px, 16dvh, calc(71px + env(safe-area-inset-bottom)));	
+			height:clamp(50px, 16dvh, 91px);
 			border-radius:var(--_nav-radius) var(--_nav-radius) 0 0;
 		}
 	}
@@ -318,7 +336,6 @@
 	@media 
 	/* screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3)and (orientation: portrait),  */
 	(-webkit-min-device-pixel-ratio: 3),
-	(-webkit-min-device-pixel-ratio: 2),
 	screen and (device-width < 900px) and (orientation: portrait) , 
 	screen and (device-height <= 900px) and (orientation: landscape),
 	(device-width < 900px) and (orientation: portrait) , 
