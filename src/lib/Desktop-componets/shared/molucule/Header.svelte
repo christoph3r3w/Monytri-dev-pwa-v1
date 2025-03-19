@@ -18,6 +18,11 @@
         }
 	}
 
+	function toggleMenu(){
+		menuOpen.set(!$menuOpen);
+		console.log('menu open is',$menuOpen);
+	}
+
 	$effect(() => {
 		console.log(is_mobile);
 		

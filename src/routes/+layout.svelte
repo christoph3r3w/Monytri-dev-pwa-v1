@@ -2,10 +2,11 @@
 	import { onMount} from 'svelte';
     import {onNavigate,afterNavigate} from '$app/navigation'
 	import {Header,Footer} from '$lib'
-	import {current,isMobile} from '../lib/store.js'
+	import {current,isMobile,menuOpen} from '../lib/store.js'
 	import '../app.css';
 	let { children } = $props();
 
+	let menu_Open = $derived($menuOpen);
 
 	async function detectSWUpdate(){
 		const registration = await navigator.serviceWorker.ready;
@@ -149,14 +150,23 @@
 
 
 <style >
-	/* property that controls the toggle od desktop and mobile */
-	/* and other styling properties */
 	:root{
+		/* property that controls the toggle od desktop and mobile */
 		--mobile:0;
+
+		/* and other styling properties */
 		--body-padding: 3%;
 		--header-height: 10dvh;
 		--footer-height: 91px;
+		
+		/* application general grid structure */
+		--grid--mobile-collums: var(--body-padding) [content-start] repeat(6,1fr) [content-end] var(--body-padding);
 
+		--grid-collums-gutter: 1rem;
+		--grid-collums-rows: [header-start] var(--header-height) [header-end main-start] 2fr [main-end footer-start] minmax(316px,15dvh) [footer-end];
+		--grid-collums-rows-gutter: 1rem;
+
+		/* property that controls the toggle od desktop and mobile */
 		@property --mobile{
 			syntax: "<number>"; 
 			initial-value: 0;
@@ -167,17 +177,15 @@
 	:global(.body-container){
 		display: grid;
 		grid-template-columns: var(--body-padding) [content-start] repeat(12,1fr) [content-end] var(--body-padding);
-		grid-template-rows: [header-start] var(--header-height) [header-end main-start] 2fr [main-end footer-start] 15dvh [footer-end];
+		grid-template-rows: [header-start] var(--header-height) [header-end main-start] 2fr [main-end footer-start] minmax(316px,15dvh) [footer-end];
 		min-height: 100dvh;
-		
+		background-color: var(--general-background-color);
+
 		@container style(--mobile:1){
 			/*chris - create a grid that would move */
 			display:flex ;	
 			flex-direction: column;		
 			overflow: hidden;
-			min-height: 0;
-			height: 100dvh;
-			background-color: var(--general-background-color);
 		}
 	}
 	
@@ -190,8 +198,9 @@
 		
 		/* header styling for when the --mobile property is = 1 */
 		@container style(--mobile:1){
+			flex: 0 1 auto;
 			display: grid;
-			grid-template-columns: var(--body-padding) [content-start] repeat(6,1fr) [content-end] var(--body-padding);
+			grid-template-columns: var(--grid--mobile-collums);
 			grid-template-rows: 1fr;
 			align-content: start;
 			
@@ -226,7 +235,7 @@
 			overflow-y: hidden;
 			overflow-x: clip;
 
-			
+			/* background-color:  rgba(172, 255, 47, 0.582); */
 		}
 		
 		&:nth-child(n) > .home-wrapper{
@@ -295,12 +304,13 @@
 		/* footer styling for when the --mobile property is = 1 */
 		@container style(--mobile:1){
 			--_nav-radius: clamp(8px,8px,8pc);
+			flex: 0 1 auto;
 
 			background-color: var(--primary-green-500);
-			grid-template-columns: var(--body-padding) [content-start] repeat(6,1fr) [content-end] var(--body-padding);
+			grid-template-columns: var(--grid--mobile-collums);
 			grid-template-rows: 1fr .3fr;
 
-			position: fixed;
+			position: relative;
 			bottom: 0;
 			right: 0;
 			left: 0;
@@ -321,13 +331,6 @@
 		:root{
 			--mobile:1;
 			--body-padding: 5%;
-		}
-		
-		.body-container{
-			/*chris - greate a grid that would move */
-			grid-template-columns: var(--body-padding) [content-start] repeat(6,1fr) [content-end] var(--body-padding);
-			grid-template-rows: [header-start] clamp(50px, 10vh, 10vh) [header-end main-start] repeat(4,min(clamp(10px,.5fr,1fr))) [main-end footer-start] clamp(50px, 10vh, 10vh) [footer-end];
-			overflow: hidden;
 		}
 	}
 </style>
