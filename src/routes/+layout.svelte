@@ -6,6 +6,7 @@
 	import '../app.css';
 	let { children } = $props();
 
+
 	async function detectSWUpdate(){
 		const registration = await navigator.serviceWorker.ready;
 		
@@ -21,6 +22,7 @@
 				}
 			});
 		});
+
 	}
 
 	
@@ -297,7 +299,7 @@
 			bottom: 0;
 			right: 0;
 			left: 0;
-			height:clamp(50px, 16dvh, 91px);
+			height:clamp(50px, 16dvh, calc(71px + env(safe-area-inset-bottom)));	
 			border-radius:var(--_nav-radius) var(--_nav-radius) 0 0;
 			transform: translate3d(0,0,0);
 			will-change: transform, height, background-color, box-shadow, border-radius,position;
@@ -309,6 +311,7 @@
 	@media 
 	/* screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3)and (orientation: portrait),  */
 	(-webkit-min-device-pixel-ratio: 3),
+	(-webkit-min-device-pixel-ratio: 2),
 	screen and (device-width < 900px) and (orientation: portrait) , 
 	screen and (device-height <= 900px) and (orientation: landscape),
 	(device-width < 900px) and (orientation: portrait) , 

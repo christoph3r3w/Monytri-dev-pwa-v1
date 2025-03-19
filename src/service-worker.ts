@@ -10,21 +10,17 @@ console.log({build,files,version});
 
 console.log('service worker is running');
 
-
-
-const CACHE = `cache-${version}`;
+// Create a unique cache name for this project
+const PROJECT_NAME = 'Monytri-PWA';
+const CACHE = `${PROJECT_NAME}-cache-${version}`;
 
 const ASSETS = [
 	...build, // the app itself
 	...files  // everything in `static`
 ];
 
-
-//install Service Worker
-
-
+// Install Service Worker with scope validation
 self.addEventListener('install', (event) => {
-	// Create a new cache and add all files to it
 	async function addFilesToCache() {
 		const cache = await caches.open(CACHE);
 		await cache.addAll(ASSETS);
@@ -33,13 +29,14 @@ self.addEventListener('install', (event) => {
 	event.waitUntil(addFilesToCache());
 });	
 
-// avtivate the service worker
-
+// Activate and clean up old caches specific to this project
 self.addEventListener('activate', (event) => {
-	// Remove previous cached data from disk
 	async function deleteOldCaches() {
 		for (const key of await caches.keys()) {
-			if (key !== CACHE) await caches.delete(key);
+			// Only delete caches that belong to this project
+			if (key.startsWith(PROJECT_NAME) && key !== CACHE) {
+				await caches.delete(key);
+			}
 		}
 	}
 
