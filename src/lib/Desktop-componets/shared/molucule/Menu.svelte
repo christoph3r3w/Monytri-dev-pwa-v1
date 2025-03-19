@@ -161,7 +161,8 @@
 			right: 0;
 			left: 0;
 			top: var(--header-height);
-			bottom: 20vh;
+			bottom: var(--footer-height);
+
 		}
 
 		nav.dropdown-menu section.header-routes{
