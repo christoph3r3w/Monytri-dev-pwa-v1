@@ -1,6 +1,6 @@
 <script>
-	import { onMount} from 'svelte';
-  import {onNavigate,afterNavigate} from '$app/navigation'
+	import {onMount} from 'svelte';
+  	import {onNavigate,afterNavigate} from '$app/navigation'
 	import {Header,Footer,Menu} from '$lib'
 	import {current,isMobile,menuOpen} from '../lib/store.js'
 	import '../app.css';
@@ -27,7 +27,7 @@
 
 	}
 
-	
+	// function to detect the current page
 	function currentPage(){
 		const currentPath = window.location.pathname;
 
@@ -72,7 +72,7 @@
 		};
 
 		// Debounce the updateIsMobile function to prevent it from running too frequently
-		const debouncedUpdateIsMobile = debounce(updateIsMobile, 100);
+		const debouncedUpdateIsMobile = debounce(updateIsMobile, 50);
 
 		// Run updateIsMobile immediately on mount
 		updateIsMobile();
@@ -89,7 +89,7 @@
 
 		window.addEventListener('resize', debouncedUpdateIsMobile);
 		
-		// Handle orientation change explicitly (useful for mobile)
+		// Handle orientation change explicitly 
 		window.addEventListener('orientationchange', debouncedUpdateIsMobile);
 		
 		// Run when page fully loads (including all resources)
@@ -105,7 +105,7 @@
 			window.addEventListener('load', handleFullPageLoad);
 		}
 		
-		// Simple debounce function (if you don't already have one)
+		// debounce function to prevent the updateIsMobile function from running too frequently
 		function debounce(func, wait) {
 			let timeout;
 			return function executedFunction(...args) {
@@ -127,6 +127,7 @@
 		};
 	});
 
+	// causes an issue when mobile view is active
 	// onNavigate((navigation) => {
     //     if(!document.startViewTransition){return};
 

@@ -10,7 +10,7 @@
 	let navSelect = $derived($current);
 	
 	afterNavigate(() => {
-		console.log('current page is',navSelect,current);
+		console.log('current page is',navSelect,$current);
 	});
 
 </script>
@@ -65,7 +65,6 @@
     </span>
     <a href="#top">Back to top</a>
 </nav>
-
 
 
 <!-- mobile navigation -->

@@ -24,7 +24,7 @@
 	}
 
 	$effect(() => {
-		console.log(is_mobile);
+		console.log('is mobile',is_mobile);
 	});
 
 </script>
