@@ -15,10 +15,8 @@ let explain = `
 </svelte:head>
 
 <h1>
-	{$current}
+	gift purchase completed
 </h1>
-<p>
-	{explain}
-</p>
+
 
 <a href="/" style="font-size: 3rem;">go home</a>
