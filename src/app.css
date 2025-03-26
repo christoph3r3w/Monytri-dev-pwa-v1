@@ -84,15 +84,15 @@ a {
 
 }
 
-@view-transition {
+/* @view-transition {
 	navigation: auto;
-}
+} */
 
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
   }
-}
+} */
 
 
 *,
@@ -115,10 +115,7 @@ a {
 			scrollbar-width: none;
 		}
 		
-		&:hover{
-			/* scrollbar-width: var(--scrollbar-width, none); */
-		}
-		
+				
 		@container style(--mobile:0){
 			&:hover{
 				scrollbar-width:var(--scrollbar-width, none);

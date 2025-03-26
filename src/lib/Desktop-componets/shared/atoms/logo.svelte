@@ -44,6 +44,7 @@
 		transition: .4s ease-out;
 	}
 
+	/* small logo test aniamtion  */
 	/* @media screen and (width < 730px){
 		a{
 			width: 50%;
