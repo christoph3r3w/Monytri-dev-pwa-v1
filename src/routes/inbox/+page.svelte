@@ -2,9 +2,9 @@
 	import {current} from '$lib/store.js';
 </script>
 
-<svelte:head>
+<!-- <svelte:head>
 	<title>{$current}</title>
-</svelte:head>
+</svelte:head> -->
 
 <h1>
 	{$current}

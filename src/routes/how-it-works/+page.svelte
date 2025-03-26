@@ -1,6 +1,6 @@
-<svelte:head>
+<!-- <svelte:head>
 	<title>how it works</title>
-</svelte:head>
+</svelte:head> -->
 <h1>
 	how it works
 </h1>
