@@ -1,9 +1,10 @@
 <script>
 	import { onMount} from 'svelte';
-    import {onNavigate,afterNavigate} from '$app/navigation'
+  import {onNavigate,afterNavigate} from '$app/navigation'
 	import {Header,Footer,Menu} from '$lib'
 	import {current,isMobile,menuOpen} from '../lib/store.js'
 	import '../app.css';
+  
 	let { children } = $props();
 
 	let menu_Open = $derived($menuOpen);
@@ -190,7 +191,6 @@
 		
 		/* application general grid structure */
 		--grid--mobile-collums: var(--body-padding) [content-start] repeat(6,1fr) [content-end] var(--body-padding);
-
 		--grid-collums-gutter: 1rem;
 		--grid-collums-rows: [header-start] var(--header-height) [header-end main-start] 2fr [main-end footer-start] minmax(316px,15dvh) [footer-end];
 		--grid-collums-rows-gutter: 1rem;
@@ -228,6 +228,7 @@
 		background-color: var(--general-background-color);
 		overflow-y: scroll;
 
+
 		@container style(--mobile:1){
 			/*chris - create a grid that would move */
 			display:flex ;	
@@ -253,6 +254,8 @@
 			grid-template-columns: var(--grid--mobile-collums);
 			grid-template-rows: 1fr;
 			align-content: start;
+
+			will-change: transform, height, background-color, box-shadow, border-radius,position;
 
 			background-color: var(--primary-green-500);
 			height: clamp(50px, 100%, var(--header-height));
@@ -325,7 +328,6 @@
 				margin-bottom: -1rem;
 				/* background-color: rgb(61, 112, 153); */
 			
-			
 			&:nth-child(n) > :is(:global(*)) {
 				grid-column: content ;
 				grid-row: revert;
@@ -363,7 +365,6 @@
 		@container style(--mobile:1){
 			--_nav-radius: clamp(8px,8px,8pc);
 			flex: 0 1 auto;
-			
 			background-color: var(--primary-green-500);
 			grid-template-columns: var(--grid--mobile-collums);
 			grid-template-rows: 1fr .3fr;
