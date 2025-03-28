@@ -8,15 +8,17 @@
 	import { afterNavigate } from '$app/navigation';
 
 	let is_mobile = $derived($isMobile);
-	let isHomePage = $derived($current === 'home') ;
 
+	
 	function iconTask (){
-        if (isHomePage) {
+        if ($current === 'home') {
             // On homepage, activate search functionality
             console.log('Activating search');
-        } else {
+        } else if ($current === 'gift') {
             history.back();
-        }
+		} else {
+            history.back();
+		}
 	}
 
 	function toggleMenu(){
@@ -53,7 +55,17 @@
 
 {#snippet mobileHeadNav()}
 	<!-- goback and search button -->
-	<nav class="goBack">
+	 {#if $current === 'gift'}
+	 <nav class="goBack">
+		<button onclick={iconTask}>
+			<svg width="9" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M7.75 15.75a.744.744 0 0 1-.53-.22l-7-7a.75.75 0 0 1 0-1.06l7-7a.75.75 0 1 1 1.06 1.06L1.81 8l6.47 6.47a.75.75 0 0 1-.53 1.28Z" fill="white"/>
+			</svg>
+		</button>
+	</nav>
+
+	{:else}
+	<nav class="goBack othr">
 		<button onclick={iconTask}>
 			
 		{#if $current === 'home'}
@@ -77,7 +89,7 @@
 	<nav class="profile">
 		<a href="/profile"><img src="generic.png" alt="generic person"></a>
 	</nav>
-	
+	{/if}
 {/snippet}
 
 <div class="header">
@@ -194,6 +206,7 @@
 				fill: var(--off-white);
 			}
 		}
+
 
 		nav:nth-of-type(2).pageTitle{
 			display: flex;

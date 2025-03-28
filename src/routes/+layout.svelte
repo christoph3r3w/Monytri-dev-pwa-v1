@@ -161,13 +161,16 @@
 </script>
 
 <section class="body-container">
+	{#if ($current == 'gift' && $isMobile) }
+	{:else}
 	<header>
 		<Header {current}/>	
 	</header>
+	{/if}
 	{#if menu_Open}
 		<Menu/>
 	{/if}
-	<main>
+	<main class={$current == 'gift'? 'giftOn':'' }>
 		{@render children()}
 	</main>
 	<footer>
@@ -277,7 +280,6 @@
 		overflow-y: visible;
 		overflow-x: clip;
 		
-		
 		container-name: main;
 
 		/* grid positioning for all main content */
@@ -285,7 +287,6 @@
 			grid-row: main;
 			display: grid;
 			grid-template-columns: subgrid;
-			/* grid-template-rows: subgrid; */
 			align-content: start;
 			overflow-y: hidden;
 			overflow-x: clip;
@@ -316,17 +317,21 @@
 		
 		/* main content layout styling for when the --mobile property is = 1 */
 		@container style(--mobile:1){
-				flex: 2 1 99svh;
+				flex: 2 1 100svh;
 				display: grid;
 				grid-template-columns: var(--grid--mobile-collums) !important;
 				grid-auto-flow: row;
 				min-height: revert !important;
 				max-height: 100%;
 				overflow-y: scroll ;
-				padding-top: calc(var(--header-height) + 1rem);
+				padding-top: calc(var(--header-height) + 1px);
 				padding-bottom:1rem ;
 				margin-bottom: -1rem;
 				/* background-color: rgb(61, 112, 153); */
+
+			&.giftOn{
+				padding-top: 0 !important;
+			}
 			
 			&:nth-child(n) > :is(:global(*)) {
 				grid-column: content ;
