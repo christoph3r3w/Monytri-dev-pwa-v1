@@ -390,9 +390,7 @@
 	@media 
 	(-webkit-min-device-pixel-ratio: 3),
 	screen and (device-width < 900px) and (orientation: portrait) , 
-	screen and (device-height <= 900px) and (orientation: landscape),
-	(device-width < 900px) and (orientation: portrait) , 
-	(device-height <= 900px) and (orientation: landscape)
+	screen and (device-height <= 900px) and (orientation: landscape)
 	{
 		:root{
 			--mobile:1;
