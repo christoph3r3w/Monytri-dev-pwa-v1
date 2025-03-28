@@ -34,8 +34,7 @@
 
 {#snippet routes()}
 	<li><a href="/">home</a></li>
-	<li><button onclick={() => { window.location.href = '/gift'; }}>gift</button></li>
-	<li><a href="/how-it-works">how it works</a></li>
+c	<li><a href="/how-it-works">how it works</a></li>
 	<li><a href="/learn-more">learn more</a></li>
 {/snippet}
 
