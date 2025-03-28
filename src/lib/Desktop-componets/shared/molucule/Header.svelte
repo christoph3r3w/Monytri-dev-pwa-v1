@@ -34,7 +34,8 @@
 
 {#snippet routes()}
 	<li><a href="/">home</a></li>
-c	<li><a href="/how-it-works">how it works</a></li>
+	<li><a href="/gift"></a></li>
+	<li><a href="/how-it-works">how it works</a></li>
 	<li><a href="/learn-more">learn more</a></li>
 {/snippet}
 
