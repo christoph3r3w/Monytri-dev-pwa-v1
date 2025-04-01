@@ -238,7 +238,7 @@ $effect(() => {
 	<!-- page title -->
 	<nav class="pageTitle">
 		<h2>
-			{$current}
+			<!-- {$current} -->
 		</h2>
 	</nav>
 	<!-- profile menu -->
@@ -256,7 +256,7 @@ $effect(() => {
 	<header>
 		<!-- /<Header {current}/>	 -->
 		<div class="header">
-			{#if is_mobile == true || is_mobile == 1 || is_mobile == '1'|| is_mobile == 'true'}
+			{#if is_mobile == true }
 				{@render mobileHeadNav()}
 			{:else}
 				{@render desktopNav()}
