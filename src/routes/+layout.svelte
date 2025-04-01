@@ -221,9 +221,9 @@
 		max-height:100svh;
 		height: 100svh;
 
-		@container style(--mobile:1){
+		/* @container style(--mobile:1){
 			overflow: hidden;
-		}
+		} */
 	}
 	
 	:global(.body-container){
@@ -235,14 +235,14 @@
 		overflow-y: scroll;
 
 
-		@container style(--mobile:1){
+		/* @container style(--mobile:1){ */
 			/*chris - create a grid that would move */
 			display:flex ;	
 			flex-direction: column;		
 			min-height: revert !important;
 			max-height: 100%;
 			overflow: hidden;
-		}
+		/* } */
 	}
 	
 	header{
@@ -317,7 +317,7 @@
 		} */
 		
 		/* main content layout styling for when the --mobile property is = 1 */
-		@container style(--mobile:1){
+		/* @container style(--mobile:1){ */
 				flex: 2 1 100svh;
 				display: grid;
 				grid-template-columns: var(--grid--mobile-collums) !important;
@@ -354,7 +354,7 @@
 			&:nth-child(n) > .home-wrapper{
 				grid-column: content ;
 			}
-		}
+		/* } */
 	}
 
 	:global(footer){
@@ -368,7 +368,7 @@
 		container-name: footer;
 		
 		/* footer styling for when the --mobile property is = 1 */
-		@container style(--mobile:1){
+		/* @container style(--mobile:1){ */
 			--_nav-radius: clamp(8px,8px,8pc);
 			flex: 0 1 auto;
 			background-color: var(--primary-green-500);
@@ -384,7 +384,7 @@
 			transform: translate3d(0,0,0);
 			will-change: transform, height, background-color, box-shadow, border-radius,position;
 
-		}
+		/* } */
 	}
 
 	/* media query for mobile view */
