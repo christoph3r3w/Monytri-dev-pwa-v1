@@ -211,7 +211,7 @@ $effect(() => {
 
 {#snippet mobileHeadNav()}
 	<!-- goback and search button -->
-	 <!-- {#if $current === 'gift'}
+	 {#if $current === 'gift'}
 	 <nav class="goBack">
 		<button onclick={iconTask}>
 			<svg width="9" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -234,33 +234,33 @@ $effect(() => {
 			  </svg>
 		{/if}
 		</button>
-	</nav> -->
+	</nav>
 	<!-- page title -->
 	<nav class="pageTitle">
 		<h2>
-			<!-- {$current} -->
+			{$current}
 		</h2>
 	</nav>
 	<!-- profile menu -->
 	<nav class="profile">
 		<a href="/profile"><img src="generic.png" alt="generic person"></a>
 	</nav>
-	<!-- {/if} -->
+	{/if}
 {/snippet}
 
 <!-- header section -->
 
 <section class="body-container">
-	<!-- {#if ($current == 'gift' && $isMobile) } -->
-	<!-- {:else} -->
+	<!-- {#if ($current == 'gift' && $isMobile) }
+	{:else} -->
 	<header>
 		<!-- /<Header {current}/>	 -->
 		<div class="header">
-			{#if is_mobile == true }
+			<!-- {#if is_mobile == true } -->
 				{@render mobileHeadNav()}
-			{:else}
+			<!-- {:else}
 				{@render desktopNav()}
-			{/if}
+			{/if} -->
 		</div>
 	</header>
 	<!-- {/if} -->
