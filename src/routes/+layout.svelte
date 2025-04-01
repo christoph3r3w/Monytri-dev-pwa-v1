@@ -257,10 +257,13 @@ $effect(() => {
 		<!-- /<Header {current}/>	 -->
 		<div class="header">
 			<!-- {#if is_mobile == true } -->
-				{@render mobileHeadNav()}
+				<!-- {@render mobileHeadNav()} -->
 			<!-- {:else}
 				{@render desktopNav()}
 			{/if} -->
+			<nav>
+				header
+			</nav>
 		</div>
 	</header>
 	<!-- {/if} -->
