@@ -164,7 +164,10 @@
 	{#if ($current == 'gift' && $isMobile) }
 	{:else}
 	<header>
-		<Header {current}/>	
+		<!-- <Header {current}/>	 -->
+		 <nav>
+			header
+		 </nav>
 	</header>
 	{/if}
 	{#if menu_Open}
@@ -242,7 +245,7 @@
 		}
 	}
 	
-	:global(header){
+	header{
 		grid-row: header;
 		grid-column: 1/-1;
 		z-index: 100;
