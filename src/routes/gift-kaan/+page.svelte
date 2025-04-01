@@ -28,20 +28,34 @@ let explain = `
     <input type="search" placeholder="Search Recipients" />
   </div>
 
-  <fieldset>
-    <legend> Recipients list </legend>
-    <form>
-    <label for="recipient1">Recipient 1</label>
-    <input type="radio" id="recipient1" name="recipient" value="recipient1">
-    <label for="recipient2">Recipient 2</label>
-    <input type="radio" id="recipient2" name="recipient" value="recipient2">
-    <label for="recipient3">Recipient 3</label>
-    <input type="radio" id="recipient3" name="recipient" value="recipient3">
-    <label for="recipient4">Recipient 4</label>
-    <input type="radio" id="recipient4" name="recipient" value="recipient4">
-    <input type="submit" value="Submit"> <!--Style this into the continue button-->
-    </form>
-  </fieldset>
+  <div class="recipient-list">
+    <ul>
+      <li>
+        <a href="/">
+          <img src="#" height="72px" width="72px" alt="">
+          <h2> Recipient </h2>
+          <p> Recipient@gmail.com</p>
+          <p class="last-sent"> Last sent: 12/12/2023</p>
+        </a>
+      </li>
+      <li>
+        <a href="/">
+          <img src="#" height="72" width="72" alt="">
+          <h2> Recipient </h2>
+          <p> Recipient@gmail.com</p>
+          <p class="last-sent"> Last sent: 12/12/2023</p>
+        </a>
+      </li>
+      <li>
+        <a href="/">
+          <img src="/" height="72" width="72" alt="">
+          <h2> Recipient </h2>
+          <p> Recipient@gmail.com</p>
+          <p class="last-sent"> Last sent: 12/12/2023</p>
+        </a>
+      </li>
+    </ul>
+  </div>
 </section>
 
 <style>
@@ -77,7 +91,7 @@ let explain = `
     }
   }
 
-  fieldset {
+  .recipient-list {
     display: flex;
     flex-direction: column;
     grid-column: 3 !important;
@@ -88,13 +102,43 @@ let explain = `
     height: 658px !important;
     width: 601px !important;
     
-    input[type="radio"] {
-      padding: 24px;
-      gap: 24px;
+    ul{
+      padding: 1.2rem;
     }
 
-    label {
-      cursor: pointer;
+    li {
+      height: 495px;
+      height: 152px;
+      margin-bottom: 24px;
+    }
+
+    a {
+      width: 455px !important;
+      height: 72px !important;
+
+      img {
+        border-radius: 50%;
+        height: 72px !important;
+        width: 72px !important;
+      }
+
+      h2 {
+        font-size: 1.2rem;
+        margin: 0;
+        padding: 0;
+      }
+
+      p {
+        font-size: 1rem;
+        margin: 0;
+        padding: 6px 0 0 0;
+      }
+
+      .last-sent {
+        font-size: 1rem;
+        margin: 0;
+        padding: 24px 0 0 0;
+      }
     }
   }
 </style>
