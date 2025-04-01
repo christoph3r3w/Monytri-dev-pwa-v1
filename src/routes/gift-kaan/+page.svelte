@@ -32,7 +32,7 @@ let explain = `
     <ul>
       <li>
         <a href="/">
-          <img src="#" height="72px" width="72px" alt="">
+          <img src="generic.png" height="72px" width="72px" alt="">
           <h2> Recipient </h2>
           <p> Recipient@gmail.com</p>
           <p class="last-sent"> Last sent: 12/12/2023</p>
@@ -40,7 +40,7 @@ let explain = `
       </li>
       <li>
         <a href="/">
-          <img src="#" height="72" width="72" alt="">
+          <img src="generic.png" height="72" width="72" alt="">
           <h2> Recipient </h2>
           <p> Recipient@gmail.com</p>
           <p class="last-sent"> Last sent: 12/12/2023</p>
@@ -48,7 +48,7 @@ let explain = `
       </li>
       <li>
         <a href="/">
-          <img src="/" height="72" width="72" alt="">
+          <img src="generic.png" height="72" width="72" alt="">
           <h2> Recipient </h2>
           <p> Recipient@gmail.com</p>
           <p class="last-sent"> Last sent: 12/12/2023</p>
@@ -56,6 +56,7 @@ let explain = `
       </li>
     </ul>
   </div>
+  <a href="/" class="continue-btn"> Continue </a>
 </section>
 
 <style>
@@ -64,7 +65,7 @@ let explain = `
     margin: 2rem;
   }
 
-  a{
+  a {
     height: 40px !important;
     width: 40px !important;
   }
@@ -72,12 +73,12 @@ let explain = `
   div {
     padding: 2rem;
 
-    h1{ 
+    h1 { 
       font-size: 4.16rem;
       margin-bottom: 12px;
     }
 
-    p{
+    p {
       font-size: 2rem;
       max-width: 472px;
       margin-bottom: 29px;
@@ -102,7 +103,7 @@ let explain = `
     height: 658px !important;
     width: 601px !important;
     
-    ul{
+    ul {
       padding: 1.2rem;
     }
 
@@ -123,7 +124,7 @@ let explain = `
       }
 
       h2 {
-        font-size: 1.2rem;
+        font-size: 2rem;
         margin: 0;
         padding: 0;
       }
@@ -140,5 +141,18 @@ let explain = `
         padding: 24px 0 0 0;
       }
     }
+  }
+
+  .continue-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #717171;
+    border-radius: 8px;
+    width: 359px;
+    height: 56px;
+    padding: 16px 130px;
+    text-decoration: none;
+    font-size: 2rem;
   }
 </style>
