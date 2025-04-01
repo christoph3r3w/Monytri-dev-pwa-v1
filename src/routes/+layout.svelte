@@ -164,10 +164,7 @@
 	{#if ($current == 'gift' && $isMobile) }
 	{:else}
 	<header>
-		<!-- <Header {current}/>	 -->
-		 <nav>
-			header
-		 </nav>
+		<Header {current}/>		
 	</header>
 	{/if}
 	{#if menu_Open}
