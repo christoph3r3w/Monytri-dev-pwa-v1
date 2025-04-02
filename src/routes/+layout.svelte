@@ -216,6 +216,7 @@
 		margin: 0;
 		padding: 0;
 		overflow-x: hidden;
+		overflow-y: auto;
 		max-height:100svh;
 		height: 100svh;
 	}
@@ -226,7 +227,8 @@
 		grid-template-rows: [header-start] var(--header-height) [header-end main-start] min(calc(100dvh - var(--header-height)),100%) [main-end footer-start] minmax(316px,15dvh) [footer-end];
 		min-height: 100dvh;
 		background-color: var(--general-background-color);
-		overflow-y: scroll;
+		overflow-x: clip;
+		overflow-y:auto;
 	}
 	
 	:global(header){
@@ -245,10 +247,10 @@
 		grid-column: content;
 		display: grid;
 		grid-template-columns: subgrid;
-		grid-template-rows: subgrid;
+		/* grid-template-rows: subgrid; */
 		align-content: start;
-		overflow-y: visible;
 		overflow-x: clip;
+		overflow-y: visible;
 		
 		container-name: main;
 
@@ -258,9 +260,8 @@
 			display: grid;
 			grid-template-columns: subgrid;
 			align-content: start;
-			overflow-y: hidden;
 			overflow-x: clip;
-			
+			overflow-y: visible;
 			
 		}
 				
