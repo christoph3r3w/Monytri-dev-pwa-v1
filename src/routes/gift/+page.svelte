@@ -321,7 +321,7 @@
 								onclick={() => selectRecipient(recipient)}
 								>
 								<article class="recipient-info">
-									<img src={recipient.profilePic} alt={''||recipient.name} class="profile-pic" />
+									<!-- <img src={recipient.profilePic} alt={''||recipient.name} class="profile-pic" /> -->
 									<div class="recipient-details">
 										<h3>{recipient.name}</h3>
 										<p>{recipient.email}</p>
@@ -937,7 +937,6 @@
 		flex-direction: column;
 		height: 100%;
 		width: 100%;
-		/* outline: solid; */
 
 		@container style(--mobile:1) {
 			height: fit-content;
@@ -957,7 +956,6 @@
 		@container style(--mobile:1) {
 			max-height: fit-content;
 			width: 100% ;
-			/* outline: solid crimson; */
 		}
 	}
 	
