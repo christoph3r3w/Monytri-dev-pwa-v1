@@ -1,6 +1,6 @@
 <script>
-	import { onMount} from 'svelte';
-  import {onNavigate,afterNavigate} from '$app/navigation'
+	import {onMount} from 'svelte';
+  	import {onNavigate,afterNavigate} from '$app/navigation'
 	import {Header,Footer,Menu} from '$lib'
 	import {current,isMobile,menuOpen} from '../lib/store.js'
 	import '../app.css';
@@ -74,7 +74,7 @@
 		};
 
 		// Debounce the updateIsMobile function to prevent it from running too frequently
-		const debouncedUpdateIsMobile = debounce(updateIsMobile, 100);
+		const debouncedUpdateIsMobile = debounce(updateIsMobile, 50);
 
 		// Run updateIsMobile immediately on mount
 		updateIsMobile();
@@ -96,7 +96,7 @@
 
 		window.addEventListener('resize', debouncedUpdateIsMobile);
 		
-		// Handle orientation change explicitly (useful for mobile)
+		// Handle orientation change explicitly 
 		window.addEventListener('orientationchange', debouncedUpdateIsMobile);
 		
 		// Run when page fully loads (including all resources)
@@ -112,7 +112,7 @@
 			window.addEventListener('load', handleFullPageLoad);
 		}
 		
-		// Simple debounce function (if you don't already have one)
+		// debounce function to prevent the updateIsMobile function from running too frequently
 		function debounce(func, wait) {
 			let timeout;
 			return function executedFunction(...args) {
@@ -134,6 +134,7 @@
 		};
 	});
 
+	// causes an issue when mobile view is active
 	// onNavigate((navigation) => {
     //     if(!document.startViewTransition){return};
 
@@ -164,7 +165,7 @@
 	{#if ($current == 'gift' && $isMobile) }
 	{:else}
 	<header>
-		<Header {current}/>		
+		<Header {current}/>	
 	</header>
 	{/if}
 	{#if menu_Open}
@@ -217,10 +218,6 @@
 		overflow-x: hidden;
 		max-height:100svh;
 		height: 100svh;
-
-		/* @container style(--mobile:1){
-			overflow: hidden;
-		} */
 	}
 	
 	:global(.body-container){
@@ -230,19 +227,9 @@
 		min-height: 100dvh;
 		background-color: var(--general-background-color);
 		overflow-y: scroll;
-
-
-		/* @container style(--mobile:1){ */
-			/*chris - create a grid that would move */
-			display:flex ;	
-			flex-direction: column;		
-			min-height: revert !important;
-			max-height: 100%;
-			overflow: hidden;
-		/* } */
 	}
 	
-	header{
+	:global(header){
 		grid-row: header;
 		grid-column: 1/-1;
 		z-index: 100;
@@ -250,21 +237,6 @@
 		container-type: inline-size;
 		container-name:header;
 		
-		flex: 0 1 auto;
-		background-color: var(--primary-green-500);
-		/* header styling for when the --mobile property is = 1 */
-		/* @container style(--mobile:1){
-			display: grid;
-			grid-template-columns: var(--grid--mobile-collums);
-			grid-template-rows: 1fr;
-			align-content: start;
-
-			height: clamp(50px, 100%, var(--header-height));
-			position: absolute;
-			top: 0;
-			inset-inline: 0;
-			transform: translate3d(0,0,0);
-		} */
 	}
 
 	:global(main) {
@@ -313,8 +285,66 @@
 			height: auto;
 		} */
 		
+	}
+
+	:global(footer){
+		position: relative;
+		grid-row: footer;
+		grid-column: 1/-1;
+		display: grid;
+		grid-template-columns: subgrid;
+		
+		container-type: inline-size;
+		container-name: footer;
+		
+	}
+
+	/* media query for mobile view */
+	@media 
+	(-webkit-min-device-pixel-ratio: 3),
+	screen and (device-width < 900px) and (orientation: portrait) , 
+	screen and (device-height <= 900px) and (orientation: landscape)
+	{
+		:root{
+			--mobile:1;
+			--body-padding: 5%;
+		}
+
+
+		:global(body){
+			overflow: hidden;
+			max-height:100svh;
+		}
+
+		:global(.body-container){
+			display: flex;
+			flex-direction: column;
+			min-height: revert ;
+			max-height: 100%;
+			overflow: hidden;
+		}
+
+		/* header styling for when the --mobile property is = 1 */
+		:global(header){
+				/* header styling for when the --mobile property is = 1 */
+				flex: 0 1 auto;
+				display: grid;
+				grid-template-columns: var(--grid--mobile-collums);
+				grid-template-rows: 1fr;
+				align-content: start;
+
+				will-change: transform, height, background-color, box-shadow, border-radius,position;
+
+				background-color: var(--primary-green-500);
+				height: clamp(50px, 100%, var(--header-height));
+				position: absolute;
+				top: 0;
+				inset-inline: 0;
+				transform: translate3d(0,0,0);
+		}
+				
 		/* main content layout styling for when the --mobile property is = 1 */
-		/* @container style(--mobile:1){ */
+		:global(main){
 				flex: 2 1 100svh;
 				display: grid;
 				grid-template-columns: var(--grid--mobile-collums) !important;
@@ -351,21 +381,10 @@
 			&:nth-child(n) > .home-wrapper{
 				grid-column: content ;
 			}
-		/* } */
-	}
-
-	:global(footer){
-		position: relative;
-		grid-row: footer;
-		grid-column: 1/-1;
-		display: grid;
-		grid-template-columns: subgrid;
-		
-		container-type: inline-size;
-		container-name: footer;
-		
+		}
+				
 		/* footer styling for when the --mobile property is = 1 */
-		/* @container style(--mobile:1){ */
+		:global(footer){
 			--_nav-radius: clamp(8px,8px,8pc);
 			flex: 0 1 auto;
 			background-color: var(--primary-green-500);
@@ -379,20 +398,6 @@
 			height:clamp(50px, 16dvh, 91px);
 			border-radius:var(--_nav-radius) var(--_nav-radius) 0 0;
 			transform: translate3d(0,0,0);
-			will-change: transform, height, background-color, box-shadow, border-radius,position;
-
-		/* } */
-	}
-
-	/* media query for mobile view */
-	@media 
-	(-webkit-min-device-pixel-ratio: 3),
-	screen and (device-width < 900px) and (orientation: portrait) , 
-	screen and (device-height <= 900px) and (orientation: landscape)
-	{
-		:root{
-			--mobile:1;
-			--body-padding: 5%;
 		}
 	}
 
