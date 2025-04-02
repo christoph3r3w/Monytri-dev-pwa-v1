@@ -62,16 +62,19 @@ let explain = `
 <style>
   section {
     display: grid;
+    grid-template-columns: subgrid;
     margin: 2rem;
   }
 
   a {
-    height: 40px !important;
-    width: 40px !important;
+    grid-column: 1 !important;
+    height: 40px;
+    width: 40px;
   }
 
   div {
     padding: 2rem;
+    grid-column: 1/2 !important;
 
     h1 { 
       font-size: 4.16rem;
@@ -95,13 +98,14 @@ let explain = `
   .recipient-list {
     display: flex;
     flex-direction: column;
-    grid-column: 3 !important;
+    grid-column: 3;
     grid-row: 1/4;
     padding: 2rem;
     margin-left: 2rem;
     background-color: #FFFFFF;
-    height: 658px !important;
-    width: 601px !important;
+    height: 658px;
+    width: 601px;
+    grid-column: 3/4 !important;
     
     ul {
       padding: 1.2rem;
@@ -114,13 +118,13 @@ let explain = `
     }
 
     a {
-      width: 455px !important;
-      height: 72px !important;
+      width: 455px;
+      height: 72px;
 
       img {
         border-radius: 50%;
-        height: 72px !important;
-        width: 72px !important;
+        height: 72px;
+        width: 72px;
       }
 
       h2 {
