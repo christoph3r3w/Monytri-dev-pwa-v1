@@ -135,16 +135,16 @@
 	});
 
 	// causes an issue when mobile view is active
-	// onNavigate((navigation) => {
-    //     if(!document.startViewTransition){return};
+	onNavigate((navigation) => {
+        if(!document.startViewTransition){return};
 
-    //     return new Promise((resolve) =>{
-    //         document.startViewTransition(async ()=>{
-    //             resolve();
-    //             await navigation.complete;
-    //         })
-    //     })
-    // })
+        return new Promise((resolve) =>{
+            document.startViewTransition(async ()=>{
+                resolve();
+                await navigation.complete;
+            })
+        })
+    })
 
 	afterNavigate(() => {
 		currentPage();
@@ -216,12 +216,9 @@
 		margin: 0;
 		padding: 0;
 		overflow-x: hidden;
+		overflow-y: auto;
 		max-height:100svh;
 		height: 100svh;
-
-		@container style(--mobile:1){
-			overflow: hidden;
-		}
 	}
 	
 	:global(.body-container){
@@ -230,17 +227,8 @@
 		grid-template-rows: [header-start] var(--header-height) [header-end main-start] min(calc(100dvh - var(--header-height)),100%) [main-end footer-start] minmax(316px,15dvh) [footer-end];
 		min-height: 100dvh;
 		background-color: var(--general-background-color);
-		overflow-y: scroll;
-
-
-		@container style(--mobile:1){
-			/*chris - create a grid that would move */
-			display:flex ;	
-			flex-direction: column;		
-			min-height: revert !important;
-			max-height: 100%;
-			overflow: hidden;
-		}
+		overflow-x: clip;
+		overflow-y:auto;
 	}
 	
 	:global(header){
@@ -251,23 +239,6 @@
 		container-type: inline-size;
 		container-name:header;
 		
-		/* header styling for when the --mobile property is = 1 */
-		@container style(--mobile:1){
-			flex: 0 1 auto;
-			display: grid;
-			grid-template-columns: var(--grid--mobile-collums);
-			grid-template-rows: 1fr;
-			align-content: start;
-
-			will-change: transform, height, background-color, box-shadow, border-radius,position;
-
-			background-color: var(--primary-green-500);
-			height: clamp(50px, 100%, var(--header-height));
-			position: absolute;
-			top: 0;
-			inset-inline: 0;
-			transform: translate3d(0,0,0);
-		}
 	}
 
 	:global(main) {
@@ -276,10 +247,10 @@
 		grid-column: content;
 		display: grid;
 		grid-template-columns: subgrid;
-		grid-template-rows: subgrid;
+		/* grid-template-rows: subgrid; */
 		align-content: start;
-		overflow-y: visible;
 		overflow-x: clip;
+		overflow-y: visible;
 		
 		container-name: main;
 
@@ -289,9 +260,8 @@
 			display: grid;
 			grid-template-columns: subgrid;
 			align-content: start;
-			overflow-y: hidden;
 			overflow-x: clip;
-			
+			overflow-y: visible;
 			
 		}
 				
@@ -316,8 +286,66 @@
 			height: auto;
 		} */
 		
+	}
+
+	:global(footer){
+		position: relative;
+		grid-row: footer;
+		grid-column: 1/-1;
+		display: grid;
+		grid-template-columns: subgrid;
+		
+		container-type: inline-size;
+		container-name: footer;
+		
+	}
+
+	/* media query for mobile view */
+	@media 
+	(-webkit-min-device-pixel-ratio: 3),
+	screen and (device-width < 900px) and (orientation: portrait) , 
+	screen and (device-height <= 900px) and (orientation: landscape)
+	{
+		:root{
+			--mobile:1;
+			--body-padding: 5%;
+		}
+
+
+		:global(body){
+			overflow: hidden;
+			max-height:100svh;
+		}
+
+		:global(.body-container){
+			display: flex;
+			flex-direction: column;
+			min-height: revert ;
+			max-height: 100%;
+			overflow: hidden;
+		}
+
+		/* header styling for when the --mobile property is = 1 */
+		:global(header){
+				/* header styling for when the --mobile property is = 1 */
+				flex: 0 1 auto;
+				display: grid;
+				grid-template-columns: var(--grid--mobile-collums);
+				grid-template-rows: 1fr;
+				align-content: start;
+
+				will-change: transform, height, background-color, box-shadow, border-radius,position;
+
+				background-color: var(--primary-green-500);
+				height: clamp(50px, 100%, var(--header-height));
+				position: absolute;
+				top: 0;
+				inset-inline: 0;
+				transform: translate3d(0,0,0);
+		}
+				
 		/* main content layout styling for when the --mobile property is = 1 */
-		@container style(--mobile:1){
+		:global(main){
 				flex: 2 1 100svh;
 				display: grid;
 				grid-template-columns: var(--grid--mobile-collums) !important;
@@ -355,20 +383,9 @@
 				grid-column: content ;
 			}
 		}
-	}
-
-	:global(footer){
-		position: relative;
-		grid-row: footer;
-		grid-column: 1/-1;
-		display: grid;
-		grid-template-columns: subgrid;
-		
-		container-type: inline-size;
-		container-name: footer;
-		
+				
 		/* footer styling for when the --mobile property is = 1 */
-		@container style(--mobile:1){
+		:global(footer){
 			--_nav-radius: clamp(8px,8px,8pc);
 			flex: 0 1 auto;
 			background-color: var(--primary-green-500);
@@ -382,20 +399,6 @@
 			height:clamp(50px, 16dvh, 91px);
 			border-radius:var(--_nav-radius) var(--_nav-radius) 0 0;
 			transform: translate3d(0,0,0);
-			will-change: transform, height, background-color, box-shadow, border-radius,position;
-
-		}
-	}
-
-	/* media query for mobile view */
-	@media 
-	(-webkit-min-device-pixel-ratio: 3),
-	screen and (device-width < 900px) and (orientation: portrait) , 
-	screen and (device-height <= 900px) and (orientation: landscape)
-	{
-		:root{
-			--mobile:1;
-			--body-padding: 5%;
 		}
 	}
 

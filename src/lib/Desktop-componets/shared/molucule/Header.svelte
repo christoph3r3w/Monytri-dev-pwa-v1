@@ -9,7 +9,6 @@
 
 	let is_mobile = $derived($isMobile);
 
-	
 	function iconTask (){
         if ($current === 'home') {
             // On homepage, activate search functionality
@@ -170,7 +169,10 @@
 	}
 
 
-	@container style(--mobile:1){
+	@media (-webkit-min-device-pixel-ratio: 3),
+			screen and (device-width < 900px) and (orientation: portrait) , 
+			screen and (device-height <= 900px) and (orientation: landscape)
+			{
 		.header{
 			grid-column: content;
 			grid-row: 1/-1;
