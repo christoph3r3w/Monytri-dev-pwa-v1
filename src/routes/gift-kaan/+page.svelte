@@ -14,21 +14,20 @@ let explain = `
 	<title>{$current}</title>	
 </svelte:head>
 
-<section>
-  <a href="/" aria-label="Back">
-    <svg width="31px" height="26px" viewBox="0 0 31px 26px" fill="none" xmlns="http://www.w3.org/2000/svg" title="Back">
-      <path d="M31.0005 11.3326H6.69055L15.5122 2.51096L13.1555 0.154297L0.310547 12.9993L13.1555 25.8443L15.5122 23.4876L6.69055 14.666H31.0005V11.3326Z" fill="black"/>
-    </svg>
-  </a>
-
-  <div>
+<section class="transfer-wizard">
+  <div class="left-step">
+    <a href="/" aria-label="Back">
+      <svg width="31px" height="26px" viewBox="0 0 31px 26px" fill="none" xmlns="http://www.w3.org/2000/svg" title="Back">
+        <path d="M31.0005 11.3326H6.69055L15.5122 2.51096L13.1555 0.154297L0.310547 12.9993L13.1555 25.8443L15.5122 23.4876L6.69055 14.666H31.0005V11.3326Z" fill="black"/>
+      </svg>
+    </a>
     <h1> Choose Recipient </h1>
     <p> Please select your recipient to send to. </p>
     
     <input type="search" placeholder="Search Recipients" />
   </div>
 
-  <div class="recipient-list">
+  <div class="recipient-list right-step">
     <ul>
       <li>
         <a href="/">
@@ -56,25 +55,83 @@ let explain = `
       </li>
     </ul>
   </div>
-  <a href="/" class="continue-btn"> Continue </a>
+  <a href="/" class="continue-btn button-container"> Continue </a>
 </section>
 
 <style>
-  section {
-    display: grid;
-    grid-template-columns: subgrid;
+  .transfer-wizard {
     margin: 2rem;
-  }
+		position: relative;
+		grid-column: 1 / -1;
+		grid-row: 1 / span 1;
+		display: grid;
+		grid-template-columns: 
+		subgrid 
+		[left-start] repeat(5,[mid-left]) [left-end right-start] repeat(5,[mid-right]) [right-end];
+		width: 100%;
+
+		container-type:normal;
+		container-name: transfer-wizard;
+
+		@container style(--mobile:1) {
+			max-height: calc(100dvh - var(--footer-height)) !important;
+			/* height: calc(100dvh - 4px - var(--footer-height) - var(--header-height)) !important; */
+			grid-template-rows: auto;
+		}
+	}
+  .left-step {
+		position: relative;
+		grid-column: left ;
+		grid-row: 1 / -1;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		width: 100%;
+
+		@container style(--mobile:1) {
+			height: fit-content;
+			/* grid-row: 1 / 2; */
+		}
+	}
+
+	.right-step {
+		position: relative;
+		grid-column: right;
+		/* grid-row: 1 / -1; */
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		width: 100%;
+		
+		@container style(--mobile:1) {
+			max-height: fit-content;
+			width: 100% ;
+		}
+	}
+
+  .button-container {
+		position: relative;
+		grid-column: 1/-1;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: 100%;
+		gap: 3%;
+
+		@container style(--mobile:1) {
+			flex: 1 2 15%;
+			flex-direction: column-reverse;
+			align-self: self-end;
+		}
+	}
 
   a {
-    grid-column: 1 !important;
     height: 40px;
     width: 40px;
   }
 
   div {
     padding: 2rem;
-    grid-column: 1/2 !important;
 
     h1 { 
       font-size: 4.16rem;
@@ -96,16 +153,11 @@ let explain = `
   }
 
   .recipient-list {
-    display: flex;
-    flex-direction: column;
-    grid-column: 3;
-    grid-row: 1/4;
     padding: 2rem;
     margin-left: 2rem;
     background-color: #FFFFFF;
     height: 658px;
     width: 601px;
-    grid-column: 3/4 !important;
     
     ul {
       padding: 1.2rem;
