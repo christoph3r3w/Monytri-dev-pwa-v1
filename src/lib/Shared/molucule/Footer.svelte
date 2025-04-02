@@ -1,7 +1,7 @@
 <script>
     import { Logo } from '$lib';
     import { onMount } from 'svelte';
-	import { current } from '../../../store.js';
+	import { current } from '../../store.js';
 	import {afterNavigate,onNavigate} from '$app/navigation'
 
 	// create a store to keep track of the current page

@@ -36,7 +36,6 @@
 			align-content: start;
 			width: 100%;
 			height: 100%;
-
 	}
 
 	h1 {
