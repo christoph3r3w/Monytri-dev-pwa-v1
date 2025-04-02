@@ -212,14 +212,14 @@
 		outline-offset: 2px;
 	}
 
-	:global(body){
+	/* :global(body){
 		margin: 0;
 		padding: 0;
 		overflow-x: hidden;
 		overflow-y: auto;
 		max-height:100svh;
 		height: 100svh;
-	}
+	} */
 	
 	:global(.body-container){
 		display: grid;
@@ -351,7 +351,7 @@
 				grid-template-columns: var(--grid--mobile-collums) !important;
 				grid-auto-flow: row;
 				min-height: revert !important;
-				max-height: 100%;
+				/* max-height: 100%; */
 				overflow-y: scroll ;
 				padding-top: calc(var(--header-height) + 1px);
 				padding-bottom:1rem ;

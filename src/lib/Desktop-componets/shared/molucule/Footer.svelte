@@ -10,7 +10,7 @@
 	let navSelect = $derived($current);
 	
 	afterNavigate(() => {
-		console.log('current page is',navSelect,current);
+		console.log('current page is',navSelect,$current);
 	});
 
 </script>
@@ -65,7 +65,6 @@
     </span>
     <a href="#top">Back to top</a>
 </nav>
-
 
 
 <!-- mobile navigation -->
@@ -263,71 +262,76 @@
 		display: none;
 	}
 
-    @container style(--mobile:1){
+	
+    @media (-webkit-min-device-pixel-ratio: 3),
+			screen and (device-width < 900px) and (orientation: portrait) , 
+			screen and (device-height <= 900px) and (orientation: landscape)
+			{
+			
         .footer-one,.footer-two{
             display: none;
-    }
+    	}
 
-	.mobile-nav{
-			position: relative;
-			grid-column: 1/-1;
-			grid-row: 1/2;
-			display: grid;
-			grid-template-columns: subgrid;	
-			grid-template-rows: min(23px, 15%) [content-start] 2fr [content-end] min(30px, 45%);		
-			width: 100cqw;
-			border-radius:inherit;
-	}
+		.mobile-nav{
+				position: relative;
+				grid-column: 1/-1;
+				grid-row: 1/2;
+				display: grid;
+				grid-template-columns: subgrid;	
+				grid-template-rows: min(23px, 15%) [content-start] 2fr [content-end] min(30px, 45%);		
+				width: 100cqw;
+				border-radius:inherit;
+		}
 
-	.mobile-nav ul{
-			grid-column: content;
-			grid-row: content;
-			display: flex;
-			justify-content: center;
-			align-items: safe center;
-			width: 100%;
-			height: auto;
-			gap: clamp(10px,10cqw);
-			gap: clamp(10px, 10cqw, 100px);
-	}
+		.mobile-nav ul{
+				grid-column: content;
+				grid-row: content;
+				display: flex;
+				justify-content: center;
+				align-items: safe center;
+				width: 100%;
+				height: auto;
+				gap: clamp(10px,10cqw);
+				gap: clamp(10px, 10cqw, 100px);
+		}
 
-	.mobile-nav ul li{
-			position: relative;
-			padding: 1cqh;
-			width: fit-content;
-	}
-		
-	.mobile-nav ul li:is(:hover,:focus-within,:visited),
-	.mobile-nav ul li:has(a.active){
-			background-color: var(--off-white);
-			border-radius: 6px;
+		.mobile-nav ul li{
+				position: relative;
+				padding: 1cqh;
+				width: fit-content;
+		}
 			
-			svg path {
-				fill: var(--primary-green-500);
-			}
-	}
+		.mobile-nav ul li:is(:hover,:focus-within,:visited),
+		.mobile-nav ul li:has(a.active){
+				background-color: var(--off-white);
+				border-radius: 6px;
+				
+				svg path {
+					fill: var(--primary-green-500);
+				}
+		}
 
-	.mobile-nav li:nth-of-type(1):is(:hover,:focus-within,:visited) svg path,
-	.mobile-nav ul li:nth-of-type(1):has(a.active) svg path{
-			fill:none !important;
-			/* test */
-			/* fill: var(--primary-orange-500); */
-			stroke:var(--primary-green-500) ;
-	}
-		
-	/* selector does not work when i use 'a' instead i need to use :nht-child */
-	.mobile-nav li :nth-child(n){
-			position: relative;
-	}
-		
-	/* touch area of nav buttons */
-	.mobile-nav li :nth-child(n)::before{
-			content: '';
-			position: absolute;
-			inset-inline: -75%;
-			inset-block: -35%;
-			bottom: -70%;
-			z-index: 100;
+		.mobile-nav li:nth-of-type(1):is(:hover,:focus-within,:visited) svg path,
+		.mobile-nav ul li:nth-of-type(1):has(a.active) svg path{
+				fill:none !important;
+				/* test */
+				/* fill: var(--primary-orange-500); */
+				stroke:var(--primary-green-500) ;
+		}
+			
+		/* selector does not work when i use 'a' instead i need to use :nht-child */
+		.mobile-nav li :nth-child(n){
+				position: relative;
+		}
+			
+		/* touch area of nav buttons */
+		.mobile-nav li :nth-child(n)::before{
+				content: '';
+				position: absolute;
+				inset-inline: -75%;
+				inset-block: -35%;
+				bottom: -70%;
+				z-index: 100;
 		}
     }
 </style>
