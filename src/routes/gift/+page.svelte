@@ -1,5 +1,18 @@
 <script>
 	import {current,isMobile} from '$lib/store.js';
+	import {
+		Recipient_D, 
+		Recipient_M,
+		EnterAmount_D,
+		EnterAmount_M,
+		Purpose_D,
+		Purpose_M,
+		CardDesign_D,
+		CardDesign_M,
+		GiftReview_D,
+		GiftReview_M
+
+	} from '$lib';
 	import { goto } from '$app/navigation';
 	import { fade } from 'svelte/transition';
   
@@ -293,568 +306,81 @@
 	{#if !$isMobile}
 		<!-- Step 1: Choose Recipient -->
 		{#if currentStep === 1}
-			<section class="step-container" transition:fade>
-				<div class="left-step">
-					<section class="step-header">
-						{@render button('back')}
-						<h2>Choose Recipient</h2>
-					</section>
-					
-					<p>Please select your recipient to send to.</p>
-					
-					<section class="search-container">
-						<input 
-						type="search" 
-						placeholder="Search Recipients" 
-						aria-label="Search Recipients"
-						class="search-input"
-						/>
-					</section>
-				</div>
-				
-				<div class="right-step">
-					<h3 class="section-title">Most Recent</h3>
-					<ul class="recipients-list">
-						{#each recipients as recipient}
-							<li 
-								class="recipient-item {formData.recipient?.id === recipient.id ? 'selected' : ''}"
-								onclick={() => selectRecipient(recipient)}
-								>
-								<article class="recipient-info">
-									<!-- <img src={recipient.profilePic} alt={''||recipient.name} class="profile-pic" /> -->
-									<div class="recipient-details">
-										<h3>{recipient.name}</h3>
-										<p>{recipient.email}</p>
-										<p class="last-sent">Last sent: {recipient.lastSent}</p>
-									</div>
-								</article>
-								<button class="more-options">...</button>
-							</li>
-						{/each}
-					</ul>
-					
-				</div>
-				<div class="button-container">
-					{@render button('continue',1)}
-				</div>
-			</section>
-
+			<Recipient_D
+				recipients={recipients} 
+				formData={formData}
+				selected={selectRecipient}
+				button={buttonType}
+			/>
 		<!-- Step 2: Enter Amount -->
 		{:else if currentStep === 2}
-			<section class="step-container" transition:fade>
-				<div class="left-step">
-					<section class="step-header">
-						{@render button('back')}
-						<h2>Enter Amount</h2>
-					</section>
-				</div>
+			<EnterAmount_D
+				{formData}
+				{validateAmount}
+				{nextStep}
+				button={buttonType}
+			/>	
 
-				<div class="right-step">
-					<form onsubmit={nextStep}>
-						<fieldset class="amount-input-container">
-							<label for='fixedAmount1'><input type="radio" id='fixedAmount1' name="fixedAmount" oninput={validateAmount} value="€25">€25</label>
-							<label for='fixedAmount2'><input type="radio" id='fixedAmount2' name="fixedAmount" oninput={validateAmount} value="€50">€50</label>
-							<label for='fixedAmount3'><input type="radio" id='fixedAmount3' name="fixedAmount" oninput={validateAmount} value="€100">€100</label>
-							<label for='fixedAmount4'><input type="radio" id='fixedAmount4' name="fixedAmount" oninput={validateAmount} value="€500">€500</label>
-							<label for="amount">Amount to Send</label>
-							<input 
-							type="number" 
-							id="amount" 
-							oninput={validateAmount}
-							placeholder="€"
-							min="0.01" 
-							step="0.01" 
-							aria-required="true"
-							/>
-						</fieldset>
-						<div class="button-container">
-							{@render button('continue',2)}
-						</div>
-					</form>
-				</div>
-			</section>
-
-		<!-- choose proposal -->
+		<!-- step 3 choose proposal -->
 		{:else if currentStep === 3}
-			<section class="step-container" transition:fade>			
-				<div class="left-step">
-					<section class="step-header">
-						{@render button('back')}
-						<h2>Choose a purpose</h2>
-					</section>
-					
-					<p>Personalise your gift card by selecting an occasion</p>
-					
-					<section class="search-container">
-						<input 
-						type="search" 
-						placeholder="Search purpose" 
-						aria-label="Search Purpose"
-						class="search-input"
-						/>
-					</section>
-				</div>
-
-				<div class="right-step">
-					<article class="purpose-selction">
-						<ul class="purpose-options">
-							<li class="purpose-option">
-								<input 
-									type="radio" 
-									id="purpose1" 
-									name="purpose" 
-									value="Birthday"
-									onclick={() => {
-										formData.Purpose = 'Birthday';
-										validatePurpose();
-									}}
-								/>
-								<label for="purpose1">Birthday</label>
-							</li>
-							<li class="purpose-option">
-								<input 
-									type="radio" 
-									id="purpose2" 
-									name="purpose" 
-									value="Wedding"
-									onclick={() => {
-										formData.Purpose = 'Wedding';
-										validatePurpose();
-									}}
-								/>
-								<label for="purpose2">Wedding</label>
-							</li>
-							<li class="purpose-option">
-								<input 
-									type="radio" 
-									id="purpose3" 
-									name="purpose" 
-									value="Anniversary"
-									onclick={() => {
-										formData.Purpose = 'Anniversary';
-										validatePurpose();
-									}}
-								/>
-								<label for="purpose3">Anniversary</label>
-							</li>
-							<li class="purpose-option">
-								<input 
-									type="radio" 
-									id="purpose4" 
-									name="purpose" 
-									value="Thank You"
-									onclick={() => {
-										formData.Purpose = 'Thank You';
-										validatePurpose();
-									}}
-								/>
-								<label for="purpose4">Thank You</label>
-							</li>
-						</ul>
-					</article>
-				</div>
-				<div class="button-container">
-					{@render button('skip',3)}
-					{@render button('continue',3)}
-				</div>
-			</section>
-		
-		<!-- Step 3: Choose Card Design -->
+			<Purpose_D
+				{formData}
+				{validatePurpose}
+				button={buttonType}
+			/>
+		<!-- Step 4: Choose Card Design -->
 		{:else if currentStep === 4}
-			<section class="step-container" transition:fade>
-				<div class="left-step">
-					<section class="step-header">
-						{@render button('back')}
-						<h2>Choose Card Design</h2>
-					</section>
-				</div>
-
-				<div class="right-step">
-					<article class="card-designs">
-						<ul class="card-design-options">
-							<li 
-							class="card-option {formData.cardDesign === 'design1' ? 'selected' : ''}"
-							onclick={() => {
-								formData.cardDesign = 'design1';
-								validateCardDesign();
-							}}
-								>
-								Design 1
-							</li>
-							<li 
-							class="card-option {formData.cardDesign === 'design2' ? 'selected' : ''}"
-							onclick={() => {
-								formData.cardDesign = 'design2';
-								validateCardDesign();
-							}}
-								>
-								Design 2
-							</li>
-						</ul>
-						
-						<section class="message-input">
-							<label for="message">Add a message (optional)</label>
-							<textarea 
-							id="message" 
-							bind:value={formData.message}
-							rows="3"
-							></textarea>
-						</section>
-					</article>
-				</div>
-				<div class="button-container">
-					{@render button('skip',4)}
-					{@render button('continue',4)}
-				</div>
-			</section>
-		
-		<!-- Step 4: Review and Confirm -->
+			<CardDesign_D
+				{formData}
+				{validateCardDesign}
+				button={buttonType}
+			/>
+		<!-- Step 5: Review and Confirm -->
 		{:else if currentStep === 5}
-			<section class="step-container" transition:fade>
-				<div class="left-step">
-					<section class="step-header">
-						{@render button('back')}
-						<h2>Select a payment method</h2>
-					</section>
-					<section class="amount-input-container payment-input-container">
-						{#if formData.recipient.linkedCard !== null }
-						<label for='paymentMethod1'><input type="radio" id='paymentMethod1' name="paymentMethod" onclick={() =>{
-							formData.PaymentMethod = formData.recipient.linkedCard;
-							validatePayment
-							}} value="paymentMethod1">
-							Linked Credit/Debit Card
-						</label>
-						{/if}
-						<label for='paymentMethod2'><input type="radio" id='paymentMethod2' name="paymentMethod" onclick={() =>{
-							formData.PaymentMethod = 'iDEAL';
-							validatePayment
-							}} value="paymentMethod2">
-							iDEAL 
-						</label>
-						<label for='paymentMethod3'><input type="radio" id='paymentMethod3' name="paymentMethod" onclick={() =>{
-							formData.PaymentMethod = 'EFT';
-							validatePayment
-							}} value="paymentMethod3">
-							EFT Payment
-						</label>
-					</section>
-				</div>
-
-				<div class="right-step">
-					<article class="review-summary">
-						<h3>Please confirm your payment</h3>
-						
-						<p class="review-item">
-							<span class="review-label">Recipient:</span>
-							<span class="review-value">{formData.recipient.name}</span>
-						</p>
-						
-						<p class="review-item">
-							<span class="review-label">Gift Amount:</span>
-							<span class="review-value">{formData.amount}</span>
-						</p>
-						
-						<p class="review-item">
-							<span class="review-label">Card Design:</span>
-							<span class="review-value">{formData.cardDesign}</span>
-						</p>
-						
-						{#if formData.message}
-						<p class="review-item">
-							<span class="review-label">Message:</span>
-							<span class="review-value">{formData.message}</span>
-						</p>
-						{/if}
-
-						{#if formData.Purpose}
-						<p class="review-item">
-							<span class="review-label">Occasion:</span>
-							<span class="review-value">{formData.Purpose}</span>
-						</p>
-						{/if}
-
-					</article>
-					
-				</div>
-				<div class="button-container">
-					{@render button('submit')}
-				</div>
-			</section>
+			<GiftReview_D
+				{formData}
+				{validatePayment}
+				button={buttonType}
+			/>
 		{/if}
 	{:else if $isMobile}
+		<!-- Step 1: Choose Recipient -->
 		{#if currentStep === 1}
-			<section class="step-container" transition:fade>
-				<section class="step-header">
-					{@render button('back')}
-					<h2>Choose Recipient</h2>
-				</section>
-					
-				<p>Please select your recipient to send to.</p>
-					
-				<section class="search-container">
-					<input 
-					type="search" 
-					placeholder="Search Recipients" 
-					aria-label="Search Recipients"
-					class="search-input"
-					/>
-				</section>
-				
-				<h3 class="section-title">Most Recent</h3>
-				<ul class="recipients-list">
-					{#each recipients as recipient}
-						<li 
-							class="recipient-item {formData.recipient?.id === recipient.id ? 'selected' : ''}"
-							onclick={() => selectRecipient(recipient)}
-							>
-							<article class="recipient-info">
-								<img src={recipient.profilePic} alt={''||recipient.name} class="profile-pic" />
-								<div class="recipient-details">
-									<h3>{recipient.name}</h3>
-									<p>{recipient.email}</p>
-									<p class="last-sent">Last sent: {recipient.lastSent}</p>
-								</div>
-							</article>
-						<button class="more-options">...</button>
-					</li>
-					{/each}
-				</ul>
-				<div class="button-container">
-					{@render button('continue',1)}
-				</div>
-			</section>
+			<Recipient_M
+				recipients={recipients} 
+				formData={formData}
+				selected={selectRecipient}
+				button={buttonType}
+			/>
+		<!-- Step 2: Enter Amount -->
 		{:else if currentStep === 2}
-			<section class="step-container" transition:fade>
-					<section class="step-header">
-						{@render button('back')}
-						<h2>Enter Amount</h2>
-					</section>
-
-					<form onsubmit={nextStep}>
-						<fieldset class="amount-input-container">
-							<label for='fixedAmount1'><input type="radio" id='fixedAmount1' name="fixedAmount" oninput={validateAmount} value="€25">€25</label>
-							<label for='fixedAmount2'><input type="radio" id='fixedAmount2' name="fixedAmount" oninput={validateAmount} value="€50">€50</label>
-							<label for='fixedAmount3'><input type="radio" id='fixedAmount3' name="fixedAmount" oninput={validateAmount} value="€100">€100</label>
-							<label for='fixedAmount4'><input type="radio" id='fixedAmount4' name="fixedAmount" oninput={validateAmount} value="€500">€500</label>
-						</fieldset>
-						<fieldset class="amount-number-input-container">
-							<label for="amount">Amount to Send</label>
-							<input 
-							type="number" 
-							id="amount" 
-							oninput={validateAmount}
-							placeholder="€"
-							min="0.01" 
-							step="0.01" 
-							aria-required="true"
-							/>
-						</fieldset>
-						<div class="button-container">
-							{@render button('continue',2)}
-						</div>
-					</form>
-			</section>
-
-		<!-- choose proposal -->
+			<EnterAmount_M
+				{formData}
+				{validateAmount}
+				{nextStep}
+				button={buttonType}
+			/>	
+		<!-- Step 3: Choose Purpose -->
 		{:else if currentStep === 3}
-			<section class="step-container" transition:fade>			
-					<section class="step-header">
-						{@render button('back')}
-						<h2>Choose a purpose</h2>
-						{@render button('skip',3)}
-					</section>
-					
-					<p>Personalise your gift card by selecting an occasion</p>
-					
-					<section class="search-container">
-						<input 
-						type="search" 
-						placeholder="Search purpose" 
-						aria-label="Search Purpose"
-						class="search-input"
-						/>
-					</section>
-
-					<article class="purpose-selction">
-						<ul class="purpose-options">
-							<li class="purpose-option">
-								<input 
-									type="radio" 
-									id="purpose1" 
-									name="purpose" 
-									value="Birthday"
-									onclick={() => {
-										formData.Purpose = 'Birthday';
-										validatePurpose();
-									}}
-								/>
-								<label for="purpose1">Birthday</label>
-							</li>
-							<li class="purpose-option">
-								<input 
-									type="radio" 
-									id="purpose2" 
-									name="purpose" 
-									value="Wedding"
-									onclick={() => {
-										formData.Purpose = 'Wedding';
-										validatePurpose();
-									}}
-								/>
-								<label for="purpose2">Wedding</label>
-							</li>
-							<li class="purpose-option">
-								<input 
-									type="radio" 
-									id="purpose3" 
-									name="purpose" 
-									value="Anniversary"
-									onclick={() => {
-										formData.Purpose = 'Anniversary';
-										validatePurpose();
-									}}
-								/>
-								<label for="purpose3">Anniversary</label>
-							</li>
-							<li class="purpose-option">
-								<input 
-									type="radio" 
-									id="purpose4" 
-									name="purpose" 
-									value="Thank You"
-									onclick={() => {
-										formData.Purpose = 'Thank You';
-										validatePurpose();
-									}}
-								/>
-								<label for="purpose4">Thank You</label>
-							</li>
-						</ul>
-					</article>
-				<div class="button-container">
-					{@render button('continue',3)}
-				</div>
-			</section>
-				<!-- Step 3: Choose Card Design -->
+			<Purpose_M
+				{formData}
+				{validatePurpose}
+				button={buttonType}
+			/>
+		<!-- Step 4: Choose Card Design -->
 		{:else if currentStep === 4}
-			<section class="step-container" transition:fade>
-					<section class="step-header">
-						{@render button('back')}
-						<h2>Choose Card Design</h2>
-						{@render button('skip',4)}
-
-					</section>
-	
-					<article class="card-designs">
-						<ul class="card-design-options">
-							<li 
-							class="card-option {formData.cardDesign === 'design1' ? 'selected' : ''}"
-							onclick={() => {
-								formData.cardDesign = 'design1';
-								validateCardDesign();
-							}}
-								>
-								Design 1
-							</li>
-							<li 
-							class="card-option {formData.cardDesign === 'design2' ? 'selected' : ''}"
-							onclick={() => {
-								formData.cardDesign = 'design2';
-								validateCardDesign();
-							}}
-								>
-								Design 2
-							</li>
-						</ul>
-							
-						<section class="message-input">
-							<label for="message">Add a message (optional)</label>
-							<textarea 
-							id="message" 
-							bind:value={formData.message}
-							rows="3"
-							></textarea>
-						</section>
-					</article>
-				<div class="button-container">
-					{@render button('continue',4)}
-				</div>
-			</section>
-			
-		<!-- Step 4: Review and Confirm -->
+			<CardDesign_M
+				{formData}
+				{validateCardDesign}
+				button={buttonType}
+			/>			
+		<!-- Step 5: Review and Confirm -->
 		{:else if currentStep === 5}
-			<section class="step-container" transition:fade>
-					<section class="step-header">
-						{@render button('back')}
-						<h2>Select a payment method</h2>
-					</section>
-					<section class="payment-input-container">
-						{#if formData.recipient.linkedCard !== null }
-						<label for='paymentMethod1'>
-							<input type="radio" id='paymentMethod1' name="paymentMethod" value="paymentMethod1"
-							onclick={() =>{
-							formData.PaymentMethod = formData.recipient.linkedCard;
-							validatePayment
-							}} >
-							Linked Credit/Debit Card
-						</label>
-						{/if}
-						<label for='paymentMethod2'>
-							<input type="radio" id='paymentMethod2' name="paymentMethod" value="paymentMethod2"
-							onclick={() =>{
-							formData.PaymentMethod = 'iDEAL';
-							validatePayment
-							}} >
-							iDEAL 
-						</label>
-						<label for='paymentMethod3'>
-							<input type="radio" id='paymentMethod3' name="paymentMethod" value="paymentMethod3" 
-							onclick={() =>{
-							formData.PaymentMethod = 'EFT';
-							validatePayment
-							}} >
-							EFT Payment
-						</label>
-					</section>
-	
-					<article class="review-summary">
-						<h3>Please confirm your payment</h3>
-						
-						<p class="review-item">
-							<span class="review-label">Recipient:</span>
-							<span class="review-value">{formData.recipient.name}</span>
-						</p>
-							
-						<p class="review-item">
-							<span class="review-label">Gift Amount:</span>
-							<span class="review-value">{formData.amount}</span>
-						</p>
-							
-						<p class="review-item">
-							<span class="review-label">Card Design:</span>
-							<span class="review-value">{formData.cardDesign}</span>
-						</p>
-							
-						{#if formData.message}
-						<p class="review-item">
-							<span class="review-label">Message:</span>
-							<span class="review-value">{formData.message}</span>
-						</p>
-						{/if}
-	
-						{#if formData.Purpose}
-							<p class="review-item">
-								<span class="review-label">Occasion:</span>
-								<span class="review-value">{formData.Purpose}</span>
-							</p>
-						{/if}
-	
-					</article>
-						
-					<div class="button-container">
-						{@render button('submit')}
-					</div>
-				</section>
+			<GiftReview_M
+				{formData}
+				{validatePayment}
+				button={buttonType}
+			/>
 		{/if}
 	{/if}
 </article>
@@ -903,7 +429,7 @@
 		transition: width 0.3s ease;
 	}
 
-	.step-container{
+	:global(.step-container){
 		position: relative;
 		grid-column: left / right;
 		grid-row: 2 / -1;
@@ -913,8 +439,32 @@
 		padding: 1rem;
 		height: 100%;
 		width: 100%;
-		/* outline: solid; */
+		
+		
+	& > p {
+		position: relative;
+		margin-bottom: 1.5rem;
+	}
 
+	& h3{
+		position: relative;
+		margin-bottom: 1%;
+		font-size: clamp(1rem,20vw ,1.5rem);
+	}
+
+	.search-container {
+		background-color: #f5f5f5;
+		margin-bottom: 4%;
+	}
+	
+	.search-input {
+		width: 100%;
+		padding: 0.75rem;
+		border: 1px solid #e0e0e0;
+		border-radius: 8px;
+	}
+
+		/* outline: solid; */
 		/* background-color: var(--primary-orange-500); */
 
 		@container style(--mobile:1) {
@@ -929,7 +479,7 @@
 		}
 	}
 
-	.left-step {
+	:global(.left-step) {
 		position: relative;
 		grid-column: left ;
 		grid-row: 1 / -1;
@@ -944,7 +494,7 @@
 		}
 	}
 
-	.right-step {
+	:global(.right-step) {
 		position: relative;
 		grid-column: right;
 		/* grid-row: 1 / -1; */
@@ -960,7 +510,7 @@
 	}
 	
 	
-	.step-header {
+	:global(.step-header) {
 		display: flex;
 		align-items: flex-start;
 		justify-content: center;
@@ -994,11 +544,22 @@
 		}
 		
 		.back-button {
-			background: none;
+			/* background: none; */
 			border: none;
 			font-size: 1.5rem;
 			cursor: pointer;
 			height: 100%;
+			padding-left: 3%;
+			cursor: pointer;
+		}
+
+		.back-button svg{
+			/* outline: solid; */
+		}
+		
+		.back-button svg path{
+			fill: var(black);
+			stroke: var(--black);
 		}
 
 		@container style(--mobile:1) {
@@ -1018,130 +579,14 @@
 		}
 	}
 			
-	.step-container > p {
-		position: relative;
-		margin-bottom: 1.5rem;
-	}
 
-	.step-container h3{
-		position: relative;
-		margin-bottom: 1%;
-	}
 
-	.search-container {
-		background-color: #f5f5f5;
-		margin-bottom: 4%;
-	}
-	
-	.search-input {
-		width: 100%;
-		padding: 0.75rem;
-		border: 1px solid #e0e0e0;
-		border-radius: 8px;
-	}
 
-	.recipients-list{ 
-		display: flex;
-		flex-direction: column;
-		flex-basis: 50%;
-		width: 100%;
-		overflow-y: scroll;
-		background-color: var(--white);
-
-		.recipient-item {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			padding: clamp(1%,1.5vw,5%);
-			border-bottom: 1px solid #e0e0e0;
-			border-radius: 10px;
-			cursor: pointer;
-		}
-		
-		.recipient-item:where(.selected) {
-			border: solid 2px var(--primary-darkgreen-550);	
-
-			.recipient-details p {
-				color: var(--primary-darkgreen-550);
-			}
-		}
-		
-		.recipient-info {
-			display: flex;
-			align-items: center;
-		}
-		
-		.profile-pic {
-			width: 40px;
-			aspect-ratio: 1;
-			border-radius: 50%;
-			margin-right: 1rem;
-		}
-		
-		.recipient-details h3 {
-			margin: 0;
-			font-size: 1rem;
-		}
-		
-		.recipient-details p {
-			margin: 0;
-			font-size: 0.875rem;
-			color: #666;
-		}
-
-		@container style(--mobile:1) {
-			flex: 2 1 50%;
-		}
-	}
-
-	
-	.last-sent {
-		font-size: 0.8rem;
-		color: #666;
-	}
-
-	form:has(.amount-input-container){
-		display: flex;
-		flex-direction: column;
-		flex: 1 1 10%;
-	}
-
-	form .amount-input-container:nth-of-type(1){
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		gap: 1cqh;
-	}
-
-	form .amount-input-container{
-		align-items: center;
-		justify-content: center;
-		padding-inline: 10%;
-		padding-block: 5%;
-		margin-bottom: 20%;
-	}
-
-	form .amount-input-container label {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		height: 3rem;
-		width: 40%;
-		border: solid 1px var(--primary-darkgreen-550);
-		border-radius: 10px;
-	}
-	
-	.amount-input-container label {
-		height: 3rem;
-		width: 40%;
-		border: solid 1px var(--primary-darkgreen-550);
-		border-radius: 10px;
-	}
-
-	.amount-number-input-container {
+	:global(.amount-number-input-container ){
 		display: flex;
 		flex-direction: column;
 		margin-bottom:10% ;
+		background-color: aqua;
 	}
 	
 	:is(.amount-input-container,.amount-number-input-container) input {
@@ -1151,151 +596,9 @@
 		border-radius: 4px;
 	}
 
-	.purpose-selction {
-		flex: 2 1 50%;
-		display: flex;
-		flex-direction: column;
-		background-color: var(--white);
-		margin-bottom: 1rem;
-	}
 	
-	.purpose-options {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 1rem;
-		overflow-y: scroll;
-	}
-	
-	.purpose-option{
-		position: relative;
-		display: flex;
-    	align-items: center;
-		background-color: var(--general-background-color);
-		width: clamp(100px, 20cqw, 200px);
-		height: auto;
-		aspect-ratio: 1;
-		background-color: var(--general-background-color);
-	}
-
-	.purpose-option:has(input:checked) {
-		background-color: var(--primary-darkgreen-550);
-		color: var(--white);
-	}
-
-	.purpose-option input {
-		display: none;
-		width: clamp(100px, 20cqw, 200px);
-		aspect-ratio: 1;
-	}
-
-	.purpose-option label {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 100%;
-		height: 100%;
-		cursor: pointer;
-	}
-	
-	.card-designs {
-		margin-bottom: 1rem;
-	}
-	
-	.card-design-options {
-		display: flex;
-		gap: 1rem;
-		margin-bottom: 1rem;
-	}
-	
-	.card-option {
-		border: 2px solid #e0e0e0;
-		border-radius: 4px;
-		padding: 1rem;
-		flex: 1;
-		cursor: pointer;
-		text-align: center;
-	}
-	
-	.card-option.selected {
-		border-color: var(--primary-darkgreen-550);
-	}
-	
-	.message-input label {
-		display: block;
-		margin-bottom: 0.5rem;
-	}
-	
-	.message-input textarea {
-		width: 100%;
-		padding: 0.75rem;
-		border: 1px solid #e0e0e0;
-		border-radius: 4px;
-		resize: vertical;
-	}
 
 
-	.payment-input-container{
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-		padding: 3%;
-		margin-bottom: 10%;
-	}
-
-	.payment-input-container label {
-		display: flex;
-		align-items: start;
-		gap: 1rem;
-	}
-	
-	.review-summary {
-		place-self: center;
-		display: flex;
-		flex-direction: column;
-		background-color: var(--white);
-		border-radius: 4px;
-		padding: 1rem;
-		margin-bottom: 1rem;
-		width: 34cqw;
-		
-		@container style(--mobile:1) {
-			place-self: center;
-		}
-
-		h3{
-			text-align: center ;
-			border-bottom: solid 3px;
-			font-size: clamp(1rem,3vw,2rem);
-			margin-bottom: .5rem;
-		}
-		
-		.review-item {
-			display: flex;
-			gap:1rem;
-			margin-bottom: 0.5rem;
-			width: 100%;
-			justify-content: space-between;
-			padding-right: 3%;
-		}
-
-		span{
-		}
-		
-		.review-label {
-			font-weight: 500;
-			flex: 0 1 50%;
-			text-wrap: nowrap;
-		}
-
-		.review-value{
-			flex: 1 0 auto;
-		}
-
-		@container style(--mobile:1) {
-			width: 100%;
-		}
-
-	}
 
 	.button-container {
 		position: relative;
