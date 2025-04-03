@@ -11,7 +11,6 @@
 		CardDesign_M,
 		GiftReview_D,
 		GiftReview_M
-
 	} from '$lib';
 	import { goto } from '$app/navigation';
 	import { fade } from 'svelte/transition';
@@ -29,7 +28,10 @@
 		DeliveryDate: null,
 		PaymentMethod: null,
 		type: null,
-		message: ''
+		message: '',
+		searchQuery: '',
+		errors: {},
+		isLoading: false
 	});
 	
 	// Step validation state
@@ -41,14 +43,6 @@
 		5: true // Review step is always valid
 	});
 
-	// let stepValidation = $state({
-	// 	1: true,
-	// 	2: true,
-	// 	3: true,
-	// 	4: false,
-	// 	5: true // Review step is always valid
-	// });
-	
 	// Use provided recipients or fallback to defaults
 	let recipients = $state([
 		{
@@ -104,8 +98,30 @@
 	// Progress tracking
 	let currentProgress = $state(0);
 	let progressPercentage = $derived(currentProgress > 0 ? currentProgress : ((currentStep / totalSteps) - (1 / totalSteps)) * 100);
-	
+
+	// Error handling function
+	function handleError(step, error) {
+		formData.errors[step] = error;
+		setTimeout(() => {
+			delete formData.errors[step];
+		}, 3000); // Clear error after 3 seconds
+	}
+
+	// Search functionality
+	function searchRecipients(query) {
+		formData.searchQuery = query;
+		return recipients.filter(recipient => 
+			recipient.name.toLowerCase().includes(query.toLowerCase()) ||
+			recipient.email.toLowerCase().includes(query.toLowerCase())
+		);
+	}
+
+	// Enhanced validation functions
 	function selectRecipient(recipient) {
+		if (!recipient) {
+			handleError(1, 'Please select a recipient');
+			return;
+		}
 		formData.recipient = recipient;
 		stepValidation[1] = true;
 	}
@@ -122,116 +138,113 @@
 		}
 	}
 	
-	// it also needs to check if both e target type has been selected and tell the user to select one
 	function validateAmount(e) {
 		let finalAmount;
 
 		if (e.target.type === 'radio') {
-			// Check if the custom amount input is empty
 			const customAmountInput = document.getElementById('amount');
 			if (customAmountInput && customAmountInput.value.trim() !== '') {
-				// Prevent selecting the radio button if custom amount is not empty
 				e.target.checked = false;
+				handleError(2, 'Please use either fixed amount or custom amount');
 				return;
 			}
 
-			// Handle fixed amounts from radio buttons
 			formData.type = e.target.id;
 			finalAmount = parseFloat(e.target.value.replace('€', ''));
 		} else {
-			// Handle custom amount input
 			formData.type = 'amount';
 			finalAmount = parseFloat(e.target.value);
 
-			// Clear radio button selection if custom amount is entered
 			const radioButtons = document.querySelectorAll('input[name="fixedAmount"]');
 			radioButtons.forEach((radio) => (radio.checked = false));
 		}
 
-		// Update form data and validation
+		if (finalAmount <= 0 || isNaN(finalAmount)) {
+			handleError(2, 'Please enter a valid amount');
+			return;
+		}
+
 		formData.amount = finalAmount;
-		stepValidation[2] = finalAmount > 0 && !isNaN(finalAmount);
+		stepValidation[2] = true;
 	}
 	
 	function validatePurpose() {
-		stepValidation[3] = formData.Purpose !== null;
+		if (!formData.Purpose) {
+			handleError(3, 'Please select a purpose');
+			return;
+		}
+		stepValidation[3] = true;
 	}
 
 	function validateCardDesign() {
-		stepValidation[4] = formData.cardDesign !== null;
+		if (!formData.cardDesign || formData.cardDesign === 'default') {
+			handleError(4, 'Please select a card design');
+			return;
+		}
+		stepValidation[4] = true;
 	}
 
 	function validatePayment(e) {
 		stepValidation[5] = e.target.value && formData.PaymentMethod !== null;
 	}
 	
-	function submitForm() {
+	async function submitForm() {
+		formData.isLoading = true;
 		
-		// Submit form data to the backend
-		// check the value of the payment method
-		//  if its a linked card then the value should be the card id
-		//  if its iDEAL then the value should trigger the iDEAL payment in the backend
-		//  if its EFT then the value should trigger the EFT payment in the backend
-	
-		// Show a success alert and redirect to the transactions page
-		// if validation is scuccessful then submit the form
-		// else show an error message
+		try {
+			if (!formData.PaymentMethod) {
+				alert('Please select a payment method')
+				throw new Error('Please select a payment method');
+			}
 
-		const alertContent = `
-			<div style="
-				background-color: #f5f5f5;
-				padding: 20px;
-				border-radius: 8px;
-				border: 2px solid #4B7A5B;
-				font-family: sans-serif;
-			">
-				<h3 style="color: #4B7A5B; margin: 0 0 15px 0;">Transfer Completed</h3>
-				<div style="display: grid; gap: 10px;">
-					<div><span style="color: #666;">Recipient:</span> ${formData.recipient.name}</div>
-					<div><span style="color: #666;">Amount:</span> €${formData.amount}</div>
-					<div><span style="color: #666;">Purpose:</span> ${formData.Purpose}</div>
-					<div><span style="color: #666;">Card Design:</span> ${formData.cardDesign}</div>
-					<div><span style="color: #666;">Message:</span> ${formData.message || 'None'}</div>
-					<div><span style="color: #666;">payment:</span> ${formData.PaymentMethod}</div>
+			if (!formData.recipient) {
+				alert('Please select a recipient')
+				throw new Error('Please select a recipient');
+			}
+
+			// Show success alert and redirect
+			const alertContent = `
+				<div style="
+					background-color: #f5f5f5;
+					padding: 20px;
+					border-radius: 8px;
+					border: 2px solid #4B7A5B;
+					font-family: sans-serif;
+				">
+					<h3 style="color: #4B7A5B; margin: 0 0 15px 0;">Transfer Completed</h3>
+					<div style="display: grid; gap: 10px;">
+						<div><span style="color: #666;">Recipient:</span> ${formData.recipient.name}</div>
+						<div><span style="color: #666;">Amount:</span> €${formData.amount}</div>
+						<div><span style="color: #666;">Purpose:</span> ${formData.Purpose}</div>
+						<div><span style="color: #666;">Card Design:</span> ${formData.cardDesign}</div>
+						<div><span style="color: #666;">Message:</span> ${formData.message || 'None'}</div>
+						<div><span style="color: #666;">Payment:</span> ${formData.PaymentMethod}</div>
+					</div>
 				</div>
-			</div>
-		`;
+			`;
 
-		const alertDialog = document.createElement('div');
-		alertDialog.innerHTML = alertContent;
-		alertDialog.style.cssText = `
-			position: fixed;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			z-index: 1000;
-			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-		`;
+			const alertDialog = document.createElement('div');
+			alertDialog.innerHTML = alertContent;
+			alertDialog.style.cssText = `
+				position: fixed;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				z-index: 1000;
+				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			`;
 
-		if (formData.PaymentMethod !== null 
-			&& formData.PaymentMethod !== undefined 
-			&& formData.PaymentMethod !== '' 
-			&& formData.PaymentMethod !== ' ' 
-			&& formData.recipient !== null 
-			&& formData.recipient !== undefined 
-			&& formData.recipient !== '') {
 			currentProgress = 100;
 			document.body.appendChild(alertDialog);
-			setTimeout(() => {
-				alertDialog.remove();
-				goto('/transactions');
-			}, 5000);	
 			
-		} else if (formData.recipient.linkedCard === null 
-			|| formData.recipient.linkedCard === undefined 
-			|| formData.recipient.linkedCard === '') {
-			alert('No Debit/Credit card linked to this account');
-			console.error('Please select a payment method');
-			return;
-		} else {
-			alert('Please select a payment method')
-			console.error('Please select a payment method');
-			return;
+			await new Promise(resolve => setTimeout(resolve, 3000));
+			alertDialog.remove();
+			await goto('/transactions');
+
+		} catch (error) {
+			handleError(5, error.message);
+		} finally {
+			formData.isLoading = false;
 		}
 	}
 
@@ -283,7 +296,16 @@
 		<button
 			class="skip-button"
 			onclick={() => {
-				stepValidation[step] = true,
+				// Clear data for the current step
+				switch(step) {
+					case 3: // Purpose step
+						formData.Purpose = null;
+						break;
+					case 4: // Card Design step
+						formData.cardDesign = 'default';
+						formData.message = '';
+						break;
+				}
 				currentStep++;
 			}}>
 			Skip
