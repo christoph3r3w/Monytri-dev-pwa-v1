@@ -51,85 +51,6 @@
 </section>
 
 <style>
-		.step-header {
-		display: flex;
-		align-items: flex-start;
-		justify-content: center;
-		position: relative;
-		height: fit-content;
-
-		button{
-			flex: 0 1 20%;
-			height: 100%;
-
-			@container style(--mobile:1) {
-				display: flex;
-				align-items: center;
-				flex: 0 1 20%;
-				height: 60%;
-
-				svg {
-					height: fit-content;
-				}
-			}
-		}
-		
-		h2{
-			flex: 2 1 40%;
-			height: fit-content;
-			align-items: center;
-			justify-content: center;
-			font-size: clamp(1rem,20vw ,1.2rem);
-			margin-block: 4%;
-			padding-inline: 2%;
-		}
-		
-		.back-button {
-			background: none;
-			border: none;
-			font-size: 1.5rem;
-			cursor: pointer;
-			height: 100%;
-		}
-
-		@container style(--mobile:1) {
-			display: flex;
-			align-items: baseline;
-
-			button{
-				flex: 0 1 20%;
-				height: 100%;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				flex: 0 1 20%;
-				height: 60%;
-			}
-				
-		}
-	}
-
-	.step-container > p {
-		position: relative;
-		margin-bottom: 1.5rem;
-	}
-
-	.step-container h3{
-		position: relative;
-		margin-bottom: 1%;
-	}
-
-	.search-container {
-		background-color: #f5f5f5;
-		margin-bottom: 4%;
-	}
-	
-	.search-input {
-		width: 100%;
-		padding: 0.75rem;
-		border: 1px solid #e0e0e0;
-		border-radius: 8px;
-	}
 
 	.recipients-list{ 
 		display: flex;
@@ -138,7 +59,8 @@
 		width: 100%;
 		overflow-y: scroll;
 		background-color: var(--white);
-
+		gap: 1rem;
+		
 		.recipient-item {
 			display: flex;
 			justify-content: space-between;
@@ -180,10 +102,10 @@
 			color: #666;
 		}
 
-		@container style(--mobile:1) {
+		/* @container style(--mobile:1) {
 			flex: 2 1 50%;
 			
-		}
+		} */
 	}
 
 	.last-sent {

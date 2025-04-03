@@ -37,122 +37,60 @@
 					</div>
 				{/if}
 				
-				<h3 class="section-title">Most Recent</h3>
-				<ul class="recipients-list">
-					{#each filteredRecipients as recipient}
-						<li 
-							class="recipient-item {formData.recipient?.id === recipient.id ? 'selected' : ''}"
-							onclick={() => selected(recipient)}
-							>
-							<article class="recipient-info">
-								<div class="profile-pic">
-									{recipient.name[0].toUpperCase()}
-								</div>
-								<div class="recipient-details">
-									<h3>{recipient.name}</h3>
-									<p>{recipient.email}</p>
-									<p class="last-sent">Last sent: {recipient.lastSent}</p>
-								</div>
-							</article>
-							<button class="more-options" aria-label="More options">...</button>
-						</li>
-					{:else}
-						<li class="no-results">
-							No recipients found
-						</li>
-					{/each}
-				</ul>
+				<section>
+					<h3 class="section-title">Most Recent</h3>
+					<ul class="recipients-list">
+						{#each filteredRecipients as recipient}
+							<li 
+								class="recipient-item {formData.recipient?.id === recipient.id ? 'selected' : ''}"
+								onclick={() => selected(recipient)}
+								>
+								<article class="recipient-info">
+									<div class="profile-pic">
+										{recipient.name[0].toUpperCase()}
+									</div>
+									<div class="recipient-details">
+										<h3>{recipient.name}</h3>
+										<p>{recipient.email}</p>
+										<p class="last-sent">Last sent: {recipient.lastSent}</p>
+									</div>
+								</article>
+								<button class="more-options" aria-label="More options">...</button>
+							</li>
+						{:else}
+							<li class="no-results">
+								No recipients found
+							</li>
+						{/each}
+					</ul>
+				</section>
 				<div class="button-container">
 					{@render button('continue',1)}
 				</div>
 			</section>
 
 <style>
-		.step-header {
+	section:has(.recipients-list){
+		position: relative;
 		display: flex;
-		align-items: flex-start;
-		justify-content: center;
-		position: relative;
-		height: fit-content;
-
-		button{
-			flex: 0 1 20%;
-			height: 100%;
-
-			@container style(--mobile:1) {
-				display: flex;
-				align-items: center;
-				flex: 0 1 20%;
-				height: 60%;
-
-				svg {
-					height: fit-content;
-				}
-			}
-		}
-		
-		h2{
-			flex: 2 1 40%;
-			height: fit-content;
-			align-items: center;
-			justify-content: center;
-			font-size: clamp(1rem,20vw ,1.5rem);
-			margin-block: 4%;
-			padding-inline: 2%;
-		}
-		
-		.back-button {
-			background: none;
-			border: none;
-			font-size: 1.5rem;
-			cursor: pointer;
-			height: 100%;
-		}
-
-		@container style(--mobile:1) {
-			display: flex;
-			align-items: baseline;
-
-			button{
-				flex: 0 1 20%;
-				height: 100%;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				flex: 0 1 20%;
-				height: 60%;
-			}
-		}
-	}
-
-
-
-	.step-container h3{
-		position: relative;
-		margin-bottom: 1%;
-	}
-
-	.search-container {
-		background-color: #f5f5f5;
-		margin-bottom: 4%;
-	}
-	
-	.search-input {
-		width: 100%;
-		padding: 0.75rem;
-		border: 1px solid #e0e0e0;
-		border-radius: 8px;
+		flex-direction: column;
+		flex: 1;
+		gap: 1cqh;
+		overflow-y: hidden;
 	}
 
 	.recipients-list{ 
-		display: flex;
-		flex-direction: column;
-		flex-basis: 50%;
-		width: 100%;
-		overflow-y: scroll;
 		background-color: var(--white);
+		height: fit-content;
+		max-height: 50cqh;
+		overflow-y: scroll !important;
+		padding-inline: 1cqw;
+		padding-block: 2cqh;
+		/* background-color:#c00; */
 
+		
 		.recipient-item {
+			position: relative;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
@@ -163,7 +101,7 @@
 		}
 		
 		.recipient-item:where(.selected) {
-			border: solid 2px var(--primary-darkgreen-550);	
+			outline: solid 2px var(--primary-darkgreen-550);	
 
 			.recipient-details p {
 				color: var(--primary-darkgreen-550);
@@ -176,8 +114,8 @@
 		}
 		
 		.profile-pic {
-			width: 40px;
-			aspect-ratio: 1;
+			width: clamp(1rem,40px,5vh);
+			/* aspect-ratio: 1; */
 			border-radius: 50%;
 			margin-right: 1rem;
 		}
@@ -193,10 +131,10 @@
 			color: #666;
 		}
 
-		@container style(--mobile:1) {
-			flex: 2 1 50%;
-			
+		.last-sent {
+			display: none;
 		}
+		
 	}
 
 
