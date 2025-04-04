@@ -272,20 +272,19 @@
 </svelte:head>
 
 <!-- button types  -->
-{#snippet button(type,step)}
+{#snippet buttonType(type,step)}
 	{#if type === 'back'}
-		{#if currentStep > 1}
-			<button class="back-button" onclick={previousStep}>
+		<button class="back-button" onclick={currentStep > 1 ? previousStep : () => history.back()}>
+			{#if !$isMobile}
+				<svg width="31" height="26" viewBox="0 0 31 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M30.9986 11.3326H6.68859L15.5103 2.51096L13.1536 0.154297L0.308594 12.9993L13.1536 25.8443L15.5103 23.4876L6.68859 14.666H30.9986V11.3326Z" fill="black"/>
+				</svg>
+			{:else}
 				<svg width="9" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M7.75 15.75a.744.744 0 0 1-.53-.22l-7-7a.75.75 0 0 1 0-1.06l7-7a.75.75 0 1 1 1.06 1.06L1.81 8l6.47 6.47a.75.75 0 0 1-.53 1.28Z" fill="white"/>
-				  </svg>
-			</button>
-		{:else}
-			<button class="back-button" onclick={() => history.back()}>
-				<svg width="9" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M7.75 15.75a.744.744 0 0 1-.53-.22l-7-7a.75.75 0 0 1 0-1.06l7-7a.75.75 0 1 1 1.06 1.06L1.81 8l6.47 6.47a.75.75 0 0 1-.53 1.28Z" fill="white"/>
-				  </svg></button>
-		{/if}
+				</svg>
+			{/if}
+		</button>
 	{:else if type === 'continue'}
 		<button 
 			class="continue-button {stepValidation[step] ? 'active' : 'disabled'}"
@@ -539,18 +538,23 @@
 		align-items: flex-start;
 		justify-content: center;
 		position: relative;
-		height: fit-content;
-
-		button{
+		display: flex;
+		align-items: center;
+		height: clamp(fit-content,1vh ,4rem);
+		margin-bottom: clamp(1rem,1vh ,4rem);
+		
+		& button{
 			flex: 0 1 20%;
 			height: 100%;
+			align-items: baseline;
+
 
 			@container style(--mobile:1) {
 				display: flex;
 				align-items: center;
 				flex: 0 1 20%;
 				height: 60%;
-
+				
 				svg {
 					height: fit-content;
 				}
@@ -567,44 +571,27 @@
 			padding-inline: 2%;
 		}
 		
-		.back-button {
-			/* background: none; */
+		& .back-button {
+			background: none;
 			border: none;
-			font-size: 1.5rem;
+			display: flex;
 			cursor: pointer;
-			height: 100%;
-			padding-left: 3%;
+			height: clamp(1rem,5vh ,4rem);
+			padding-left: 4%;
 			cursor: pointer;
 		}
 
-		.back-button svg{
-			/* outline: solid; */
+		& .back-button svg{
+			height: fit-content;
+			width: fit-content;
 		}
-		
-		.back-button svg path{
-			fill: var(black);
+
+		& .back-button svg path{
+			fill: var(--black);
 			stroke: var(--black);
 		}
-
-		@container style(--mobile:1) {
-			display: flex;
-			align-items: baseline;
-
-			button{
-				flex: 0 1 20%;
-				height: 100%;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				flex: 0 1 20%;
-				height: 60%;
-			}
-				
-		}
+		
 	}
-			
-
-
 
 	:global(.amount-number-input-container ){
 		display: flex;
@@ -620,28 +607,52 @@
 		border-radius: 4px;
 	}
 
+	:global(.right-step .button-container)  {
+		display: flex;
+		width: 100%;
+
+		& .continue-button{
+			flex: 0 1 50%;
+			height: fit-content;
+		}
+
+		& .skip-button{
+			flex: 0 1 20%;
+			height: fit-content;
+		}
+
+		& .submit-button{
+			flex: 1 1 100%;
+			height: fit-content;
+		}
+	}
+
 	
-
-
-
-	.button-container {
+	:global(div.button-container) {
 		position: relative;
 		grid-column: 1/-1;
 		display: flex;
-		flex-direction: column;
+		flex-direction: row-reverse;
 		width: 100%;
-		height: 100%;
-		gap: 3%;
+		height: fit-content;
+		/* outline: solid red !important; */
+		/* gap: 3%; */
 
 		@container style(--mobile:1) {
-			flex: 1 2 15%;
+			position: relative;
+			grid-column: 1/-1;
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			flex: 0 1 fit-content;
 			flex-direction: column-reverse;
 			align-self: self-end;
 		}
 	}
 
 	.continue-button, .submit-button,.skip-button {
-		position: absolute;
+		/* position: absolute; */
+		position: relative;
 		bottom: var(--body-padding);
 		right:0;
 		width:50%;
@@ -664,10 +675,7 @@
 		}
 	}
 	
-	/* .continue-button{
-
-	} */
-
+	
 	.continue-button.disabled {
 		background-color: #cccccc;
 		cursor: not-allowed;
@@ -688,6 +696,18 @@
 				stroke: var(--black);
 				fill: var(--black);
 			}
+		}
+	}
+
+	.skip-button{
+		display: flex;
+		justify-content: center;
+		background: none;
+		color: var(--primary-darkgreen-550);
+		text-decoration: underline;
+
+		@container style(--mobile:1) {
+			margin-bottom: 0;
 		}
 	}
 
