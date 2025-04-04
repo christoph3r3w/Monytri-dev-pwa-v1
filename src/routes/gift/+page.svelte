@@ -19,6 +19,7 @@
 	let currentStep = $state(1);
 	let totalSteps = $state(5);
 	
+	
 	// Form data structure
 	let formData = $state({
 		recipient: null,
@@ -31,7 +32,8 @@
 		message: '',
 		searchQuery: '',
 		errors: {},
-		isLoading: false
+		isLoading: false,
+		currentDate: new Date().toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: '2-digit' })
 	});
 	
 	// Step validation state
