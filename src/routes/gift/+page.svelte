@@ -715,4 +715,22 @@
 		background-color: #4B7A5B;
 	}
 
+	@media (width <= 900px) {
+		:global(.left-step) {
+			grid-column: 1 / -1 !important;
+			grid-row: 1 / span 1;
+			/* outline: red solid; */
+		}
+		:global(.right-step) {
+			grid-column: 1 / -1 !important;
+			grid-row: 2 / span 1;
+			/* outline: orange solid; */
+		}
+		:global(.step-container) {
+			grid-column: 1 / -1 !important;
+			grid-row: 2 / -1;
+			/* outline: olivedrab solid; */
+		}
+	}
+
 </style>
