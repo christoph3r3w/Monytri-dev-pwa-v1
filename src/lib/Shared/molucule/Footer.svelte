@@ -35,11 +35,9 @@
 	<a href="https://monytri.com/legal-documents/">Legal documents</a>&nbsp; |&nbsp; 
 </p>
 <p>
-
 	<a href="https://monytri.com/privacy-policy/">Privacy Policy</a>&nbsp; |&nbsp; 
 </p>
 <p>
-
 	<a href="https://monytri.com/cookie-policy-eu/" target="_blank" rel="noopener">Cookie Policy</a>
 </p>
 {/snippet}
@@ -282,17 +280,17 @@
 				width: 100cqw;
 				border-radius:inherit;
 		}
-
+			
 		.mobile-nav ul{
-				grid-column: content;
-				grid-row: content;
-				display: flex;
-				justify-content: center;
-				align-items: safe center;
-				width: 100%;
-				height: auto;
-				gap: clamp(10px,10cqw);
-				gap: clamp(10px, 10cqw, 100px);
+			grid-column: content;
+			grid-row: content;
+			display: flex;
+			justify-content: center;
+			align-items: safe center;
+			width: 100%;
+			height: auto;
+			gap: clamp(10px,10cqw);
+			gap: clamp(10px, 10cqw, 100px);
 		}
 
 		.mobile-nav ul li{

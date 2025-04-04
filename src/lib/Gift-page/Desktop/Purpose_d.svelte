@@ -87,23 +87,24 @@
 				</li>
 			</ul>
 		</article>
-	</div>
-	<div class="button-container">
-		{@render button('skip',3)}
-		{@render button('continue',3)}
+		<div class="button-container">
+			{@render button('continue',3)}
+			{@render button('skip',3)}
+		</div>
 	</div>
 </section>
 
 <style>
-		.purpose-selction {
+	.purpose-selction {
 		flex: 2 1 50%;
 		display: flex;
 		flex-direction: column;
-		background-color: var(--white);
 		margin-bottom: 1rem;
 	}
 	
 	.purpose-options {
+		background-color: var(--white);
+		padding: 1rem;
 		display: flex;
 		flex-wrap: wrap;
 		gap: 1rem;

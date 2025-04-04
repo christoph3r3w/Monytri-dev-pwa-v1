@@ -60,9 +60,13 @@
 		overflow-y: scroll;
 		background-color: var(--white);
 		gap: 1rem;
+
+		scrollbar-width: thin;
+		overflow-y: scroll;
 		
 		.recipient-item {
 			display: flex;
+			width: 90%;
 			justify-content: space-between;
 			align-items: center;
 			padding: clamp(1%,1.5vw,5%);

@@ -213,6 +213,7 @@
 	}
 
 	:global(body){
+		width: 100%;
 		margin: 0;
 		padding: 0;
 		overflow-x: hidden;
@@ -240,7 +241,7 @@
 		container-name:header;
 		
 	}
-
+	
 	:global(main) {
 		background-color: var(--general-background-color);
 		grid-row: main;
@@ -249,7 +250,7 @@
 		grid-template-columns: subgrid;
 		/* grid-template-rows: subgrid; */
 		align-content: start;
-		overflow-x: clip;
+		overflow-x: hidden;
 		overflow-y: visible;
 		
 		container-name: main;

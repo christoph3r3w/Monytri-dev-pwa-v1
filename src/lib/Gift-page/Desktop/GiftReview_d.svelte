@@ -67,9 +67,9 @@
 
 		</article>
 		
-	</div>
-	<div class="button-container">
-		{@render button('submit')}
+		<div class="button-container">
+			{@render button('submit')}
+		</div>
 	</div>
 </section>
 
