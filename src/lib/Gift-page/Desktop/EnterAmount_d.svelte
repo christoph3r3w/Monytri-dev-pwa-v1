@@ -5,15 +5,15 @@
 </script>
 
 
-<section class="step-container" transition:fade>
-	<div class="left-step">
-		<section class="step-header">
+<section class="step-container" >
+	<div class="left-step"  >
+		<section class="step-header"  transition:fade>
 			{@render button('back')}
 			<h2>Enter Amount</h2>
 		</section>
 	</div>
 
-	<div class="right-step">
+	<div class="right-step"  transition:fade>
 		<form onsubmit={nextStep}>
 			<fieldset class="amount-input-container">
 				<label for='fixedAmount1'><input type="radio" id='fixedAmount1' name="fixedAmount" oninput={validateAmount} value="€25">€25</label>
@@ -39,13 +39,14 @@
 </section>
 
 <style>
-		form:has(.amount-input-container){
+	form:has(.amount-input-container){
 		display: flex;
 		flex-direction: column;
-		flex: 1 1 10%;
+		flex: 1 1 100%;
 	}
 
 	form .amount-input-container:nth-of-type(1){
+		flex: 1 1 100%;
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;

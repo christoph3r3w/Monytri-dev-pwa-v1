@@ -33,8 +33,11 @@
 		searchQuery: '',
 		errors: {},
 		isLoading: false,
-		currentDate: new Date().toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: '2-digit' })
+		date: new Date(),
+		currentDate: null
 	});
+
+	formData.currentDate = formData.date.toLocaleDateString('en-GB', { year: 'numeric', month: 'short', day: '2-digit' });
 	
 	// Step validation state
 	let stepValidation = $state({
@@ -529,6 +532,7 @@
 	}
 
 	:global(.right-step) {
+		
 		position: relative;
 		grid-column: right;
 		display: flex;
@@ -538,6 +542,7 @@
 		overflow: hidden;
 		padding-inline: 1%;
 		
+		/* outline:crimson solid; */
 	}
 	
 	
@@ -648,7 +653,9 @@
 		flex-direction: row-reverse;
 		width: 100%;
 		height: fit-content;
-		margin-bottom:5%;	
+		margin-bottom:5%;
+		
+		container-type: inline-size;
 		
 		@container style(--mobile:1) {
 			position: relative;
@@ -724,7 +731,7 @@
 	}
 
 	.submit-button {
-		background-color: #4B7A5B;
+		flex: 0 1 50cqw !important;
 	}
 
 	@media (width <= 900px) {

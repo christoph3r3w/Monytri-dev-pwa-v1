@@ -22,9 +22,9 @@
 </script>
 
 
-<section class="step-container" transition:fade>			
-	<div class="left-step">
-		<section class="step-header">
+<section class="step-container" >			
+	<div class="left-step"  >
+		<section class="step-header"  transition:fade>
 			{@render button('back')}
 			<h2>Choose a purpose</h2>
 		</section>
@@ -41,7 +41,7 @@
 		</section>
 	</div>
 
-	<div class="right-step">
+	<div class="right-step"  transition:fade>
 		<article class="purpose-selction">
 			<ul class="purpose-options">
 				{#each PurposeList as purpose}

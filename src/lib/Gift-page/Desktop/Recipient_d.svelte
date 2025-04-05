@@ -4,9 +4,9 @@
 
 </script>
 
-<section class="step-container" transition:fade>
-	<div class="left-step">
-		<section class="step-header">
+<section class="step-container" >
+	<div class="left-step"  >
+		<section class="step-header"  transition:fade>
 			{@render button('back')}
 			<h2>Choose Recipient</h2>
 		</section>
@@ -23,7 +23,7 @@
 		</section>
 	</div>
 	
-	<div class="right-step">
+	<div class="right-step"  transition:fade>
 		<h3 class="section-title">Most Recent</h3>
 		<ul class="recipients-list">
 			{#each recipients as recipient}
@@ -44,18 +44,18 @@
 			{/each}
 		</ul>
 		
-	</div>
-	<div class="button-container">
-		{@render button('continue',1)}
+		<div class="button-container">
+			{@render button('continue',1)}
+		</div>
 	</div>
 </section>
 
 <style>
 
 	.recipients-list{ 
+		flex: 1 1 70%;
 		display: flex;
 		flex-direction: column;
-		flex-basis: 50%;
 		width: 100%;
 		overflow-y: scroll;
 		background-color: var(--white);

@@ -15,9 +15,9 @@
 		{ id: 'design8', name: 'Design 8',cardBackground: 'green',cardbackgroundMessage:'' ,primaryColor:'red'}
 	]);
 </script>
-<section class="step-container" transition:fade>
-	<div class="left-step">
-		<section class="step-header">
+<section class="step-container">
+	<div class="left-step" >
+		<section class="step-header"  transition:fade>
 			{@render button('back')}
 			<div class="step-header-text">
 				<h2>Select a gift card</h2>
@@ -26,7 +26,7 @@
 		</section>
 	</div>
 
-	<div class="right-step" >
+	<div class="right-step"  transition:fade>
 		<span class="option-select">
 			{#each cardDesigns as cardDesign}
 			<input type="radio" id={cardDesign.id} name="cardDesign" value={cardDesign.id}

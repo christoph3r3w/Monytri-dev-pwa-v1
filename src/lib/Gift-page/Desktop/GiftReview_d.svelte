@@ -2,9 +2,9 @@
 	import { fade } from 'svelte/transition';
 	let { formData, validatePayment,button } = $props();
 </script>
-<section class="step-container" transition:fade>
-	<div class="left-step">
-		<section class="step-header">
+<section class="step-container" >
+	<div class="left-step"  >
+		<section class="step-header"  transition:fade>
 			{@render button('back')}
 			<h2>Select a payment method</h2>
 		</section>
@@ -32,7 +32,7 @@
 		</section>
 	</div>
 
-	<div class="right-step">
+	<div class="right-step"  transition:fade>
 		<article class="review-summary">
 			<h3>Please confirm your payment</h3>
 			
@@ -74,7 +74,16 @@
 </section>
 
 <style>
-		.payment-input-container{
+
+	.right-step{
+		flex: 1 1 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
+	.payment-input-container{
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
@@ -89,6 +98,7 @@
 	}
 	
 	.review-summary {
+		align-self: baseline;
 		place-self: center;
 		display: flex;
 		flex-direction: column;
@@ -136,6 +146,11 @@
 			width: 100%;
 		}
 
+	}
+
+	.button-container {
+		display: flex;
+		justify-content: end;
 	}
 
 </style>
