@@ -239,7 +239,7 @@
 			currentProgress = 100;
 			document.body.appendChild(alertDialog);
 			
-			await new Promise(resolve => setTimeout(resolve, 3000));
+			await new Promise(resolve => setTimeout(resolve, 2000));
 			alertDialog.remove();
 			await goto('/transactions');
 
@@ -335,6 +335,11 @@
 				selected={selectRecipient}
 				button={buttonType}
 			/>
+			<!-- <Purpose_D
+					{formData}
+					{validatePurpose}
+					button={buttonType}
+				/> -->
 		<!-- Step 2: Enter Amount -->
 		{:else if currentStep === 2}
 			<EnterAmount_D
@@ -375,6 +380,7 @@
 				selected={selectRecipient}
 				button={buttonType}
 			/>
+			
 		<!-- Step 2: Enter Amount -->
 		{:else if currentStep === 2}
 			<EnterAmount_M
@@ -405,6 +411,12 @@
 				button={buttonType}
 			/>
 		{/if}
+	{:else}
+		<!-- Fallback content for unsupported devices -->
+		<div class="unsupported-device">
+			<p>Your device is not supported for this feature.</p>
+			<p>Please use a desktop or mobile device.</p>
+		</div>
 	{/if}
 </article>
 
@@ -514,7 +526,6 @@
 		width: 100%;
 		overflow: hidden;
 		flex-wrap: wrap;
-
 	}
 
 	:global(.right-step) {
@@ -525,6 +536,7 @@
 		height: 100%;
 		width: 100%;
 		overflow: hidden;
+		padding-inline: 1%;
 		
 	}
 	
@@ -636,9 +648,8 @@
 		flex-direction: row-reverse;
 		width: 100%;
 		height: fit-content;
-		/* outline: solid red !important; */
-		/* gap: 3%; */
-
+		margin-bottom:5%;	
+		
 		@container style(--mobile:1) {
 			position: relative;
 			grid-column: 1/-1;
@@ -717,6 +728,12 @@
 	}
 
 	@media (width <= 900px) {
+		:global(.transfer-wizard) {
+			height: calc(100dvh - var(--footer-height));
+			max-height: calc(100dvh - var(--footer-height));
+			background-color: var(--white);
+		}
+
 		:global(.left-step) {
 			grid-column: 1 / -1 !important;
 			grid-row: 1 / span 1;
