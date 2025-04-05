@@ -3,7 +3,7 @@
 
 let explain = `
 	1. make function in +page.js that takes in all the section from the backend.
-	2. it should be a series of form that cronologicly swap when the previos one is valid
+	2. it should be a series that cronologicly swap when the previos one is valid
 	3. when the user makes a selection and it is valid they can continue to the next form until there is none 
 	4. lasty comes the payment
 	5. the user can also go back to the previous form
@@ -27,8 +27,33 @@ let explain = `
     <input type="search" placeholder="Search Recipients" />
   </div>
 
-  <div class="recipient-list right-step">
-    <ul>
+  <!-- the class was at the wrong element  -->
+  <div class="right-step">
+    <ul class="recipient-list">
+      <li>
+        <a href="/">
+          <img src="generic.png" height="72px" width="72px" alt="">
+          <h2> Recipient </h2>
+          <p> Recipient@gmail.com</p>
+          <p class="last-sent"> Last sent: 12/12/2023</p>
+        </a>
+      </li>
+      <li>
+        <a href="/">
+          <img src="generic.png" height="72" width="72" alt="">
+          <h2> Recipient </h2>
+          <p> Recipient@gmail.com</p>
+          <p class="last-sent"> Last sent: 12/12/2023</p>
+        </a>
+      </li>
+      <li>
+        <a href="/">
+          <img src="generic.png" height="72" width="72" alt="">
+          <h2> Recipient </h2>
+          <p> Recipient@gmail.com</p>
+          <p class="last-sent"> Last sent: 12/12/2023</p>
+        </a>
+      </li>
       <li>
         <a href="/">
           <img src="generic.png" height="72px" width="72px" alt="">
@@ -98,6 +123,8 @@ let explain = `
 		flex-direction: column;
 		height: 100%;
 		width: 100%;
+
+    outline: solid red;
 		
 		@container style(--mobile:1) {
 			max-height: fit-content;
@@ -125,7 +152,8 @@ let explain = `
     width: 40px;
   }
 
-  div {
+  /* this was targeting a general div */
+  div.left-step {
     padding: 2rem;
 
     h1 { 
@@ -148,15 +176,16 @@ let explain = `
   }
 
   .recipient-list {
-    padding: 2rem;
-    margin-left: 2rem;
+    padding-inline: 2rem;
+    /* margin-left: 2rem; */
     background-color: #FFFFFF;
     height: 658px;
-    width: 601px;
+    width: 100%;
+    /* now that recipient os at hte ul you can give it an overflow  */
+    overflow-y: scroll;
+    overflow-x: clip;
+   
     
-    ul {
-      padding: 1.2rem;
-    }
 
     li {
       height: 495px;
