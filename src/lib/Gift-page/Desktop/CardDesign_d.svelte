@@ -158,7 +158,7 @@
 
 	/*//////////////////////////////////////////////*/
 	/* test this out with them durring the meeting  */
-	
+
 	/* .card-option.selected {
 		border-radius: 14px;
 		box-shadow: inset 0px 0px 55px -37px color-mix(in srgb, var(--general-background-color) 10%, var(--card-color,var(--grey-400)));
@@ -208,12 +208,15 @@
 	}
 
 	/* general card */
+	/* logo in the middle  */
 	.simple-card h3{
 		position: relative;
 		font-size: 2.5rem;
+		font-weight: 600;
+
 	}
 
-	/* card text */
+	/* card text bottom left */
 	.simple-card p{
 		font-size: .9rem;
 		bottom: var(--_block-padding);
@@ -239,6 +242,7 @@
 	/* logo name */
 	.message-input h4{
 		font-size: 1.2rem;
+		font-weight: 600;
 		left: calc(var(--_inline-padding) - 2cqw);
 		top: calc(var(--_block-padding) - 1cqh);
 		width: fit-content;
@@ -288,6 +292,7 @@
 		bottom: var(--_block-padding);
 		right: var(--_inline-padding);
 		font-size: 1.5rem;
+		font-weight: 600;
 		color: var(--black);
 		border-radius: 8px;
 		padding: 1%;
