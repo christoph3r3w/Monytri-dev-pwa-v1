@@ -4,16 +4,16 @@
 	let { formData, validateCardDesign,button } = $props();
 	let date = $state(new Date())
 
-	let cardDesigns = [
+	let cardDesigns = $state([
 		{ id: 'design1', name: 'Design 1',cardBackground: './gift-page-assets/Gift card 1.png',cardbackgroundMessage:'./gift-page-assets/Message Card.png' ,primaryColor:'#AFABED'},
-		{ id: 'design2', name: 'Design 2',cardBackground: 'blue',cardbackgroundMessage:'' ,primaryColor:'blue'},
-		{ id: 'design3', name: 'Design 3',cardBackground: 'green',cardbackgroundMessage:'' ,primaryColor:'yellow'},
-		{ id: 'design4', name: 'Design 4',cardBackground: 'green',cardbackgroundMessage:'' ,primaryColor:'brown'},
-		{ id: 'design5', name: 'Design 5',cardBackground: 'green',cardbackgroundMessage:'' ,primaryColor:'pink'},
+		{ id: 'design2', name: 'Design 2',cardBackground: './gift-page-assets/Gift card 6.png',cardbackgroundMessage:'./gift-page-assets/Message Card6.png' ,primaryColor:'#82A6C5'},
+		{ id: 'design3', name: 'Design 3',cardBackground: './gift-page-assets/Gift card 2.png',cardbackgroundMessage:'./gift-page-assets/Message Card2.png' ,primaryColor:'#5AB1AA'},
+		{ id: 'design4', name: 'Design 4',cardBackground: './gift-page-assets/Gift card 3.png',cardbackgroundMessage:'./gift-page-assets/Message Card3.png' ,primaryColor:'#F2A550'},
+		{ id: 'design5', name: 'Design 5',cardBackground: './gift-page-assets/Gift card 5.png',cardbackgroundMessage:'./gift-page-assets/Message Card5.png' ,primaryColor:'#AFABED'},
 		{ id: 'design6', name: 'Design 6',cardBackground: 'green',cardbackgroundMessage:'' ,primaryColor:'purple'},
 		{ id: 'design7', name: 'Design 7',cardBackground: 'green',cardbackgroundMessage:'' ,primaryColor:'orange'},
 		{ id: 'design8', name: 'Design 8',cardBackground: 'green',cardbackgroundMessage:'' ,primaryColor:'red'}
-	];
+	]);
 </script>
 <section class="step-container" transition:fade>
 	<div class="left-step">
@@ -155,11 +155,20 @@
 		border: solid transparent;
 		/* outline:violet solid ; */
 	}
+
+	/*//////////////////////////////////////////////*/
+	/* test this out with them durring the meeting  */
 	
-	.card-option.selected {
+	/* .card-option.selected {
 		border-radius: 14px;
 		box-shadow: inset 0px 0px 55px -37px color-mix(in srgb, var(--general-background-color) 10%, var(--card-color,var(--grey-400)));
+	} */
+
+	.card-option.selected section {
+		border-radius: 14px;
+		box-shadow: 0px 0px 75px -27px color-mix(in srgb, var(--general-background-color) 10%, var(--card-color,var(--grey-400) 90%));
 	}
+	/*//////////////////////////////////////////////*/
 
 	.card-option > label{
 		position: relative;
@@ -272,7 +281,6 @@
 
 	.message-input textarea:focus-within {
 		width: 90cqw;
-		
 	}
 
 	/* gift-amount */
