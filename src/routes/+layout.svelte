@@ -134,16 +134,17 @@
 		};
 	});
 
+	// causes an issue when mobile view is active
 	// onNavigate((navigation) => {
     //     if(!document.startViewTransition){return};
 
-        return new Promise((resolve) =>{
-            document.startViewTransition(async ()=>{
-                resolve();
-                await navigation.complete;
-            })
-        })
-    })
+    //     return new Promise((resolve) =>{
+    //         document.startViewTransition(async ()=>{
+    //             resolve();
+    //             await navigation.complete;
+    //         })
+    //     })
+    // })
 
 	afterNavigate(() => {
 		currentPage();
@@ -249,6 +250,7 @@
 		grid-template-columns: subgrid;
 		/* grid-template-rows: subgrid; */
 		align-content: start;
+		overflow-x: hidden;
 		overflow-y: visible;
 		
 		container-name: main;
