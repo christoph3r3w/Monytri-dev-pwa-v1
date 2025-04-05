@@ -63,11 +63,11 @@ let explain = `
     margin: 2rem;
 		position: relative;
 		grid-column: 1 / -1;
-		grid-row: 1 / span 1;
+		grid-row: 1 / 1;
 		display: grid;
 		grid-template-columns: 
 		subgrid 
-		[left-start] repeat(5,[mid-left]) [left-end right-start] repeat(5,[mid-right]) [right-end];
+		[left-start] repeat(6,[mid-left]) [left-end right-start] repeat(6,[mid-right]) [right-end];
 		width: 100%;
 
 		container-type:normal;
@@ -75,14 +75,12 @@ let explain = `
 
 		@container style(--mobile:1) {
 			max-height: calc(100dvh - var(--footer-height)) !important;
-			/* height: calc(100dvh - 4px - var(--footer-height) - var(--header-height)) !important; */
 			grid-template-rows: auto;
 		}
 	}
   .left-step {
 		position: relative;
-		grid-column: left ;
-		grid-row: 1 / -1;
+		grid-column: left;
 		display: flex;
 		flex-direction: column;
 		height: 100%;
@@ -90,14 +88,12 @@ let explain = `
 
 		@container style(--mobile:1) {
 			height: fit-content;
-			/* grid-row: 1 / 2; */
 		}
 	}
 
 	.right-step {
 		position: relative;
 		grid-column: right;
-		/* grid-row: 1 / -1; */
 		display: flex;
 		flex-direction: column;
 		height: 100%;
@@ -111,12 +107,11 @@ let explain = `
 
   .button-container {
 		position: relative;
-		grid-column: 1/-1;
+		grid-column: 9;
 		display: flex;
 		flex-direction: column;
 		width: 100%;
 		height: 100%;
-		gap: 3%;
 
 		@container style(--mobile:1) {
 			flex: 1 2 15%;
@@ -167,6 +162,17 @@ let explain = `
       height: 495px;
       height: 152px;
       margin-bottom: 24px;
+      padding: 12px;
+      border-bottom: 2px solid #CFCFCF;
+    }
+
+    li:has(a:focus), li:has(a:hover) {
+      outline: 2px solid #497951;
+      border-radius: 8px;
+    }
+
+    a:focus, a:hover{
+      outline: none;
     }
 
     a {
