@@ -10,7 +10,8 @@
 		CardDesign_D,
 		CardDesign_M,
 		GiftReview_D,
-		GiftReview_M
+		GiftReview_M,
+		Process_success_S
 	} from '$lib';
 	import { goto } from '$app/navigation';
 	import { fade } from 'svelte/transition';
@@ -244,7 +245,11 @@
 			
 			await new Promise(resolve => setTimeout(resolve, 2000));
 			alertDialog.remove();
-			await goto('/transactions');
+			// Store form data in localStorage before redirecting
+			// localStorage.setItem('giftFormData', JSON.stringify(formData));
+			localStorage.setItem('giftFormData', 'hi');
+				
+			await goto('/gift-success');
 
 		} catch (error) {
 			handleError(5, error.message);

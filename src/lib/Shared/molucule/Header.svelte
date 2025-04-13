@@ -13,7 +13,7 @@
         if ($current === 'home') {
             // On homepage, activate search functionality
             console.log('Activating search');
-        } else if ($current === 'gift') {
+        } else if ($current === 'gift' || $current === 'gift-success') {
             history.back();
 		} else {
             history.back();
@@ -54,7 +54,7 @@
 
 {#snippet mobileHeadNav()}
 	<!-- goback and search button -->
-	 {#if $current === 'gift'}
+	 {#if $current === 'gift' || $current === 'gift-success'}
 	 <nav class="goBack">
 		<button onclick={iconTask}>
 			<svg width="9" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
