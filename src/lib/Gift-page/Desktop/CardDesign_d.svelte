@@ -10,9 +10,9 @@
 		{ id: 'design3', name: 'Design 3',cardBackground: './gift-page-assets/Gift card 2.png',cardbackgroundMessage:'./gift-page-assets/Message Card2.png' ,primaryColor:'#5AB1AA'},
 		{ id: 'design4', name: 'Design 4',cardBackground: './gift-page-assets/Gift card 3.png',cardbackgroundMessage:'./gift-page-assets/Message Card3.png' ,primaryColor:'#F2A550'},
 		{ id: 'design5', name: 'Design 5',cardBackground: './gift-page-assets/Gift card 5.png',cardbackgroundMessage:'./gift-page-assets/Message Card5.png' ,primaryColor:'#AFABED'},
-		{ id: 'design6', name: 'Design 6',cardBackground: 'green',cardbackgroundMessage:'' ,primaryColor:'purple'},
-		{ id: 'design7', name: 'Design 7',cardBackground: 'green',cardbackgroundMessage:'' ,primaryColor:'orange'},
-		{ id: 'design8', name: 'Design 8',cardBackground: 'green',cardbackgroundMessage:'' ,primaryColor:'red'}
+		{ id: 'design6', name: 'Design 6',cardBackground: '',cardbackgroundMessage:'' ,primaryColor:'purple'},
+		{ id: 'design7', name: 'Design 7',cardBackground: '',cardbackgroundMessage:'' ,primaryColor:'orange'},
+		{ id: 'design8', name: 'Design 8',cardBackground: '',cardbackgroundMessage:'' ,primaryColor:'red'}
 	]);
 </script>
 <section class="step-container">
@@ -128,6 +128,7 @@
 		padding: 1rem;
 		overflow-x: scroll;
 		overflow-y: hidden;
+		scroll-snap-type: x mandatory;
 		/* outline: solid red; */
 		
 		container-type: inline-size;
@@ -153,6 +154,8 @@
 		flex: 0 0 100cqw;
 		display: flex;
 		border: solid transparent;
+		scroll-snap-align:start;
+		scroll-snap-stop: always;
 		/* outline:violet solid ; */
 	}
 

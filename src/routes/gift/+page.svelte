@@ -46,7 +46,7 @@
 		2: false,
 		3: false,
 		4: false,
-		5: true // Review step is always valid
+		5: true, // Review step is always valid
 	});
 
 	// Use provided recipients or fallback to defaults
@@ -113,7 +113,7 @@
 		}, 3000); // Clear error after 3 seconds
 	}
 
-	// Search functionality
+	// Search recipient functionality
 	function searchRecipients(query) {
 		formData.searchQuery = query;
 		return recipients.filter(recipient => 
@@ -121,7 +121,7 @@
 			recipient.email.toLowerCase().includes(query.toLowerCase())
 		);
 	}
-
+	
 	// Enhanced validation functions
 	function selectRecipient(recipient) {
 		if (!recipient) {
@@ -134,19 +134,19 @@
 	
 	function nextStep() {
 		if (stepValidation[currentStep] && currentStep < totalSteps) {
-		currentStep++;
+			currentStep++;
 		}
 	}
 	
 	function previousStep() {
 		if (currentStep > 1) {
-		currentStep--;
+			currentStep--;
 		}
 	}
 	
 	function validateAmount(e) {
 		let finalAmount;
-
+		
 		if (e.target.type === 'radio') {
 			const customAmountInput = document.getElementById('amount');
 			if (customAmountInput && customAmountInput.value.trim() !== '') {
@@ -154,22 +154,22 @@
 				handleError(2, 'Please use either fixed amount or custom amount');
 				return;
 			}
-
+			
 			formData.type = e.target.id;
 			finalAmount = parseFloat(e.target.value.replace('€', ''));
 		} else {
 			formData.type = 'amount';
 			finalAmount = parseFloat(e.target.value);
-
+			
 			const radioButtons = document.querySelectorAll('input[name="fixedAmount"]');
 			radioButtons.forEach((radio) => (radio.checked = false));
 		}
-
+		
 		if (finalAmount <= 0 || isNaN(finalAmount)) {
 			handleError(2, 'Please enter a valid amount');
 			return;
 		}
-
+		
 		formData.amount = finalAmount;
 		stepValidation[2] = true;
 	}
@@ -181,7 +181,14 @@
 		}
 		stepValidation[3] = true;
 	}
-
+	//search pupose functionality
+	function searchPurpose(query) {
+		formData.searchQuery = query;
+		return formData.Purpose.filter(purpose => 
+			purpose.toLowerCase().includes(query.toLowerCase())
+		);
+	}
+	
 	function validateCardDesign() {
 		if (!formData.cardDesign || formData.cardDesign === 'default') {
 			handleError(4, 'Please select a card design');
@@ -343,11 +350,10 @@
 				selected={selectRecipient}
 				button={buttonType}
 			/>
-			<!-- <Purpose_D
-					{formData}
-					{validatePurpose}
-					button={buttonType}
-				/> -->
+			<!-- <Process_success_S
+				formData={formData}
+				button={buttonType}
+			/> -->
 		<!-- Step 2: Enter Amount -->
 		{:else if currentStep === 2}
 			<EnterAmount_D
@@ -419,6 +425,8 @@
 				button={buttonType}
 			/>
 		{/if}
+		<!-- Step 6: Transfer Success -->
+
 	{:else}
 		<!-- Fallback content for unsupported devices -->
 		<div class="unsupported-device">
