@@ -36,49 +36,61 @@ let explain = `
     <ul class="recipient-list">
       <li>
         <a href="/">
-          <img src="generic.png" height="72px" width="72px" alt="">
-          <h2> Recipient </h2>
-          <p> Recipient@gmail.com</p>
+          <img src="generic.png" height="72" width="72" alt="">
+          <div class="recipient-info">
+            <h2> Recipient </h2>
+            <p class="mail"> Recipient@gmail.com</p>
+          </div>
           <p class="last-sent"> Last sent: 12/12/2023</p>
         </a>
       </li>
       <li>
         <a href="/">
           <img src="generic.png" height="72" width="72" alt="">
-          <h2> Recipient </h2>
-          <p> Recipient@gmail.com</p>
+          <div class="recipient-info">
+            <h2> Recipient </h2>
+            <p class="mail"> Recipient@gmail.com</p>
+          </div>
           <p class="last-sent"> Last sent: 12/12/2023</p>
         </a>
       </li>
       <li>
         <a href="/">
           <img src="generic.png" height="72" width="72" alt="">
-          <h2> Recipient </h2>
-          <p> Recipient@gmail.com</p>
-          <p class="last-sent"> Last sent: 12/12/2023</p>
-        </a>
-      </li>
-      <li>
-        <a href="/">
-          <img src="generic.png" height="72px" width="72px" alt="">
-          <h2> Recipient </h2>
-          <p> Recipient@gmail.com</p>
+          <div class="recipient-info">
+            <h2> Recipient </h2>
+            <p class="mail"> Recipient@gmail.com</p>
+          </div>
           <p class="last-sent"> Last sent: 12/12/2023</p>
         </a>
       </li>
       <li>
         <a href="/">
           <img src="generic.png" height="72" width="72" alt="">
-          <h2> Recipient </h2>
-          <p> Recipient@gmail.com</p>
+          <div class="recipient-info">
+            <h2> Recipient </h2>
+            <p class="mail"> Recipient@gmail.com</p>
+          </div>
           <p class="last-sent"> Last sent: 12/12/2023</p>
         </a>
       </li>
       <li>
         <a href="/">
           <img src="generic.png" height="72" width="72" alt="">
-          <h2> Recipient </h2>
-          <p> Recipient@gmail.com</p>
+          <div class="recipient-info">
+            <h2> Recipient </h2>
+            <p class="mail"> Recipient@gmail.com</p>
+          </div>
+          <p class="last-sent"> Last sent: 12/12/2023</p>
+        </a>
+      </li>
+      <li>
+        <a href="/">
+          <img src="generic.png" height="72" width="72" alt="">
+          <div class="recipient-info">
+            <h2> Recipient </h2>
+            <p class="mail"> Recipient@gmail.com</p>
+          </div>
           <p class="last-sent"> Last sent: 12/12/2023</p>
         </a>
       </li>
@@ -200,6 +212,11 @@ let explain = `
       margin-bottom: 24px;
       padding: 12px;
       border-bottom: 2px solid #CFCFCF;
+
+      .recipient-info{
+        display: flex;
+        flex-direction: column;
+      }
     }
 
     li:has(a:focus), li:has(a:hover) {
@@ -219,8 +236,13 @@ let explain = `
         border-radius: 50%;
         height: 72px;
         width: 72px;
+        margin-right: 16px;
       }
 
+      img, .recipient-info {
+        display: inline-block;
+        vertical-align: middle;
+      }
       h2 {
         font-size: 2rem;
         margin: 0;
