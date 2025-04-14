@@ -201,7 +201,7 @@ let explain = `
   }
 
   .recipient-list {
-    padding-inline: 2rem;
+    padding: 2rem;
     background-color: #FFFFFF;
     height: 658px;
     width: 100%;
@@ -220,7 +220,7 @@ let explain = `
     }
 
     li:has(a:focus), li:has(a:hover) {
-      outline: 2px solid #497951;
+      outline: 4px solid #497951;
       border-radius: 8px;
     }
 
