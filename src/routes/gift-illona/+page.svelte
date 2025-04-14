@@ -25,7 +25,7 @@
 
 	<section class="right-step">
 		<form action="/gift/send" method="post">
-			<fieldset class="button-fieldset">
+			<fieldset>
 				<div class="button-container">
 					<button type="button" value="25">&euro; 25</button>
 					<button type="button" value="50">&euro; 50</button>
@@ -35,8 +35,7 @@
 			</fieldset>
       <fieldset class="custom-amount-fieldset">				
         <legend> Or enter a custom amount</legend>
-				<label for="customAmount">&euro;</label>
-				<input type="number" id="customAmount" name="amount" min="1" placeholder="Enter amount">
+				<input type="number" id="customAmount" name="amount" min="1" placeholder="&euro;">
 			</fieldset>
 			<button type="submit" class="continue-btn">Continue</button>
 		</form>
@@ -107,18 +106,8 @@
   }
 }
 
-.button-fieldset {
-  margin-bottom: 2rem;
-  padding: 1rem;
-  border: none;
-}
-
-.custom-amount-fieldset {
-  margin-top: 2rem;
-  padding: 1.5rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+fieldset {
+  margin-top: 1.2rem;
 }
 
 .button-container {
@@ -147,17 +136,15 @@
   color: white;
   outline: none;
 }
-
-.custom-amount-fieldset label {
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
+.custom-amount-fieldset {
+  margin-top: 2rem;
 }
 
 .custom-amount-fieldset input[type="number"] {
-  padding: 1rem 1.5rem;
   font-size: 1.6rem;
   border: 2px solid #ccc;
   border-radius: 8px;
+  height: 3rem;
   width: 100%;
   max-width: 400px;
 }
