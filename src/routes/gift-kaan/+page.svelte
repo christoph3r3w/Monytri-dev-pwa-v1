@@ -119,6 +119,7 @@ let explain = `
 			grid-template-rows: auto;
 		}
 	}
+
   .left-step {
 		position: relative;
 		grid-column: left;
@@ -126,10 +127,46 @@ let explain = `
 		flex-direction: column;
 		height: 100%;
 		width: 100%;
+    padding-left: 2rem;
 
 		@container style(--mobile:1) {
 			height: fit-content;
 		}
+
+    a {
+      position: absolute;
+      top: 0;
+      left: -2rem;
+    }
+
+    h1 { 
+      margin-top: 2rem;
+      font-size: 4.16rem;
+      margin-bottom: 12px;
+    }
+
+    p {
+      font-size: 2rem;
+      max-width: 472px;
+      margin-bottom: 29px;
+    }
+
+    input[type="search"] {
+      padding: 24px;
+      border-radius: 96px;
+      width: 514px;
+      height: 60px;
+    }
+
+    input[type="search"]::placeholder {
+      padding-left: 32px;
+    }
+
+    .search-icon{
+      position: relative;
+      top: -45px;
+      left: 1rem;
+    }
 	}
 
 	.right-step {
@@ -166,38 +203,6 @@ let explain = `
   a {
     height: 40px;
     width: 40px;
-  }
-
-  .left-step {
-    padding: 2rem;
-
-    h1 { 
-      font-size: 4.16rem;
-      margin-bottom: 12px;
-    }
-
-    p {
-      font-size: 2rem;
-      max-width: 472px;
-      margin-bottom: 29px;
-    }
-
-    input[type="search"] {
-      padding: 24px;
-      border-radius: 96px;
-      width: 514px;
-      height: 60px;
-    }
-
-    input[type="search"]::placeholder {
-      padding-left: 32px;
-    }
-
-    .search-icon{
-      position: relative;
-      top: -45px;
-      left: 1rem;
-    }
   }
 
   .recipient-list {
