@@ -141,29 +141,29 @@ let explain = `
     h1 { 
       margin-top: 2rem;
       font-size: 4.16rem;
-      margin-bottom: 12px;
+      margin-bottom: .75rem;
     }
 
     p {
       font-size: 2rem;
-      max-width: 472px;
-      margin-bottom: 29px;
+      max-width: 29.5rem;
+      margin-bottom: 1.813rem;
     }
 
     input[type="search"] {
-      padding: 24px;
-      border-radius: 96px;
-      width: 514px;
-      height: 60px;
+      padding: 1.5rem;
+      border-radius: 6rem;
+      width: 32.125rem;
+      height: 3.75rem;
     }
 
     input[type="search"]::placeholder {
-      padding-left: 32px;
+      padding-left: 2rem;
     }
 
     .search-icon{
       position: relative;
-      top: -45px;
+      top: -2.813rem;
       left: 1rem;
     }
 	}
@@ -184,21 +184,21 @@ let explain = `
     .recipient-list {
       padding: 2rem;
       background-color: #FFFFFF;
-      height: 658px;
+      height: 41.125rem;
       width: 100%;
       overflow-y: scroll;
       overflow-x: clip;
-      border-radius: 4px;
+      border-radius: .25rem;
 
       li:has(button:focus), li:has(button:hover) {
-        outline: 4px solid #497951;
-        border-radius: 8px;
+        outline: .25rem solid #497951;
+        border-radius: .5rem;
       }
 
       li {
-        margin-bottom: 24px;
-        padding: 12px;
-        border-bottom: 2px solid #CFCFCF;
+        margin-bottom: 1.5rem;
+        padding: .75rem;
+        border-bottom: .125rem solid #CFCFCF;
 
         button:focus, button:hover{
           outline: none;
@@ -206,8 +206,8 @@ let explain = `
 
         img {
           border-radius: 50%;
-          height: 72px;
-          width: 72px;
+          height: 4.5rem;
+          width: 4.5rem;
         }
 
         img, .recipient-info {
@@ -216,25 +216,25 @@ let explain = `
         }
 
         .recipient-info {
-          margin-left: 16px;
+          margin-left: 1rem;
 
           h2 {
             font-size: 2rem;
-            margin: 0 0 0 -16px;
+            margin: 0 0 0 -1rem;
             padding: 0;
           }
 
           p {
             font-size: 1rem;
             margin: 0;
-            padding: 6px 0 0 6px;
+            padding: .375rem 0 0 .375rem;
           }
         }
 
         .last-sent {
           font-size: 1rem;
           margin: 0 0 0 -5rem;
-          padding: 24px 0 0 0;
+          padding: 1.5rem 0 0 0;
         }
       }
     }
@@ -256,8 +256,8 @@ let explain = `
 	}
 
   a {
-    height: 40px;
-    width: 40px;
+    height: 2.5rem;
+    width: 2.5rem;
   }
 
   .continue-btn {
@@ -265,10 +265,10 @@ let explain = `
     justify-content: center;
     align-items: center;
     background-color: #717171;
-    border-radius: 8px;
-    width: 359px;
-    height: 56px;
-    padding: 16px 130px;
+    border-radius: .5rem;
+    width: 22.438rem;
+    height: 3.5rem;
+    padding: 1rem 8.125rem;
     text-decoration: none;
     font-size: 2rem;
   }
