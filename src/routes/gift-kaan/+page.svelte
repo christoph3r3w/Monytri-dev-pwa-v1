@@ -35,7 +35,7 @@ let explain = `
   <div class="right-step">
     <ul class="recipient-list">
       <li>
-        <button href="/">
+        <button>
           <img src="generic.png" height="72" width="72" alt="">
           <div class="recipient-info">
             <h2> Recipient </h2>
@@ -45,7 +45,7 @@ let explain = `
         </button>
       </li>
       <li>
-        <button href="/">
+        <button>
           <img src="generic.png" height="72" width="72" alt="">
           <div class="recipient-info">
             <h2> Recipient </h2>
@@ -55,7 +55,7 @@ let explain = `
         </button>
       </li>
       <li>
-        <button href="/">
+        <button>
           <img src="generic.png" height="72" width="72" alt="">
           <div class="recipient-info">
             <h2> Recipient </h2>
@@ -65,7 +65,7 @@ let explain = `
         </button>
       </li>
       <li>
-        <button href="/">
+        <button>
           <img src="generic.png" height="72" width="72" alt="">
           <div class="recipient-info">
             <h2> Recipient </h2>
@@ -75,7 +75,7 @@ let explain = `
         </button>
       </li>
       <li>
-        <button href="/">
+        <button>
           <img src="generic.png" height="72" width="72" alt="">
           <div class="recipient-info">
             <h2> Recipient </h2>
@@ -85,7 +85,7 @@ let explain = `
         </button>
       </li>
       <li>
-        <button href="/">
+        <button>
           <img src="generic.png" height="72" width="72" alt="">
           <div class="recipient-info">
             <h2> Recipient </h2>
