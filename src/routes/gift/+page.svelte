@@ -468,7 +468,6 @@
 		height: 4px ;
 		background-color: var(--general-background-color);
 		border-radius: 2px;
-		/* margin-bottom: 1.5rem; */
 
 		@container style(--mobile:1) {
 			margin-bottom: 3%;
@@ -516,11 +515,11 @@
 		padding: 0.75rem;
 		border: 1px solid #e0e0e0;
 		border-radius: 8px;
-		outline: springgreen solid !important;
+		/* outline: springgreen solid !important; */
 	}
 
 		/* outline: solid; */
-		/* background-color: var(--primary-orange-500); */
+		background-color: var(--general-background-color);
 
 		@container style(--mobile:1) {
 			display: flex;
@@ -627,7 +626,7 @@
 		display: flex;
 		flex-direction: column;
 		margin-bottom:10% ;
-		background-color: aqua;
+		/* background-color: aqua; */
 	}
 	
 	:is(.amount-input-container,.amount-number-input-container) input {
@@ -635,7 +634,7 @@
 		padding: 0.75rem;
 		border: 1px solid #e0e0e0;
 		border-radius: 4px;
-		background-color: yellowgreen;
+		/* background-color: yellowgreen; */
 	}
 
 	:global(.right-step .button-container)  {
