@@ -9,10 +9,9 @@
 </script>
 
 <section class="page">
-	<!-- Linkerzijde -->
 	<section class="left">
+		<!-- <a href="/" class="back-arrow">←</a> -->
 		<section class="header-row">
-			<a href="/" class="back-arrow">←</a>
 			<h2>Select a payment method</h2>
 		</section>
 
@@ -27,15 +26,14 @@
 		{/each}
 	</section>
 
-	<!-- Rechterzijde -->
 	<section class="right">
 		<section class="payment-confirmation">
 			<h2>Please confirm your payment</h2>
 			<hr />
-			<p>Recipient: {recipient}</p>
-			<p>Gift Amount: {amount}</p>
-			<p>Delivery Date: {deliveryDate}</p>
-			<p>Occasion: {occasion}</p>
+			<p><span>Recipient:</span><span>{recipient}</span></p>
+			<p><span>Gift Amount:</span><span>{amount}</span></p>
+			<p><span>Delivery Date:</span><span>{deliveryDate}</span></p>
+			<p><span>Occasion:</span><span>{occasion}</span></p>
 		</section>
 
 		<section class="confirm-button-container">
@@ -62,28 +60,16 @@
 	.header-row {
 		display: flex;
 		align-items: center;
-		gap: 1rem;
 		margin-bottom: 2rem;
 	}
 
 	.header-row h2 {
-		font-size: 1.75rem;
-		margin: 0;
-		margin-right: 10rem;
-	}
-
-	.back-arrow {
-		font-size: 2rem;
-		color: #222;
-		transition: transform 0.2s ease;
-	}
-
-	.back-arrow:hover {
-		transform: translateX(-4px);
+		font-size: 2.5rem;
+		margin-right: 15rem;
 	}
 
 	.payment-option {
-		margin-bottom: 1rem;
+		margin-bottom: 2.5rem;
 		cursor: pointer;
 	}
 
@@ -101,8 +87,9 @@
 	.card-info {
 		font-size: 1rem;
 		color: #4c7551;
-		margin-left: 2.5rem;
-		margin-bottom: 1rem;
+		margin-left: 2.8rem;
+		margin-bottom: 1.5rem;
+		margin-top: -1.5rem;
 	}
 
 	.right {
@@ -114,15 +101,15 @@
 	}
 
 	.payment-confirmation {
-		/* background: rgba(255, 255, 255, 0.8); */
 		padding: 40px;
 		border-radius: 10px;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-		/* width: fit-content; */
+		max-width: 35rem;
+		margin-left: 10rem;
 	}
 
-	h2 {
-		font-size: 1.75rem;
+	.payment-confirmation h2 {
+		font-size: 1.5rem;
 		margin-bottom: 10px;
 	}
 
@@ -132,14 +119,12 @@
 		background-color: #1e1e1e;
 	}
 
-	p {
-		font-size: 1.5rem;
-		margin: 40px 0;
-	}
-
-	.confirm-button-container {
-		/* align-self: flex-end; */
-		/* margin-top: auto; */
+	.payment-confirmation p {
+		font-size: 1.2rem;
+		margin: 15px 0;
+		margin-top: 30px;
+		display: flex;
+		gap: 0rem;
 	}
 
 	.confirm-button {
@@ -156,4 +141,8 @@
 	.confirm-button:hover {
 		background-color: #3d5f40;
 	}
+
+	/* .back-arrow {
+		font-size: 2rem;
+	} */
 </style>
