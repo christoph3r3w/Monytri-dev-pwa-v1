@@ -180,7 +180,7 @@ let explain = `
     input[type="search"]::placeholder {
       padding-left: 32px;
     }
-    
+
     .search-icon{
       position: relative;
       top: -45px;
@@ -195,12 +195,8 @@ let explain = `
     width: 100%;
     overflow-y: scroll;
     overflow-x: clip;
-   
-    
 
     li {
-      height: 495px;
-      height: 152px;
       margin-bottom: 24px;
       padding: 12px;
       border-bottom: 2px solid #CFCFCF;
