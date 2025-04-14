@@ -37,6 +37,7 @@
 				current.set('home');
 				break;
 			case '/gift':
+			case '/gift-success':
 				current.set('gift');
 				break;
 			case '/how-it-works':
