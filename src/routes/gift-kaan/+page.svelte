@@ -35,64 +35,64 @@ let explain = `
   <div class="right-step">
     <ul class="recipient-list">
       <li>
-        <a href="/">
+        <button href="/">
           <img src="generic.png" height="72" width="72" alt="">
           <div class="recipient-info">
             <h2> Recipient </h2>
             <p class="mail"> Recipient@gmail.com</p>
           </div>
           <p class="last-sent"> Last sent: 12/12/2023</p>
-        </a>
+        </button>
       </li>
       <li>
-        <a href="/">
+        <button href="/">
           <img src="generic.png" height="72" width="72" alt="">
           <div class="recipient-info">
             <h2> Recipient </h2>
             <p class="mail"> Recipient@gmail.com</p>
           </div>
           <p class="last-sent"> Last sent: 12/12/2023</p>
-        </a>
+        </button>
       </li>
       <li>
-        <a href="/">
+        <button href="/">
           <img src="generic.png" height="72" width="72" alt="">
           <div class="recipient-info">
             <h2> Recipient </h2>
             <p class="mail"> Recipient@gmail.com</p>
           </div>
           <p class="last-sent"> Last sent: 12/12/2023</p>
-        </a>
+        </button>
       </li>
       <li>
-        <a href="/">
+        <button href="/">
           <img src="generic.png" height="72" width="72" alt="">
           <div class="recipient-info">
             <h2> Recipient </h2>
             <p class="mail"> Recipient@gmail.com</p>
           </div>
           <p class="last-sent"> Last sent: 12/12/2023</p>
-        </a>
+        </button>
       </li>
       <li>
-        <a href="/">
+        <button href="/">
           <img src="generic.png" height="72" width="72" alt="">
           <div class="recipient-info">
             <h2> Recipient </h2>
             <p class="mail"> Recipient@gmail.com</p>
           </div>
           <p class="last-sent"> Last sent: 12/12/2023</p>
-        </a>
+        </button>
       </li>
       <li>
-        <a href="/">
+        <button href="/">
           <img src="generic.png" height="72" width="72" alt="">
           <div class="recipient-info">
             <h2> Recipient </h2>
             <p class="mail"> Recipient@gmail.com</p>
           </div>
           <p class="last-sent"> Last sent: 12/12/2023</p>
-        </a>
+        </button>
       </li>
     </ul>
   </div>
@@ -223,16 +223,16 @@ let explain = `
       }
     }
 
-    li:has(a:focus), li:has(a:hover) {
+    li:has(button:focus), li:has(button:hover) {
       outline: 4px solid #497951;
       border-radius: 8px;
     }
 
-    a:focus, a:hover{
+    button:focus, button:hover{
       outline: none;
     }
 
-    a {
+    button {
       width: 455px;
       height: 72px;
 
@@ -247,6 +247,7 @@ let explain = `
         display: inline-block;
         vertical-align: middle;
       }
+
       h2 {
         font-size: 2rem;
         margin: 0;
