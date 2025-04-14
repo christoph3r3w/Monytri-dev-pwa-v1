@@ -176,8 +176,6 @@ let explain = `
 		flex-direction: column;
 		height: 100%;
 		width: 100%;
-
-    outline: solid red;
 		
 		@container style(--mobile:1) {
 			max-height: fit-content;
@@ -212,6 +210,7 @@ let explain = `
     width: 100%;
     overflow-y: scroll;
     overflow-x: clip;
+    border-radius: 4px;
 
     li {
       margin-bottom: 24px;
