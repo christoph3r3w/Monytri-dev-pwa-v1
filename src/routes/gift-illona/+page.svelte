@@ -25,7 +25,7 @@
 
 	<section class="right-step">
 		<form action="/gift/send" method="post">
-			<fieldset>
+			<fieldset class="button-fieldset">
 				<div class="button-container">
 					<button type="button" value="25">&euro; 25</button>
 					<button type="button" value="50">&euro; 50</button>
@@ -33,8 +33,8 @@
 					<button type="button" value="200">&euro; 200</button>
 				</div>
 			</fieldset>
-			<fieldset>
-				<legend> Or enter a custom amount</legend>
+      <fieldset class="custom-amount-fieldset">				
+        <legend> Or enter a custom amount</legend>
 				<label for="customAmount">&euro;</label>
 				<input type="number" id="customAmount" name="amount" min="1" placeholder="Enter amount">
 			</fieldset>
@@ -69,7 +69,7 @@
   position: relative;
   grid-column: left;
   display: flex;
-  flex-direction: column;
+  gap: 3rem;
   height: 100%;
   width: 100%;
 
@@ -77,11 +77,10 @@
     height: fit-content;
   }
 
-  padding: 2rem;
-
   h1 {
-    font-size: 4.16rem;
+    font-size: 4rem;
     margin-bottom: 12px;
+    max-width: 15ch;
   }
 }
 
@@ -90,7 +89,9 @@
   grid-column: right;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 2rem;
+  margin-top: 1rem;
   height: 100%;
   width: 100%;
 
@@ -104,59 +105,61 @@
     flex-direction: column;
     gap: 2rem;
   }
+}
 
-  fieldset {
-    border: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
+.button-fieldset {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border: none;
+}
 
-  legend {
-    font-size: 1.6rem;
-    font-weight: bold;
-  }
-
-  label {
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-  }
-
-  input[type="number"] {
-    padding: 1rem 1.5rem;
-    font-size: 1.6rem;
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 400px;
-  }
+.custom-amount-fieldset {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
 }
 
 .button-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  max-width: 45rem;
+  gap: 1.2rem;
 }
 
 .button-container button {
-  height: 6rem;
-  width: 14rem;
+  height: 7rem;
+  width: 16rem;
   padding: 1rem 2rem;
   font-size: 1.6rem;
   border-radius: 8px;
   background-color: var(--primary-darkgreen-200);
+  color: var(--primary-darkgreen-550);
+  font-weight: 600;
   cursor: pointer; 
   transition: background-color 0.2s ease, border-color 0.2s ease;
-  flex-grow: 1; 
-  min-width: 3rem; /* Set a minimum width to prevent them from shrinking too much */
 }
 
 .button-container button:hover,
 .button-container button:focus {
-  background-color: #ddd;
-  border-color: #497951;
+  background-color: var(--primary-darkgreen-550);
+  color: white;
   outline: none;
+}
+
+.custom-amount-fieldset label {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.custom-amount-fieldset input[type="number"] {
+  padding: 1rem 1.5rem;
+  font-size: 1.6rem;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
 }
 
 .continue-btn {
@@ -186,7 +189,6 @@ a {
   align-items: center;
   justify-content: center;
   font-size: 2rem;
-  text-decoration: none;
 }
 
 </style>
