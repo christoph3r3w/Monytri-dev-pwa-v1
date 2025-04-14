@@ -25,6 +25,10 @@ let explain = `
     <p> Please select your recipient to send to. </p>
     
     <input type="search" placeholder="Search Recipients" />
+    <svg class="search-icon" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M29.295 27.705L23.5335 21.9435C25.4595 19.659 26.625 16.7145 26.625 13.5C26.625 6.2625 20.7375 0.375 13.5 0.375C6.2625 0.375 0.375 6.2625 0.375 13.5C0.375 20.7375 6.2625 26.625 13.5 26.625C16.7145 26.625 19.659 25.4595 21.9435 23.5335L27.705 29.295C27.924 29.514 28.212 29.625 28.5 29.625C28.788 29.625 29.076 29.5155 29.295 29.295C29.7345 28.857 29.7345 28.1445 29.295 27.705ZM2.625 13.5C2.625 7.503 7.503 2.625 13.5 2.625C19.497 2.625 24.375 7.503 24.375 13.5C24.375 19.497 19.497 24.375 13.5 24.375C7.503 24.375 2.625 19.497 2.625 13.5Z" fill="#A0A0A0"/>
+    </svg>
+      
   </div>
 
   <!-- the class was at the wrong element  -->
@@ -152,8 +156,7 @@ let explain = `
     width: 40px;
   }
 
-  /* this was targeting a general div */
-  div.left-step {
+  .left-step {
     padding: 2rem;
 
     h1 { 
@@ -173,15 +176,23 @@ let explain = `
       width: 514px;
       height: 60px;
     }
+
+    input[type="search"]::placeholder {
+      padding-left: 32px;
+    }
+    
+    .search-icon{
+      position: relative;
+      top: -45px;
+      left: 1rem;
+    }
   }
 
   .recipient-list {
     padding-inline: 2rem;
-    /* margin-left: 2rem; */
     background-color: #FFFFFF;
     height: 658px;
     width: 100%;
-    /* now that recipient os at hte ul you can give it an overflow  */
     overflow-y: scroll;
     overflow-x: clip;
    
