@@ -181,6 +181,64 @@ let explain = `
 			max-height: fit-content;
 			width: 100% ;
 		}
+
+    .recipient-list {
+      padding: 2rem;
+      background-color: #FFFFFF;
+      height: 658px;
+      width: 100%;
+      overflow-y: scroll;
+      overflow-x: clip;
+      border-radius: 4px;
+
+      li:has(button:focus), li:has(button:hover) {
+        outline: 4px solid #497951;
+        border-radius: 8px;
+      }
+
+      li {
+        margin-bottom: 24px;
+        padding: 12px;
+        border-bottom: 2px solid #CFCFCF;
+
+        button:focus, button:hover{
+          outline: none;
+        }
+
+        img {
+          border-radius: 50%;
+          height: 72px;
+          width: 72px;
+        }
+
+        img, .recipient-info {
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+        .recipient-info {
+          margin-left: 16px;
+
+          h2 {
+            font-size: 2rem;
+            margin: 0 0 0 -16px;
+            padding: 0;
+          }
+
+          p {
+            font-size: 1rem;
+            margin: 0;
+            padding: 6px 0 0 6px;
+          }
+        }
+
+        .last-sent {
+          font-size: 1rem;
+          margin: 0 0 0 -5rem;
+          padding: 24px 0 0 0;
+        }
+      }
+    }
 	}
 
   .button-container {
@@ -201,71 +259,6 @@ let explain = `
   a {
     height: 40px;
     width: 40px;
-  }
-
-  .recipient-list {
-    padding: 2rem;
-    background-color: #FFFFFF;
-    height: 658px;
-    width: 100%;
-    overflow-y: scroll;
-    overflow-x: clip;
-    border-radius: 4px;
-
-    li {
-      margin-bottom: 24px;
-      padding: 12px;
-      border-bottom: 2px solid #CFCFCF;
-
-      .recipient-info{
-        display: flex;
-        flex-direction: column;
-      }
-    }
-
-    li:has(button:focus), li:has(button:hover) {
-      outline: 4px solid #497951;
-      border-radius: 8px;
-    }
-
-    button:focus, button:hover{
-      outline: none;
-    }
-
-    button {
-      width: 455px;
-      height: 72px;
-
-      img {
-        border-radius: 50%;
-        height: 72px;
-        width: 72px;
-        margin-right: 16px;
-      }
-
-      img, .recipient-info {
-        display: inline-block;
-        vertical-align: middle;
-      }
-
-      h2 {
-        font-size: 2rem;
-        margin: 0;
-        padding: 0;
-      }
-
-      p {
-        font-size: 1rem;
-        margin: 0;
-        padding: 6px 0 0 0;
-      }
-
-      .last-sent {
-        font-size: 1rem;
-        margin: 0;
-        padding: 24px 0 0 0;
-      }
-    }
   }
 
   .continue-btn {
