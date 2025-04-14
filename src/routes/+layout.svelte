@@ -221,6 +221,8 @@
 		overflow-y: auto;
 		max-height:100svh;
 		height: 100svh;
+		overscroll-behavior-x: contain;
+		overscroll-behavior-y: contain;
 	}
 	
 	:global(.body-container){
@@ -231,6 +233,8 @@
 		background-color: var(--general-background-color);
 		overflow-x: clip;
 		overflow-y:auto;
+		overscroll-behavior-x: contain;
+		overscroll-behavior-y: contain;
 	}
 	
 	:global(header){

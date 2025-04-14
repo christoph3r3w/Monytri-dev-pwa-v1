@@ -125,6 +125,7 @@
 		height: 100%;
 		overflow-x: scroll;
 		overflow-y: hidden;
+		scroll-snap-type: x mandatory;
 		/* outline: solid red; */
 		
 		container-type: inline-size;
@@ -151,6 +152,8 @@
 		flex: 0 0 100cqw;
 		display: flex;
 		border: solid transparent;
+		scroll-snap-align: center;
+		scroll-snap-stop: always;
 		/* outline:violet solid ; */
 	}
 	
