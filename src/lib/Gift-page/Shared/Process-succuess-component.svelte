@@ -3,6 +3,7 @@
 	// let {formData, button} = $props()
 	import {onMount} from 'svelte';
 	import {fade} from 'svelte/transition';
+	import {isMobile} from '$lib/store.js';
 
 	let formData = $state({
 		currentDate: '',
@@ -15,23 +16,39 @@
 
 </script>
 <section class="step-container">
-	<section class="step-header"  transition:fade>
-		<div class="button-container">
-			<!-- revisit this to see if a back button is really needed -->
-			<!-- {@render button('back')} -->
-		</div>
-		<div class="step-header-text">
-			<h2>Gift Purchase Complete!</h2>
-			<p>{formData.currentDate}</p>
-		</div>
-	</section>
-	
-	<section class="success-message"  transition:fade>
-		<img src="./gift-page-assets/Becoming-Rich-10--Streamline-Brooklyn (Traced).png" alt="becoming rich ">
-		<p>If you need to view any information about any of your transactions, head over to your transaction history.</p>
-		<a href="/">Back to Homepage</a>
-		<a href="/gift">Send another one</a>
-	</section>
+	{#if $isMobile}
+		<section class="success-message mobile"  transition:fade>
+			<div class="success-text">
+				<img src="./gift-page-assets/Becoming-Rich-10--Streamline-Brooklyn (Traced).png" alt="becoming rich ">
+				<h2>Payment complete</h2>
+				<p>{formData.currentDate}</p>
+				<p>If you need to view any information about any of your transactions, head over to your transaction history.</p>
+			</div>
+			<div class="button-container">
+				<a href="/">Back to Homepage</a>
+				<a href="/gift">Send another one</a>
+			</div>
+		</section>
+	{:else}
+		
+		<section class="step-header"  transition:fade>
+			<div class="button-container">
+				<!-- revisit this to see if a back button is really needed -->
+				<!-- {@render button('back')} -->
+			</div>
+			<div class="step-header-text">
+				<h2>Gift Purchase Complete!</h2>
+				<p>{formData.currentDate}</p>
+			</div>
+		</section>
+		
+		<section class="success-message"  transition:fade>
+			<img src="./gift-page-assets/Becoming-Rich-10--Streamline-Brooklyn (Traced).png" alt="becoming rich ">
+			<p>If you need to view any information about any of your transactions, head over to your transaction history.</p>
+			<a href="/">Back to Homepage</a>
+			<a href="/gift">Send another one</a>
+		</section>
+	{/if}
 </section>
 
 <style>
@@ -55,7 +72,6 @@
 		width: 100%;
 		margin-bottom: 0;
 		gap: 24px;
-		/* outline: solid green ; */
 	}
 	
 	.step-header-text{
@@ -64,17 +80,15 @@
 		align-items: center;
 		justify-content: center;
 		gap: 24px;
-		/* outline: solid red; */
 	}
 	
 	.step-header h2{
-		font-size: 2.5rem;
+		font-size: clamp(1rem, calc(1rem + 2vw), 2.7rem);
 	}
 	
 	.step-header p{
 		flex: 1 1 100%;
 		text-align: center;
-		/* outline: solid blue; */
 	}
 	
 	.button-container {
@@ -98,8 +112,6 @@
 		width: 100%;
 		gap: 24px;
 		padding-top: 3rem;
-		/* justify-content: space-around; */
-		/* outline: solid rgb(23, 50, 226); */
 	}
 	
 	.success-message > * {
@@ -108,7 +120,7 @@
 	
 	.success-message img {
 		width: fit-content;
-		object-position: center;
+		object-position:top center;
 		object-fit: cover;
 		height: auto;
 	}
@@ -116,14 +128,15 @@
 	.success-message p {
 		text-align: center;
 		font-size: 1.2rem;
-		max-width: 50%;
+		max-width: 50vw;
 	}
 	
 	.success-message a {
 		text-decoration: none;
 		text-align: center;
 		font-size: 1rem;
-		width: 20%;	
+		min-width: 200px;
+		width: fit-content;
 		padding: 1rem 2rem;
 		border-radius: 5px;
 		border: solid var(--primary-green-500) 2px;
@@ -136,6 +149,59 @@
 		&:nth-of-type(2) {
 			color: var(--primary-green-500);
 		}
+	}
+
+	:global(.success-message.mobile) {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		container-type: inline-size;
+		
+		.success-text {
+			flex: 1 3 80%;
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 100cqw;
+			padding-inline: var(--body-padding);
+		}
+
+		.success-text > * {
+			width: 100cqw ;
+			max-width: 100%;
+			margin-bottom: min(1rem,2cqh);
+		}
+
+		.success-text img {
+			height: clamp(20cqw,25cqh , 30cqh);
+			width: auto;
+		}
+
+		.success-text h2 {
+			font-size: clamp(1.5rem, 3cqh, 4.7rem);
+			font-weight: 600;
+			text-align: center;
+			width: 100%;
+		}
+	}
+
+	.success-message.mobile .button-container {
+		flex: 1 1 20%;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100%;
+		gap: 1rem;
+		padding-inline: var(--body-padding);
+		justify-content: end;
+	}
+
+	.success-message.mobile .button-container a {
+		width: 100%;
+		padding: clamp(10px, .9rem, 1rem) 1rem;
 	}
 
 

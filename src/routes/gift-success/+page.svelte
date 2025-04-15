@@ -72,7 +72,7 @@
 		/* outline: steelblue solid; */
 
 		@container style(--mobile:1) {
-			height: calc(100dvh - 4px - var(--footer-height) - var(--header-height)) !important;
+			height: calc(100dvh - 4px - var(--footer-height)) !important;
 		}
 
 	}

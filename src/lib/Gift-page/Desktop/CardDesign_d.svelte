@@ -44,8 +44,7 @@
 					class="card-option {formData.cardDesign === cardDesign.id ? 'selected' : ''}" 
 					style="--card-color:{cardDesign.primaryColor};--card-background:{cardDesign.cardBackground};--card-background-message:{cardDesign.cardbackgroundMessage};">
 						<label for="{cardDesign.id}">
-						<section 
-							  class="card simple-card" 
+						<section class="card simple-card" 
 							  style="background-image: url('{encodeURI(cardDesign.cardBackground)}');"
 							>
 							  <h3>{'Monytri'|| cardDesign.name}</h3>
@@ -53,8 +52,7 @@
 							  <span>€{formData.amount}</span>
 						</section>
 						<p>Tap the card below to customise your message </p>
-						<section 
-							  class="card message-input" 
+						<section class="card message-input" 
 							  style="background-image: url('{encodeURI(cardDesign.cardbackgroundMessage)}');"
 							>
 							  <h4>Monytri</h4>
@@ -64,6 +62,7 @@
 								id="message" 
 								bind:value={formData.message}
 								rows="3"
+								maxlength="100"
 								placeholder="Create a custom message"
 								tabindex="{formData.cardDesign === cardDesign.id ? 0 : -1}"
 									></textarea>
@@ -84,21 +83,39 @@
 </section>
 
 <style>
+
+	.right-step{
+		height: 100%;
+		flex-direction: column;
+	}
 	/* main container */
 	.card-designs-container {
-		flex: 2 1 90%;
+		flex: 1 2 90cqh;
+		/* max-width: 900px; */
+		height: 100%;
 		position: relative;
 		padding-inline: 1rem;
-		/* background-color: yellow; */
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	@media (max-width: 930px), (max-height: 600px) {
+		.card-designs-container {
+			flex: 1 1 80cqh;
+			height: clamp(60%,85vh,89%) ;
+		}
 	}
 
 	/* check boxes */
 	.option-select{
+		flex: 0 1 10%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		gap: 3%;
-		margin-block: 2%;
+		margin-block: clamp(0px,2vh,2%);
+		/* background-color: yellowgreen; */
 	}
 
 	.option-select input[type="radio"] {
@@ -122,16 +139,18 @@
 	.card-design-options {
 		position: relative;
 		display: flex;
-		gap: 1rem;
-		width: 100%;
+		gap: 1vw;
+		width: 110%;
+		max-width: 55rem;
 		height: 100%;
 		padding: 1rem;
 		overflow-x: scroll;
 		overflow-y: hidden;
 		scroll-snap-type: x mandatory;
-		/* outline: solid red; */
 		
 		container-type: inline-size;
+		
+		/* outline: solid rgb(0, 255, 21); */
 		
 		/* &::-webkit-scrollbar {
 			height: 8px;
@@ -146,17 +165,32 @@
 			background: var(--primary-darkgreen-550);
 			border-radius: 4px;
 		} */
+
 	}
 	
 	.card-option {
 		position: relative;
 		height: 100%;
+		/* version 1 */
+		/* flex: 0 1 100cqw; */
+		/* version 2 */
+		/* flex: 0 0 fit-content; */
+		/* version 3 */
 		flex: 0 0 100cqw;
+		/* width: fit-content; */
+
 		display: flex;
 		border: solid transparent;
 		scroll-snap-align:start;
 		scroll-snap-stop: always;
 		/* outline:violet solid ; */
+	}
+
+	/* middle text between cards */
+	.card-option p {
+		width: 100%;
+		max-width: 400px;
+		text-align: center;
 	}
 
 	/*//////////////////////////////////////////////*/
@@ -177,11 +211,12 @@
 		position: relative;
 		padding: 1rem;
 		height: 100%;
-		min-width: 300px;
-		flex: 0 0 100cqw;
+		min-width: clamp(3%,300px,100%);
+		flex: 0 0 100%;
 		display: flex;
 		flex-direction: column;
-		justify-content: space-around;
+		justify-content: center;
+		gap: 1cqb;
 		align-items: center;
 		border-radius: 14px;
 		/* outline: solid red; */
@@ -191,9 +226,9 @@
 		--_inline-padding:1.6rem;
 		--_block-padding:1.6rem;
 		position: relative;
-		height: 30cqh;
+		height: clamp(10cqi,50cqi,30cqh);
 		aspect-ratio: 14/9;
-		max-width: 424px;
+		width: clamp(200px,420px 30cqw);
 		background-color: var(--white);
 		display: grid;
 		grid-template-areas: a;
@@ -203,20 +238,21 @@
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
+
+		/* outline: solid rgb(0, 255, 21); */
 	}
 	
 	.card > *{
 		position: absolute;
-		/* outline: solid green; */
 	}
 
-	/* general card */
+	/* general card styling */
+
 	/* logo in the middle  */
 	.simple-card h3{
 		position: relative;
-		font-size: 2.5rem;
+		font-size: clamp(1.5rem, 2.5rem, 4rem);
 		font-weight: 600;
-
 	}
 
 	/* card text bottom left */
@@ -271,7 +307,8 @@
 	.message-input label textarea {
 		flex: 1 1 auto;
 		text-align: right;
-		/* width: 50cqmin; */
+		width: 50cqmin;
+		height: auto;
 		padding: 0.75rem;
 		border-bottom: 1px solid var(--card-color,#e0e0e0);
 		resize:none;
@@ -300,7 +337,5 @@
 		border-radius: 8px;
 		padding: 1%;
 	}
-	
-	
 
 </style>

@@ -286,12 +286,6 @@
 			/* background-color: rgb(222, 135, 135); */
 		}
 		
-		/* &:nth-of-type(1) :is(:global(*)) > *{
-			grid-column: 1/-1;
-			width: 100%;
-			height: auto;
-		} */
-		
 	}
 
 	:global(footer){
@@ -308,15 +302,14 @@
 
 	/* media query for mobile view */
 	@media 
-	(-webkit-min-device-pixel-ratio: 3),
-	screen and (device-width < 900px) and (orientation: portrait) , 
-	screen and (device-height <= 900px) and (orientation: landscape)
+	/* (-webkit-min-device-pixel-ratio: 3), */
+	screen and (device-width <= 900px) and (width <= 900px) and (orientation: portrait) , 
+	screen and (device-height <= 900px) and (height <= 900px) and (orientation: landscape)
 	{
 		:root{
 			--mobile:1;
 			--body-padding: 5%;
 		}
-
 
 		:global(body){
 			overflow: hidden;
@@ -324,7 +317,9 @@
 		}
 
 		:global(.body-container){
-			display: flex;
+			/* there is an issue where the layout break in firefox */
+			/* the if ismobile is not on the layout should stay a grid but it sometimes becomes a flex layout  */
+			display: flex !important;
 			flex-direction: column;
 			min-height: revert ;
 			max-height: 100%;

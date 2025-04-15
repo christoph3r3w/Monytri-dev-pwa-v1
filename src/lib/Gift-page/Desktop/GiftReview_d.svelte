@@ -130,16 +130,17 @@
 
 		span{
 			position: relative;
+			width: 100%;
 		}
 		
 		.review-label {
 			font-weight: 500;
-			flex: 0 1 50%;
+			/* flex: 0 1 50%; */
 			text-wrap: nowrap;
 		}
 
 		.review-value{
-			flex: 1 0 auto;
+			/* flex: 1 0 auto; */
 		}
 
 		@container style(--mobile:1) {
