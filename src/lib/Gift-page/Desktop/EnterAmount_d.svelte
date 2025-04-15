@@ -1,6 +1,6 @@
 <script>
 	import { fade } from 'svelte/transition';
-	let { selected, button ,validateAmount,nextStep} = $props();
+	let { selected, button ,validateAmount,nextStep, formData, min,max} = $props();
 
 </script>
 
@@ -26,8 +26,9 @@
 				id="amount" 
 				oninput={validateAmount}
 				placeholder="€"
-				min="0.01" 
-				step="0.01" 
+				min={min} 
+				max={max}
+				step="0.10" 
 				aria-required="true"
 				/>
 			</fieldset>
