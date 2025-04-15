@@ -1,0 +1,1 @@
+import{a,t as e}from"../chunks/BWrrr2UW.js";import"../chunks/DPN-45CN.js";import{n as r}from"../chunks/CIcFpKZC.js";var m=e('<h1>how it works</h1> <a href="/" style="font-size: 3rem;">go home</a>',1);function f(o){var t=m();r(2),a(o,t)}export{f as component};
