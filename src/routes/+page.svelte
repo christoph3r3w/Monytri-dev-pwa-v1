@@ -26,19 +26,16 @@
 
 <style>
 	.home-wrapper{
-			grid-column: 1 / -1;
-			grid-row: 1 / span 1;
-			display: flex;
-			flex-direction: column;
-			/* grid-template-columns: subgrid; */
-			align-content: start;
-			width: 100%;
-			/* height: 100%; */
-			min-height: calc(100cqh - var(--header-height));
-			max-height: calc(100dvh - var(--footer-height)) ;
-
-
-
+		grid-column: 1 / -1;
+		grid-row: 1 / span 1;
+		display: flex;
+		flex-direction: column;
+		/* grid-template-columns: subgrid; */
+		align-content: start;
+		width: 100%;
+		/* height: 100%; */
+		min-height: calc(100cqh - var(--header-height));
+		max-height: calc(100dvh - var(--footer-height)) ;
 	}
 
 	h1 {
@@ -53,7 +50,7 @@
 		align-items: start;
 		gap: 2rem;
 		width: 100%;
-		height: 100%;
+		height: fit-content;
 	}
 	
 	:is(a,button) {
