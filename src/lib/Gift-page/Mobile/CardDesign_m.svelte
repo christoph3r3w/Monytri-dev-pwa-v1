@@ -182,7 +182,6 @@
 		justify-content: space-around;
 		align-items: center;
 		border-radius: 14px;
-		/* background-color: var(--general-background-color); */
 		/* padding-inline: 1.5rem; */
 		/* outline: solid red; */
 	}

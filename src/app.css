@@ -64,9 +64,11 @@ a {
 	/* pallet */
 	--primary-green-500:#497951;
 	--primary-darkgreen-550:#406D48;
+	--primary-darkgreen-200: #D1DDD3;
 	--primary-lightgreen-500:#98C455;
 
 	--primary-purple-500:#6057DB;
+	--primary-purple-400:#AFA8E6;
 
 	--primary-red-500:#B73229;
 
@@ -116,11 +118,11 @@ a {
 		}
 		
 				
-		@container style(--mobile:0){
+		/* @container style(--mobile:0){
 			&:hover{
 				scrollbar-width:var(--scrollbar-width, none);
 			}
-		}
+		} */
 	
 	}
 	
@@ -143,7 +145,6 @@ a {
 		transition-behavior: allow-discrete;
 		scroll-behavior: smooth;
 		font-size-adjust: 0.5;
-
 	}
 
 }
