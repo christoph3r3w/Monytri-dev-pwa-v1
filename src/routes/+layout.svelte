@@ -306,16 +306,22 @@
 
 	/* media query for mobile view */
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	@media 
 	(-webkit-min-device-pixel-ratio: 3),
 	screen and (device-width < 900px) and (orientation: portrait) , 
 	screen and (device-height <= 900px) and (orientation: landscape)
 	{
 =======
+=======
+>>>>>>> Stashed changes
 	@media (-webkit-min-device-pixel-ratio: 3),
 		(pointer: coarse) and (hover: none) and (min-resolution: 400dpi),
 		screen and (device-width <= 900px) and (width <= 900px) and (orientation: portrait),
 		screen and (device-height <= 900px) and (height <= 900px) and (orientation: landscape) {
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 		:root{
 			--mobile: 1;
