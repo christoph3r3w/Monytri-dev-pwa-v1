@@ -136,7 +136,7 @@
 		position: relative;
 		display: flex;
 		background-color: var(--general-background-color);
-		/* width: clamp(100px, 45cqw, 100%); */
+		/* width: c2amp(100px, 45cqw, 100%); */
 		/* height: clamp(100px, 50cqw, 50cqw); */
 		max-width: 300px;
 		flex: 1 1 40cqw;

@@ -13,7 +13,7 @@
         if ($current === 'home') {
             // On homepage, activate search functionality
             console.log('Activating search');
-        } else if ($current === 'gift') {
+        } else if ($current === 'gift' || $current === 'gift-success') {
             history.back();
 		} else {
             history.back();
@@ -54,7 +54,7 @@
 
 {#snippet mobileHeadNav()}
 	<!-- goback and search button -->
-	 {#if $current === 'gift'}
+	 {#if $current === 'gift' || $current === 'gift-success'}
 	 <nav class="goBack">
 		<button onclick={iconTask}>
 			<svg width="9" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -169,9 +169,11 @@
 	}
 
 
-	@media (-webkit-min-device-pixel-ratio: 3),
-			screen and (device-width < 900px) and (orientation: portrait) , 
-			screen and (device-height <= 900px) and (orientation: landscape)
+	@media 
+			(-webkit-min-device-pixel-ratio: 3),
+			(-moz-min-device-pixel-ratio: 3),	
+			screen and (device-width < 900px) and (width <= 900px) and (orientation: portrait) , 
+			screen and (device-height <= 900px) and (height <= 900px) and  (orientation: landscape)
 			{
 		.header{
 			grid-column: content;

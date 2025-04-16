@@ -99,6 +99,7 @@
 		height: 100%;
 		gap: clamp(1rem, 4cqw, 1.2rem);
 		border-radius: clamp(5px, 11cqw, 10px);
+		padding-right: 2%;
 
 		overflow-y: auto;
 		overflow-x: clip;

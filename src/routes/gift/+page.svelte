@@ -10,7 +10,8 @@
 		CardDesign_D,
 		CardDesign_M,
 		GiftReview_D,
-		GiftReview_M
+		GiftReview_M,
+		Process_success_S
 	} from '$lib';
 	import { goto } from '$app/navigation';
 	import { fade } from 'svelte/transition';
@@ -23,12 +24,11 @@
 	// Form data structure
 	let formData = $state({
 		recipient: null,
-		amount: null,
 		cardDesign: 'default',
 		Purpose: null,
 		DeliveryDate: null,
 		PaymentMethod: null,
-		type: null,
+		amount: null,
 		message: '',
 		searchQuery: '',
 		errors: {},
@@ -45,7 +45,7 @@
 		2: false,
 		3: false,
 		4: false,
-		5: true // Review step is always valid
+		5: true, // Review step is always valid
 	});
 
 	// Use provided recipients or fallback to defaults
@@ -57,6 +57,8 @@
 		lastSent: '12 Aug 2024',
 		profilePic: '/path/to/profile1.jpg',
 		linkedCard: 'ambro-bro1',
+		amountMax: 100000,
+		amountMin: 10,
 		},
 		{
 		id: 2,
@@ -65,6 +67,8 @@
 		lastSent: '10 Aug 2024',
 		profilePic: '/path/to/profile2.jpg',
 		linkedCard: 'card-1234',
+		amountMax: 100000,
+		amountMin: 60,
 		},
 		{
 		id: 3,
@@ -73,6 +77,8 @@
 		lastSent: '15 Aug 2024',
 		profilePic: '/path/to/profile3.jpg',
 		linkedCard: null,
+		amountMax: 4000,
+		amountMin: 26,
 		},
 		{
 		id: 4,
@@ -81,6 +87,8 @@
 		lastSent: '12 Aug 2024',
 		profilePic: '/path/to/profile1.jpg',
 		linkedCard: 'ambro-bro2',
+		amountMax: 1000,
+		amountMin: 0,
 		},
 		{
 		id: 5,
@@ -89,6 +97,8 @@
 		lastSent: '10 Aug 2024',
 		profilePic: '/path/to/profile2.jpg',
 		linkedCard: 'card-4334',
+		amountMax: 50000,
+		amountMin: 10,
 		},
 		{
 		id: 6,
@@ -97,6 +107,8 @@
 		lastSent: '15 Aug 2024',
 		profilePic: '/path/to/profile3.jpg',
 		linkedCard: null,
+		amountMax: 10,
+		amountMin: 1,
 		}
 	]);
 	
@@ -112,7 +124,7 @@
 		}, 3000); // Clear error after 3 seconds
 	}
 
-	// Search functionality
+	// Search recipient functionality
 	function searchRecipients(query) {
 		formData.searchQuery = query;
 		return recipients.filter(recipient => 
@@ -120,7 +132,7 @@
 			recipient.email.toLowerCase().includes(query.toLowerCase())
 		);
 	}
-
+	
 	// Enhanced validation functions
 	function selectRecipient(recipient) {
 		if (!recipient) {
@@ -129,46 +141,52 @@
 		}
 		formData.recipient = recipient;
 		stepValidation[1] = true;
+		
 	}
 	
 	function nextStep() {
 		if (stepValidation[currentStep] && currentStep < totalSteps) {
-		currentStep++;
+			currentStep++;
 		}
 	}
 	
 	function previousStep() {
 		if (currentStep > 1) {
-		currentStep--;
+			currentStep--;
 		}
 	}
 	
 	function validateAmount(e) {
 		let finalAmount;
-
+		
 		if (e.target.type === 'radio') {
 			const customAmountInput = document.getElementById('amount');
-			if (customAmountInput && customAmountInput.value.trim() !== '') {
-				e.target.checked = false;
-				handleError(2, 'Please use either fixed amount or custom amount');
-				return;
+			if (customAmountInput) {
+			customAmountInput.value = ''; // Clear custom input when radio is selected
 			}
-
-			formData.type = e.target.id;
+			formData.amount = e.target.id;
 			finalAmount = parseFloat(e.target.value.replace('€', ''));
-		} else {
-			formData.type = 'amount';
+		} else if (e.target.type === 'number') {
+			const radioButtons = document.querySelectorAll('input[name="fixedAmount"]');
+			radioButtons.forEach((radio) => (radio.checked = false)); // Clear radio selections
+			formData.amount = 'amount';
 			finalAmount = parseFloat(e.target.value);
-
+		} else {
+			formData.amount = 'amount';
+			finalAmount = parseFloat(e.target.value);
+			
 			const radioButtons = document.querySelectorAll('input[name="fixedAmount"]');
 			radioButtons.forEach((radio) => (radio.checked = false));
 		}
-
-		if (finalAmount <= 0 || isNaN(finalAmount)) {
-			handleError(2, 'Please enter a valid amount');
+		
+		if (finalAmount < formData.recipient.amountMin  || isNaN(finalAmount) || finalAmount > formData.recipient.amountMax) {
+			handleError(2, 'Please enter an amount between €10 and €100');
+			finalAmount = 0;
+			stepValidation[2] = false;
+			formData.amount = null;
 			return;
 		}
-
+		
 		formData.amount = finalAmount;
 		stepValidation[2] = true;
 	}
@@ -180,7 +198,14 @@
 		}
 		stepValidation[3] = true;
 	}
-
+	//search pupose functionality
+	function searchPurpose(query) {
+		formData.searchQuery = query;
+		return formData.Purpose.filter(purpose => 
+			purpose.toLowerCase().includes(query.toLowerCase())
+		);
+	}
+	
 	function validateCardDesign() {
 		if (!formData.cardDesign || formData.cardDesign === 'default') {
 			handleError(4, 'Please select a card design');
@@ -244,7 +269,11 @@
 			
 			await new Promise(resolve => setTimeout(resolve, 2000));
 			alertDialog.remove();
-			await goto('/transactions');
+			// Store form data in localStorage before redirecting
+			// localStorage.setItem('giftFormData', JSON.stringify(formData));
+			localStorage.setItem('giftFormData', 'hi');
+				
+			await goto('/gift-success');
 
 		} catch (error) {
 			handleError(5, error.message);
@@ -261,7 +290,7 @@
 			formData.cardDesign = 'default';
 			formData.Purpose = null;
 			formData.DeliveryDate = null;
-			formData.type = null;
+			formData.amount = null;
 			formData.message = '';
 		};
 	});
@@ -338,15 +367,16 @@
 				selected={selectRecipient}
 				button={buttonType}
 			/>
-			<!-- <Purpose_D
-					{formData}
-					{validatePurpose}
-					button={buttonType}
-				/> -->
+			<!-- <Process_success_S
+				formData={formData}
+				button={buttonType}
+			/> -->
 		<!-- Step 2: Enter Amount -->
 		{:else if currentStep === 2}
 			<EnterAmount_D
 				{formData}
+				max={formData.recipient?.amountMax} 
+                min={formData.recipient?.amountMin}
 				{validateAmount}
 				{nextStep}
 				button={buttonType}
@@ -414,6 +444,8 @@
 				button={buttonType}
 			/>
 		{/if}
+		<!-- Step 6: Transfer Success -->
+
 	{:else}
 		<!-- Fallback content for unsupported devices -->
 		<div class="unsupported-device">
@@ -442,10 +474,6 @@
 		container-name: transfer-wizard;
 
 		/* outline: steelblue solid; */
-
-		@container style(--mobile:1) {
-			/* height: calc(100dvh - 4px - var(--footer-height) - var(--header-height)) !important; */
-		}
 	}
 	
 	.progress-bar {
@@ -454,19 +482,14 @@
 		grid-row: 1 / 2;
 		height: 4px ;
 		background-color: var(--general-background-color);
-		border-radius: 2px;
-		/* margin-bottom: 1.5rem; */
-
-		@container style(--mobile:1) {
-			margin-bottom: 3%;
-		}
+		border-radius: 5px;
 	}
 
 	.progress {
 		position: relative;
-		height: 100%;
+		height: 120%;
 		background-color: var(--primary-darkgreen-550);
-		border-radius: 2px;
+		border-radius: 5px;
 		transition: width 0.3s ease;
 	}
 
@@ -480,43 +503,33 @@
 		padding: 1rem;
 		height: 100%;
 		width: 100%;
+		background-color: var(--general-background-color);
+
 		
-		
-	& > p {
-		position: relative;
-		margin-bottom: 1.5rem;
-	}
-
-	& h3{
-		position: relative;
-		margin-bottom: 1%;
-		font-size: clamp(1rem,10vw ,1.3rem);
-	}
-
-	.search-container {
-		background-color: #f5f5f5;
-		margin-bottom: 4%;
-	}
-	
-	.search-input {
-		width: 100%;
-		padding: 0.75rem;
-		border: 1px solid #e0e0e0;
-		border-radius: 8px;
-		outline: springgreen solid !important;
-	}
-
-		/* outline: solid; */
-		/* background-color: var(--primary-orange-500); */
-
-		@container style(--mobile:1) {
-			display: flex;
-			flex-direction: column;
-			width: 100%;
-			gap: 0;
-			padding: 0 !important;
-			padding-inline: var(--body-padding) !important;
+		& > p {
+			position: relative;
+			margin-bottom: 1.5rem;
 		}
+
+		& h3{
+			position: relative;
+			margin-bottom: 1%;
+			font-size: clamp(1rem,10vw ,1.3rem);
+		}
+
+		.search-container {
+			background-color: #f5f5f5;
+			margin-bottom: 4%;
+		}
+		
+		.search-input {
+			width: 100%;
+			padding: 0.75rem;
+			border: 1px solid #e0e0e0;
+			border-radius: 8px;
+			/* outline: springgreen solid !important; */
+		}
+
 	}
 
 	:global(.left-step) {
@@ -541,7 +554,7 @@
 		width: 100%;
 		overflow: hidden;
 		padding-inline: 1%;
-		
+
 		/* outline:crimson solid; */
 	}
 	
@@ -614,7 +627,7 @@
 		display: flex;
 		flex-direction: column;
 		margin-bottom:10% ;
-		background-color: aqua;
+		/* background-color: aqua; */
 	}
 	
 	:is(.amount-input-container,.amount-number-input-container) input {
@@ -622,7 +635,7 @@
 		padding: 0.75rem;
 		border: 1px solid #e0e0e0;
 		border-radius: 4px;
-		background-color: yellowgreen;
+		/* background-color: yellowgreen; */
 	}
 
 	:global(.right-step .button-container)  {
@@ -688,12 +701,10 @@
 			position: relative;
 			width: 100%;
 			right: 0;
-			/* bottom: calc(var(--footer-height) * -1 - var(--body-padding)); */
 			bottom: auto;
 			align-items: end;
 		}
 	}
-	
 	
 	.continue-button.disabled {
 		background-color: #cccccc;
@@ -731,14 +742,14 @@
 	}
 
 	.submit-button {
-		flex: 0 1 50cqw !important;
+		/* flex: 0 1 50cqw !important; */
 	}
 
-	@media (width <= 900px) {
+	@media (width <= 930px) {
 		:global(.transfer-wizard) {
 			height: calc(100dvh - var(--footer-height));
 			max-height: calc(100dvh - var(--footer-height));
-			background-color: var(--white);
+			background-color: var(--white);	
 		}
 
 		:global(.left-step) {
@@ -754,8 +765,26 @@
 		:global(.step-container) {
 			grid-column: 1 / -1 !important;
 			grid-row: 2 / -1;
+			background-color: var(--white) !important;
 			/* outline: olivedrab solid; */
 		}
+	}
+
+	@media 
+		(-webkit-min-device-pixel-ratio: 3),
+		screen and (device-width < 900px) and (width <= 900px) and (orientation: portrait) , 
+		screen and (device-height <= 900px) and (height <= 900px) and  (orientation: landscape)
+	{
+
+				:global(.step-container) {
+					display: flex ;
+					flex-direction: column;
+					width: 100%;
+					gap: 0;
+					padding: 0 ;
+					padding-top: 3% ;
+					padding-inline: var(--body-padding) !important;
+				}
 	}
 
 </style>

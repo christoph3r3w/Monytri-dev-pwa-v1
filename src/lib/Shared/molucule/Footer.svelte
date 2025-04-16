@@ -262,8 +262,8 @@
 
 	
     @media (-webkit-min-device-pixel-ratio: 3),
-			screen and (device-width < 900px) and (orientation: portrait) , 
-			screen and (device-height <= 900px) and (orientation: landscape)
+			screen and (device-width < 900px) and (width <= 900px) and (orientation: portrait) , 
+			screen and (device-height <= 900px) and (height <= 900px) and  (orientation: landscape)
 			{
 			
         .footer-one,.footer-two{

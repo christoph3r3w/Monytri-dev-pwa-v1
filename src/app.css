@@ -64,6 +64,7 @@ a {
 	/* pallet */
 	--primary-green-500:#497951;
 	--primary-darkgreen-550:#406D48;
+	--primary-darkgreen-200: #D1DDD3;
 	--primary-lightgreen-500:#98C455;
 
 	--primary-purple-500:#6057DB;
@@ -144,7 +145,6 @@ a {
 		transition-behavior: allow-discrete;
 		scroll-behavior: smooth;
 		font-size-adjust: 0.5;
-
 	}
 
 }

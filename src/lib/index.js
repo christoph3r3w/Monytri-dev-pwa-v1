@@ -15,10 +15,11 @@ export {default as CardDesign_M} from './Gift-page/Mobile/CardDesign_m.svelte';
 export {default as GiftReview_M} from './Gift-page/Mobile/GiftReview_m.svelte';
 
 //Shared components
-export { default as Footer } from './Shared/molucule/Footer.svelte';
-export { default as Header } from './Shared/molucule/Header.svelte';
+export {default as Footer} from './Shared/molucule/Footer.svelte';
+export {default as Header} from './Shared/molucule/Header.svelte';
 export {default as Logo} from './Shared/atoms/logo.svelte';
 export {default as Menu} from './Shared/molucule/Menu.svelte';
+export {default as Process_success_S} from './Gift-page/Shared/Process-succuess-component.svelte';
 
 // test components
 export {default as PTest} from './test components/page test component.svelte'

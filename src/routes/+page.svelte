@@ -11,7 +11,7 @@
 
 <div class="home-wrapper">
 	<h1>
-		{$current}
+		welcome {$current}
 	</h1>
 	
 	<br>
@@ -28,19 +28,24 @@
 
 <style>
 	.home-wrapper{
-			grid-column: 1/-1;
-			grid-row: main;
+			grid-column: 1 / -1;
+			grid-row: 1 / span 1;
 			display: flex;
 			flex-direction: column;
 			/* grid-template-columns: subgrid; */
 			align-content: start;
 			width: 100%;
-			height: 100%;
+			/* height: 100%; */
+			min-height: calc(100cqh - var(--header-height));
+			max-height: calc(100dvh - var(--footer-height)) ;
+
+
+
 	}
 
 	h1 {
 		font-size: 3rem;
-		color: rgba(0, 174, 255, 0.463);
+		color: rgba(0, 174, 255, 0.514);
 		padding-bottom: 2%;
 	}
 	
