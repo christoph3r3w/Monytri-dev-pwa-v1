@@ -199,7 +199,7 @@
 		grid-template-areas: a;
 		place-content: center;
 		border-radius: 9px;
-		box-shadow: 0px 0px 23px -17px #dddddd;
+		box-shadow: 0px 0px 23px -15px #dddddd;
 		
 		background-color: var(--general-background-color);
 		background-position: center;
@@ -216,7 +216,7 @@
 	/* middle logo */
 	.simple-card h3{
 		position: relative;
-		font-size: 2.5rem;
+		font-size: min(10vw, 2.5rem);
 		font-weight: 600;
 
 	}
@@ -225,7 +225,7 @@
 	.simple-card p{
 		font-size: .9rem;
 		bottom: var(--_block-padding);
-		left: calc(var(--_inline-padding) - 2cqw);
+		left: calc(var(--_inline-padding) - 2cqb);
 		width: 15cqw ;
 	}
 
@@ -247,12 +247,11 @@
 		transition-property: translate;
 	}
 
-
 	/* logo name */
 	.message-input h4{
 		font-size: 1.2rem;
 		font-weight: 600;
-		left: calc(var(--_inline-padding) - 2cqw);
+		left: calc(var(--_inline-padding) - 2cqb);
 		top: calc(var(--_block-padding) - 1cqh);
 		width: fit-content;
 	}
@@ -262,8 +261,8 @@
 		font-size: 11.2px;
 		top: calc(var(--_block-padding) - 1cqh);
 		right: var(--_inline-padding);
-		width: fit-content ;
-		min-width: 15cqw ;
+		min-width: fit-content ;
+		/* min-width: 15cqw ; */
 	}
 
 	/* message input */
@@ -309,10 +308,10 @@
 	}
 
 
-	.card-option.selected:has(.message-input:focus-within) .message-input{
+	/* .card-option.selected:has(.message-input:focus-within) .message-input{
 		translate:0 -90%;
 		box-shadow: 0px 0px 23px -7px #dddddd;
 
-	}
+	} */
 
 </style>

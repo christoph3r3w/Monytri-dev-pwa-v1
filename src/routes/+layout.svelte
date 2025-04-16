@@ -136,16 +136,16 @@
 	});
 
 	// causes an issue when mobile view is active
-	onNavigate((navigation) => {
-        if(!document.startViewTransition){return};
+	// onNavigate((navigation) => {
+    //     if(!document.startViewTransition){return};
 
-        return new Promise((resolve) =>{
-            document.startViewTransition(async ()=>{
-                resolve();
-                await navigation.complete;
-            })
-        })
-    })
+    //     return new Promise((resolve) =>{
+    //         document.startViewTransition(async ()=>{
+    //             resolve();
+    //             await navigation.complete;
+    //         })
+    //     })
+    // })
 
 	afterNavigate(() => {
 		currentPage();
@@ -184,12 +184,16 @@
 <style >
 	:root{
 		/* property that controls the toggle od desktop and mobile */
-		--mobile:0;
+		--mobile: 0;
+		--safe-area-inset-top: env(safe-area-inset-top, 0px);
+		--safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+		--safe-area-inset-left: env(safe-area-inset-left, 0px);
+		--safe-area-inset-right: env(safe-area-inset-right, 0px);
 
 		/* and other styling properties */
 		--body-padding: 2%;
-		--header-height: 10dvh;
-		--footer-height: 91px;
+		--header-height: calc(10dvh + var(--safe-area-inset-top));
+		--footer-height: calc(81px + var(--safe-area-inset-bottom));
 
 		/* all the elements that will be animated */
 		will-change: transform, height, background-color, box-shadow, border-radius,position;
@@ -257,6 +261,8 @@
 		align-content: start;
 		overflow-x: hidden;
 		overflow-y: visible;
+		/* overscroll-behavior-x: contain;
+		overscroll-behavior-y: contain; */
 		
 		container-name: main;
 
@@ -301,14 +307,15 @@
 	}
 
 	/* media query for mobile view */
-	@media 
-	/* (-webkit-min-device-pixel-ratio: 3), */
-	screen and (device-width <= 900px) and (width <= 900px) and (orientation: portrait) , 
-	screen and (device-height <= 900px) and (height <= 900px) and (orientation: landscape)
-	{
+
+	@media (-webkit-min-device-pixel-ratio: 3),
+		(pointer: coarse) and (hover: none) and (min-resolution: 400dpi),
+		screen and (device-width <= 900px) and (width <= 900px) and (orientation: portrait),
+		screen and (device-height <= 900px) and (height <= 900px) and (orientation: landscape) {
+
 		:root{
-			--mobile:1;
-			--body-padding: 5%;
+			--mobile: 1;
+			--body-padding: max(5%, env(safe-area-inset-left), env(safe-area-inset-right));
 		}
 
 		:global(body){
@@ -321,44 +328,44 @@
 			/* the if ismobile is not on the layout should stay a grid but it sometimes becomes a flex layout  */
 			display: flex !important;
 			flex-direction: column;
-			min-height: revert ;
+			min-height: revert;
 			max-height: 100%;
 			overflow: hidden;
 		}
 
 		/* header styling for when the --mobile property is = 1 */
 		:global(header){
-				/* header styling for when the --mobile property is = 1 */
-				flex: 0 1 auto;
-				display: grid;
-				grid-template-columns: var(--grid--mobile-collums);
-				grid-template-rows: 1fr;
-				align-content: start;
-
-				will-change: transform, height, background-color, box-shadow, border-radius,position;
-
-				background-color: var(--primary-green-500);
-				height: clamp(50px, 100%, var(--header-height));
-				position: absolute;
-				top: 0;
-				inset-inline: 0;
-				transform: translate3d(0,0,0);
+			flex: 0 1 auto;
+			display: grid;
+			grid-template-columns: var(--grid--mobile-collums);
+			grid-template-rows: 1fr;
+			align-content: start;
+			will-change: transform, height, background-color, box-shadow, border-radius,position;
+			background-color: var(--primary-green-500);
+			height: clamp(50px, 100%, var(--header-height));
+			position: absolute;
+			top: 0;
+			inset-inline: 0;
+			transform: translate3d(0,0,0);
+			padding-top: env(safe-area-inset-top);
 		}
 				
 		/* main content layout styling for when the --mobile property is = 1 */
 		:global(main){
-				flex: 2 1 100svh;
-				display: grid;
-				grid-template-columns: var(--grid--mobile-collums) !important;
-				grid-auto-flow: row;
-				min-height: revert !important;
-				max-height: 100%;
-				overflow-y: scroll ;
-				padding-top: calc(var(--header-height) + 1px);
-				padding-bottom:1rem ;
-				margin-bottom: -1rem;
-				/* background-color: rgb(61, 112, 153); */
-
+			flex: 2 1 100svh;
+			display: grid;
+			grid-template-columns: var(--grid--mobile-collums) !important;
+			/* grid-auto-flow: row; */
+			/* min-height: revert !important; */
+			max-height: 100%;
+			overflow-y: scroll;
+			/* padding-bottom: calc(5rem + env(safe-area-inset-bottom)); */
+			padding-top: calc(var(--header-height) + 4px);
+			margin-bottom: -1rem;
+			/* background-color: rgb(61, 112, 153);
+			background-color: rgb(200, 224, 124);
+			background-color: rgb(224, 124, 224); */
+			
 			&.giftOn{
 				padding-top: 0 !important;
 			}
@@ -366,7 +373,12 @@
 			&:nth-child(n) > :is(:global(*)) {
 				grid-column: content ;
 				grid-row: revert;
-				height: 100%;
+				
+				min-height: 100% ;
+				max-height: fit-content;
+				height: fit-content;
+				/* padding-bottom: calc(var(--header-height) + env(safe-area-inset-bottom)); */
+				
 				display: grid;
 				grid-template-columns: subgrid;
 				grid-template-rows: auto;
@@ -391,16 +403,17 @@
 			flex: 0 1 auto;
 			background-color: var(--primary-green-500);
 			grid-template-columns: var(--grid--mobile-collums);
-			grid-template-rows: 1fr .3fr;
+			/* grid-template-rows: 1fr .3fr; */
 
 			position: relative;
 			bottom: -1px;
 			right: 0;
 			left: 0;
-			height:clamp(50px, 16dvh, 91px);
-			border-radius:var(--_nav-radius) var(--_nav-radius) 0 0;
+			width: 100dvw;
+			height: clamp(50px, 12.3dvh, var(--footer-height));
+			border-radius: var(--_nav-radius) var(--_nav-radius) 0 0;
 			transform: translate3d(0,0,0);
+			padding-bottom: env(safe-area-inset-bottom);
 		}
 	}
-
 </style>

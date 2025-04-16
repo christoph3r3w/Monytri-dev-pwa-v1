@@ -589,7 +589,6 @@
 			height: 100%;
 			width: 100%;
 			font-size: clamp(1rem,5cqw ,2.5rem);
-			/* padding-inline: 7cqw; */
 			text-wrap:nowrap; 
 			
 			@container style(--mobile:1) {
@@ -627,7 +626,6 @@
 		display: flex;
 		flex-direction: column;
 		margin-bottom:10% ;
-		/* background-color: aqua; */
 	}
 	
 	:is(.amount-input-container,.amount-number-input-container) input {
@@ -683,7 +681,6 @@
 	}
 
 	.continue-button, .submit-button,.skip-button {
-		/* position: absolute; */
 		position: relative;
 		bottom: var(--body-padding);
 		right:0;
@@ -741,14 +738,9 @@
 		}
 	}
 
-	.submit-button {
-		/* flex: 0 1 50cqw !important; */
-	}
-
 	@media (width <= 930px) {
 		:global(.transfer-wizard) {
 			height: calc(100dvh - var(--footer-height));
-			max-height: calc(100dvh - var(--footer-height));
 			background-color: var(--white);	
 		}
 
