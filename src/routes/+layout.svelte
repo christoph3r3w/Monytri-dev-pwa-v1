@@ -376,7 +376,7 @@
 				min-height: 100% ;
 				max-height: fit-content;
 				height: fit-content;
-				padding-bottom: calc(var(--header-height) + env(safe-area-inset-bottom));
+				/* padding-bottom: calc(var(--header-height) + env(safe-area-inset-bottom)); */
 				
 				display: grid;
 				grid-template-columns: subgrid;

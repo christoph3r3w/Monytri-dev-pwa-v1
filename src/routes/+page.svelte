@@ -34,8 +34,10 @@
 		align-content: start;
 		width: 100%;
 		/* height: 100%; */
-		min-height: calc(100cqh - var(--header-height));
-		max-height: calc(100dvh - var(--footer-height)) ;
+		min-height: calc(120cqh - var(--header-height));
+		max-height: calc(120dvh - var(--footer-height)) ;
+		padding-bottom: calc(var(--header-height) + env(safe-area-inset-bottom));
+
 	}
 
 	h1 {
