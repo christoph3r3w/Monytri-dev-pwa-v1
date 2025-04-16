@@ -364,6 +364,7 @@
 			margin-bottom: -1rem;
 			background-color: rgb(61, 112, 153);
 			background-color: rgb(200, 224, 124);
+			background-color: rgb(224, 124, 224);
 			
 			&.giftOn{
 				padding-top: 0 !important;
