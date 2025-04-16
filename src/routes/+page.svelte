@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { PTest } from '$lib'
 	import {current} from '$lib/store.js';
+	import { goto } from '$app/navigation';
 </script>
 
 <svelte:head>
@@ -15,13 +16,10 @@
 	</h1>
 	
 	<br>
-	<a href="/gift-kaan">gift-kaan</a>
-	<br>
-	<a href="/gift-illona">gift-illona</a>
-	<br>
-	<a href="/gift-illona2">gift-illona</a>
-	<br>
-	<a href="/gift-annelinde">gift-annelinde</a>
+	<div class="button-conatiner">
+		<button onclick={goto("/gift")}>send a gift</button>
+		<button onclick={goto("/request")} disabled>request a gift</button>
+	</div>
 	<br>
 	<PTest/>
 </div>
@@ -48,11 +46,28 @@
 		color: rgba(0, 174, 255, 0.514);
 		padding-bottom: 2%;
 	}
+
+	.button-conatiner{
+		display: flex;
+		flex-direction: column;
+		align-items: start;
+		gap: 2rem;
+		width: 100%;
+		height: 100%;
+	}
 	
-	a {
+	:is(a,button) {
 		font-size: 2rem;
 		color: green;
-		text-decoration: underline;
+		border: solid 2px ;
+		border-radius: 8px;
+		padding: 1rem 2rem;
+		/* text-decoration: underline; */
+
+		&:is(:hover,:focus-within,:active) {
+			background-color: var(--primary-purple-400);
+			color: white;
+		}
 	}
 
 </style>

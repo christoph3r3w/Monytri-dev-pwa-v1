@@ -193,7 +193,7 @@
 		/* and other styling properties */
 		--body-padding: 2%;
 		--header-height: calc(10dvh + var(--safe-area-inset-top));
-		--footer-height: calc(91px + var(--safe-area-inset-bottom));
+		--footer-height: calc(81px + var(--safe-area-inset-bottom));
 
 		/* all the elements that will be animated */
 		will-change: transform, height, background-color, box-shadow, border-radius,position;
@@ -261,8 +261,8 @@
 		align-content: start;
 		overflow-x: hidden;
 		overflow-y: visible;
-		overscroll-behavior-x: contain;
-		overscroll-behavior-y: contain;
+		/* overscroll-behavior-x: contain;
+		overscroll-behavior-y: contain; */
 		
 		container-name: main;
 
@@ -355,15 +355,16 @@
 			flex: 2 1 100svh;
 			display: grid;
 			grid-template-columns: var(--grid--mobile-collums) !important;
-			grid-auto-flow: row;
-			min-height: revert !important;
+			/* grid-auto-flow: row; */
+			/* min-height: revert !important; */
 			max-height: 100%;
-			overflow-y: auto ;
-			/* padding-bottom: calc(1rem + env(safe-area-inset-bottom)); */
-			padding-top: calc(var(--header-height) + var(--safe-area-inset-top));
+			overflow-y: scroll;
+			/* padding-bottom: calc(5rem + env(safe-area-inset-bottom)); */
+			padding-top: calc(var(--header-height) + 4px);
 			margin-bottom: -1rem;
 			background-color: rgb(61, 112, 153);
-
+			background-color: rgb(200, 224, 124);
+			
 			&.giftOn{
 				padding-top: 0 !important;
 			}
@@ -371,7 +372,12 @@
 			&:nth-child(n) > :is(:global(*)) {
 				grid-column: content ;
 				grid-row: revert;
-				height: 100%;
+				
+				min-height: 100% ;
+				max-height: fit-content;
+				height: fit-content;
+				padding-bottom: calc(var(--header-height) + env(safe-area-inset-bottom));
+				
 				display: grid;
 				grid-template-columns: subgrid;
 				grid-template-rows: auto;
@@ -402,7 +408,7 @@
 			bottom: -1px;
 			right: 0;
 			left: 0;
-			height: clamp(50px, 16dvh, calc(91px + env(safe-area-inset-bottom)));
+			height: clamp(50px, 16dvh, var(--footer-height));
 			border-radius: var(--_nav-radius) var(--_nav-radius) 0 0;
 			transform: translate3d(0,0,0);
 			padding-bottom: env(safe-area-inset-bottom);
