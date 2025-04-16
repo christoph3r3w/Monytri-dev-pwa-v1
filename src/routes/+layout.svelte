@@ -261,6 +261,8 @@
 		align-content: start;
 		overflow-x: hidden;
 		overflow-y: visible;
+		overscroll-behavior-x: contain;
+		overscroll-behavior-y: contain;
 		
 		container-name: main;
 
@@ -356,8 +358,8 @@
 			grid-auto-flow: row;
 			min-height: revert !important;
 			max-height: 100%;
-			overflow-y: scroll ;
-			padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+			overflow-y: auto ;
+			/* padding-bottom: calc(1rem + env(safe-area-inset-bottom)); */
 			padding-top: calc(var(--header-height) + var(--safe-area-inset-top));
 			margin-bottom: -1rem;
 			background-color: rgb(61, 112, 153);
