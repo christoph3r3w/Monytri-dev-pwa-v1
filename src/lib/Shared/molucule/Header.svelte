@@ -123,6 +123,7 @@
 		flex: 0 1 fit-content;
 	}
 
+	/* desktop navigation */
 	nav:nth-of-type(2){
 		flex: 1 1 fit-content ;
 		justify-content: end;

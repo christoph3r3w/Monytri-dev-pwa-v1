@@ -362,9 +362,9 @@
 			/* padding-bottom: calc(5rem + env(safe-area-inset-bottom)); */
 			padding-top: calc(var(--header-height) + 4px);
 			margin-bottom: -1rem;
-			background-color: rgb(61, 112, 153);
+			/* background-color: rgb(61, 112, 153);
 			background-color: rgb(200, 224, 124);
-			background-color: rgb(224, 124, 224);
+			background-color: rgb(224, 124, 224); */
 			
 			&.giftOn{
 				padding-top: 0 !important;
@@ -403,13 +403,14 @@
 			flex: 0 1 auto;
 			background-color: var(--primary-green-500);
 			grid-template-columns: var(--grid--mobile-collums);
-			grid-template-rows: 1fr .3fr;
+			/* grid-template-rows: 1fr .3fr; */
 
 			position: relative;
 			bottom: -1px;
 			right: 0;
 			left: 0;
-			height: clamp(50px, 16dvh, var(--footer-height));
+			width: 100dvw;
+			height: clamp(50px, 11dvh, var(--footer-height));
 			border-radius: var(--_nav-radius) var(--_nav-radius) 0 0;
 			transform: translate3d(0,0,0);
 			padding-bottom: env(safe-area-inset-bottom);

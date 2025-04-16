@@ -17,17 +17,17 @@
 </script>
 
 {#snippet about()}
-    <h3>about us</h3>
-    <li><a href="/">mission</a></li>
-    <li><a href="/">Team</a></li>
-    <li><a href="/">Newsletter</a></li>
+    <h2>about us</h2>
+    <span class="links"><a href="/">mission</a></span>
+    <span class="links"><a href="/">Team</a></span>
+    <span class="links"><a href="/">Newsletter</a></span>
 {/snippet}
 
 {#snippet social()}
-    <h3>social</h3>
-    <li><a href="https://www.instagram.com/monytri.fintech/">Instagram</a></li>
-    <li><a href="https://www.linkedin.com/company/monytri/">linkedin</a></li>
-    <li><a href="https://www.youtube.com/watch?v=gWXvQtw05QI&t=210s">Youtube</a></li>
+	<h2>social</h2>
+    <span class="links"><a href="https://www.instagram.com/monytri.fintech/">Instagram</a></span>
+    <span class="links"><a href="https://www.linkedin.com/company/monytri/">linkedin</a></span>
+    <span class="links"><a href="https://www.youtube.com/watch?v=gWXvQtw05QI&t=210s">Youtube</a></span>
 {/snippet}
 
 {#snippet legal()}
@@ -49,12 +49,12 @@
         <Logo/>
     </section>
     <nav>
-        <ul>
+        <section class="footer-link-list">
             {@render about()}
-        </ul>
-        <ul>
+        </section>
+        <section class="footer-link-list">
             {@render social()}
-        </ul>
+        </section>
     </nav>
 </div>
 
@@ -167,7 +167,7 @@
 		}
 	}
 
-	.footer-one nav ul{
+	.footer-one nav section{
 		display: flex;
 		flex-direction: column;
 		height: 100%;
@@ -175,7 +175,7 @@
 		gap: 1rem;
 		text-transform: capitalize;
 
-		li{
+		.links{
 			display: inline;
 			height: fit-content;
 			width: 100%;
@@ -185,10 +185,12 @@
 			font-size: 12px;
 		}
 
-		h3{
+		h2{
 			font-weight: 500;
 			font-size: 1rem;
 			line-height: 190%;
+			text-wrap-mode: nowrap;
+			width: 100%;
 		}
 	}
 
@@ -297,32 +299,31 @@
 			align-items: safe center;
 			width: 100%;
 			height: auto;
-			gap: clamp(10px,10cqw);
 			gap: clamp(10px, 10cqw, 100px);
 		}
 
 		.mobile-nav ul li{
-				position: relative;
-				padding: 1cqh;
-				width: fit-content;
+			position: relative;
+			padding: 1cqh;
+			width: fit-content;
 		}
 			
 		.mobile-nav ul li:is(:hover,:focus-within,:visited),
 		.mobile-nav ul li:has(:is(a,button).active){
-				background-color: var(--off-white);
-				border-radius: 6px;
-				
-				svg path {
-					fill: var(--primary-green-500);
-				}
+			background-color: var(--off-white);
+			border-radius: 6px;
+			
+			svg path {
+				fill: var(--primary-green-500);
+			}
 		}
 
 		.mobile-nav li:nth-of-type(1):is(:hover,:focus-within,:visited) svg path,
 		.mobile-nav ul li:nth-of-type(1):has(:is(a,button).active) svg path{
-				fill:none !important;
-				/* test */
-				/* fill: var(--primary-orange-500); */
-				stroke:var(--primary-green-500) ;
+			fill:none !important;
+			/* test */
+			/* fill: var(--primary-orange-500); */
+			stroke:var(--primary-green-500) ;
 		}
 			
 		/* selector does not work when i use 'a' instead i need to use :nht-child */
