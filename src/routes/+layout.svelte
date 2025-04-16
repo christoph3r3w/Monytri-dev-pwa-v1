@@ -410,7 +410,7 @@
 			right: 0;
 			left: 0;
 			width: 100dvw;
-			height: clamp(50px, 11dvh, var(--footer-height));
+			height: clamp(50px, 14dvh, var(--footer-height));
 			border-radius: var(--_nav-radius) var(--_nav-radius) 0 0;
 			transform: translate3d(0,0,0);
 			padding-bottom: env(safe-area-inset-bottom);
