@@ -309,10 +309,10 @@
 	}
 
 
-	.card-option.selected:has(.message-input:focus-within) .message-input{
+	/* .card-option.selected:has(.message-input:focus-within) .message-input{
 		translate:0 -90%;
 		box-shadow: 0px 0px 23px -7px #dddddd;
 
-	}
+	} */
 
 </style>
