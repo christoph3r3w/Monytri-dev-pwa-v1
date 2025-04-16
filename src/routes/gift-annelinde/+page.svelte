@@ -1,11 +1,11 @@
 <script>
-	let selectedMethod = "Linked Credit/Debit Card";
+	let selectedMethod = $state(true);
 	let methods = ["Linked Credit/Debit Card", "iDEAL", "EFT Payment"];
 
-	export let recipient = "James May";
-	export let amount = "€50";
-	export let deliveryDate = "23 Aug 2024";
-	export let occasion = "Birthday";
+	let recipient = "James May";
+	let amount = "€50";
+	let deliveryDate = "23 Aug 2024";
+	let occasion = "Birthday";
 </script>
 
 <section class="page">

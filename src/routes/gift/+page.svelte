@@ -742,14 +742,14 @@
 	}
 
 	.submit-button {
-		flex: 0 1 50cqw !important;
+		/* flex: 0 1 50cqw !important; */
 	}
 
 	@media (width <= 930px) {
 		:global(.transfer-wizard) {
 			height: calc(100dvh - var(--footer-height));
 			max-height: calc(100dvh - var(--footer-height));
-			background-color: var(--white);
+			background-color: var(--white);	
 		}
 
 		:global(.left-step) {
@@ -765,6 +765,7 @@
 		:global(.step-container) {
 			grid-column: 1 / -1 !important;
 			grid-row: 2 / -1;
+			background-color: var(--white) !important;
 			/* outline: olivedrab solid; */
 		}
 	}

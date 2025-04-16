@@ -1,6 +1,13 @@
 <script>
 	import { fade } from 'svelte/transition';
 	let { formData, validatePayment,button } = $props();
+	let selectedMethod = $state('');
+	let methods = $derived({
+		"Linked Credit/Debit Card": "Card ending in **** **** 1234",
+		"iDEAL": "Select your bank",
+		"EFT Payment": "Select your bank"
+	});
+	let selectedBank = $state('');
 </script>
 <section class="step-container" >
 	<div class="left-step"  >
@@ -9,32 +16,41 @@
 			<h2>Select a payment method</h2>
 		</section>
 		<section class="amount-input-container payment-input-container">
-			{#if formData.recipient.linkedCard !== null }
-			<label for='paymentMethod1'><input type="radio" id='paymentMethod1' name="paymentMethod" onclick={() =>{
-				formData.PaymentMethod = formData.recipient.linkedCard;
+			{#each Object.entries(methods) as [method, info], i}
+			<label for='paymentMethod{i}'>
+				<input type="radio" id='paymentMethod{i}' name="paymentMethod" 
+				bind:group={selectedMethod}
+				onclick={() =>{
+				formData.PaymentMethod = `${method}${selectedBank}`;
 				validatePayment
-				}} value="paymentMethod1">
-				Linked Credit/Debit Card
+				}} value="paymentMethod{i}{method}{selectedBank}">
+				{method} 
 			</label>
+			{#if selectedMethod === `paymentMethod${i}${method}`}
+				<p class="payment-info">{info}</p>
+				{#if method === "iDEAL"}
+					<select class="payment-info" bind:value={selectedBank}>
+						<option value="iDEAL-bank1">Bank 1</option>
+						<option value="iDEAL-bank2">Bank 2</option>
+						<option value="iDEAL-bank3">Bank 3</option>
+					</select>
+				{:else if method === "EFT Payment" }
+					<select class="payment-info" bind:value={selectedBank}>
+						<option value="bank1">Bank 1</option>
+						<option value="bank2">Bank 2</option>
+						<option value="bank3">Bank 3</option>
+					</select>
+				{/if}
 			{/if}
-			<label for='paymentMethod2'><input type="radio" id='paymentMethod2' name="paymentMethod" onclick={() =>{
-				formData.PaymentMethod = 'iDEAL';
-				validatePayment
-				}} value="paymentMethod2">
-				iDEAL 
-			</label>
-			<label for='paymentMethod3'><input type="radio" id='paymentMethod3' name="paymentMethod" onclick={() =>{
-				formData.PaymentMethod = 'EFT';
-				validatePayment
-				}} value="paymentMethod3">
-				EFT Payment
-			</label>
+			{/each}
+
 		</section>
 	</div>
 
 	<div class="right-step"  transition:fade>
-		<article class="review-summary">
-			<h3>Please confirm your payment</h3>
+		<article class="review-summary payment-confirmation">
+			<h2>Please confirm your payment</h2>
+			<hr />
 			
 			<p class="review-item">
 				<span class="review-label">Recipient:</span>
@@ -52,7 +68,7 @@
 			</p>
 			
 			{#if formData.message}
-			<p class="review-item">
+			<p class="review-item message">
 				<span class="review-label">Message:</span>
 				<span class="review-value">{formData.message}</span>
 			</p>
@@ -74,6 +90,18 @@
 </section>
 
 <style>
+
+	.step-header {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		margin-bottom: 2rem;
+	}
+
+	.step-header h2 {
+		font-size: clamp(1rem,4vw,2.5rem);
+		margin-right: 15rem;
+	}
 
 	.right-step{
 		flex: 1 1 100%;
@@ -103,51 +131,55 @@
 		display: flex;
 		flex-direction: column;
 		background-color: var(--white);
-		border-radius: 4px;
-		padding: 1rem;
-		margin-bottom: 1rem;
-		width: 34cqw;
+		border-radius: 10px;
+		padding: 40px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		width: 100%;
 		
 		@container style(--mobile:1) {
 			place-self: center;
+			width: 100%;
 		}
 
-		h3{
-			text-align: center ;
-			border-bottom: solid 3px;
-			font-size: clamp(1rem,3vw,2rem);
-			margin-bottom: .5rem;
+		h2 {
+			text-align: start;
+			font-size: clamp(1rem,3vw,1.5rem);
+			margin-bottom: 10px;
 		}
 		
-		.review-item {
-			display: flex;
-			gap:1rem;
-			margin-bottom: 0.5rem;
-			width: 100%;
-			justify-content: space-between;
-			padding-right: 3%;
+		hr {
+			margin-bottom: 15px;
+			height: 1px;
+			background-color: #1e1e1e;
 		}
 
-		span{
+		.review-item {
+			display: flex;
+			gap: 1rem;
+			/* margin: 15px 0; */
+			margin-top: 3%;
+			width: 100%;
+			padding-right: 3%;
+			font-size:clamp(1rem,2vw,1.2rem);
+		}
+
+		.message .review-value {
+			outline: solid 1px #1e1e1e;
+			width: 100%;
+			text-wrap:pretty ;
+		}
+
+		span {
 			position: relative;
 			width: 100%;
 		}
 		
 		.review-label {
 			font-weight: 500;
-			/* flex: 0 1 50%; */
 			text-wrap: nowrap;
 		}
-
-		.review-value{
-			/* flex: 1 0 auto; */
-		}
-
-		@container style(--mobile:1) {
-			width: 100%;
-		}
-
 	}
+
 
 	.button-container {
 		display: flex;
