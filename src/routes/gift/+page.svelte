@@ -538,7 +538,7 @@
 		overflow: clip;
 		overflow-x: visible;
 		flex-wrap: wrap;
-		padding-block: 1rem;
+		padding-block: 3rem;
 		padding-inline: 3rem;
 	}
 
@@ -552,9 +552,10 @@
 	:global(label:has([type="search"])) {
 		position: relative;
 		display: flex;
-		align-self: center;
+		/* align-self: center; */
 		justify-self: center;
 		width: 100%;
+		/* max-width: 500px; */
 		height: fit-content;
 
 		& .search-icon{
@@ -603,6 +604,7 @@
 		width: 100%;
 		overflow: hidden;
 		padding-inline: 1%;
+		padding-top: 3rem;
 	}
 	
 	
@@ -686,24 +688,32 @@
 		display: flex;
 		width: 100%;
 
+		button{
+			/* padding-inline: ; */
+		}
+
 		& .continue-button{
 			flex: 0 1 50%;
+			min-width: 50%;
 			height: fit-content;
 		}
 
 		& .skip-button{
 			flex: 0 1 20%;
+			width: 100%;
 			height: fit-content;
 		}
 
 		& .submit-button{
-			flex: 1 1 100%;
+			flex: 0 1 60%;
+			min-width: 50%;
 			height: fit-content;
 		}
 	}
 
 	
 	:global(div.button-container) {
+		/* flex: 1 1 1%; */
 		position: relative;
 		grid-column: 1/-1;
 		display: flex;
@@ -711,6 +721,7 @@
 		width: 100%;
 		height: fit-content;
 		margin-bottom:5%;
+		margin-top: 3rem;
 		
 		container-type: inline-size;
 		
@@ -792,6 +803,7 @@
 		:global(.left-step) {
 			grid-column: 1 / -1 !important;
 			grid-row: 1 / span 1;
+			padding: 0 !important;
 			/* outline: red solid; */
 		}
 
@@ -804,12 +816,11 @@
 		:global(.right-step) {
 			grid-column: 1 / -1 !important;
 			grid-row: 2 / span 1;
-			/* outline: orange solid; */
+			padding: 0 !important;
 		}
 		:global(.step-container) {
 			grid-column: 1 / -1 !important;
 			grid-row: 2 / -1;
-			/* outline: olivedrab solid; */
 		}
 	}
 	

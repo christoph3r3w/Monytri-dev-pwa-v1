@@ -90,31 +90,32 @@
 	}
 	/* main container */
 	.card-designs-container {
-		flex: 1 2 90cqh;
+		flex: 1 2 90%;
 		/* max-width: 900px; */
 		height: 100%;
 		position: relative;
 		padding-inline: 1rem;
 		display: flex;
-		align-items: center;
-		justify-content: center;
+		align-items: end;
+		justify-content: end;
+		outline: solid red;
 	}
 
 	@media (max-width: 930px), (max-height: 600px) {
 		.card-designs-container {
-			flex: 1 1 80cqh;
+			flex: 1 1 80%;
 			height: clamp(60%,85vh,89%) ;
 		}
 	}
 
 	/* check boxes */
 	.option-select{
-		flex: 0 1 10%;
+		flex: 0 1 5%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		gap: 3%;
-		margin-block: clamp(0px,2vh,2%);
+		/* padding-block: clamp(0px,2vh,2%); */
 		/* background-color: yellowgreen; */
 	}
 
@@ -143,7 +144,6 @@
 		width: 110%;
 		max-width: 55rem;
 		height: 100%;
-		padding: 1rem;
 		overflow-x: scroll;
 		overflow-y: hidden;
 		scroll-snap-type: x mandatory;

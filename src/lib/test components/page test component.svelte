@@ -17,6 +17,7 @@ h1{
 
 p{
 	background-color: rgba(255, 255, 0, 0.399);
+	max-width: 100ch;
 }
 	
 </style>

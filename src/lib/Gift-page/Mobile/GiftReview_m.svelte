@@ -157,6 +157,7 @@
 			place-self: baseline;
 			width: 100%;
 			/* margin-block: 3vh; */
+			overflow-y: auto;
 		}
 	}
 	

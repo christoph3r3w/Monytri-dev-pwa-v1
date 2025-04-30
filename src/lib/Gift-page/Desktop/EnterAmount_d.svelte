@@ -67,15 +67,17 @@
 	}
 
 	form .amount-input-container:nth-of-type(1){
-		flex: 1 1 60%;
+		flex: 1 1 63%;
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		max-width: 45rem;
-		gap: clamp(1vw,1.2rem,10cqh);
+		max-width: 65rem;
+		width: 100%;
+		gap: clamp(1vw,1.6rem,10cqh);
 		padding-top: 8dvh;
-		align-items: center;
+		/* align-items: center; */
 		justify-content: center;
+		align-self: center;
 	}
 
 	form .amount-input-container:nth-of-type(1) label {
@@ -98,7 +100,7 @@
 		transition: background-color 0.2s ease, border-color 0.2s ease;
 	}
 	
-	form .amount-input-container:nth-of-type(1) label:is(:hover, :focus-within,:checked) {
+	form .amount-input-container:nth-of-type(1) label:is(:hover, :focus-within,:has(:checked)) {
 		position: relative;
 		background-color: var(--primary-darkgreen-550);
 		color: white;

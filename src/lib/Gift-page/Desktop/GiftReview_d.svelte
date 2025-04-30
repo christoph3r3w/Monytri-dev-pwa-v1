@@ -102,7 +102,33 @@
 		font-size: clamp(1rem,4vw,2.5rem);
 		margin-right: 15rem;
 	}
+	
+	.payment-input-container{
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		padding-block: 3%;
+		padding-inline: 0 20%;
+	}
+	
+	.payment-input-container label {
+		font-size: clamp(1rem,2vw,1.3rem);
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+	}
+	
+	.payment-input-container input[type="radio"] {
+		height: 100%;
+		aspect-ratio: 1;
+	}
 
+	.payment-input-container p {
+		margin-bottom: 1%;
+		font-size: clamp(1rem,2vw,1.2rem);
+		color: var(--primary-green-500);
+	}
+	
 	.right-step{
 		flex: 1 1 100%;
 		display: flex;
@@ -111,20 +137,6 @@
 		gap: 1rem;
 	}
 
-	.payment-input-container{
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-		padding: 3%;
-		margin-bottom: 10%;
-	}
-
-	.payment-input-container label {
-		display: flex;
-		align-items: start;
-		gap: 1rem;
-	}
-	
 	.review-summary {
 		align-self: baseline;
 		place-self: center;
@@ -135,6 +147,9 @@
 		padding: 40px;
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 		width: 100%;
+		height: auto;
+		max-height: max(30dvh,fit-content);
+		max-width: 700px;
 		
 		@container style(--mobile:1) {
 			place-self: center;
