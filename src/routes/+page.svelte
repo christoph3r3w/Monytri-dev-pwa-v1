@@ -19,6 +19,7 @@
 	<div class="button-conatiner">
 		<button onclick={goto("/gift")}>send a gift</button>
 		<button onclick={goto("/request")} disabled>request a gift</button>
+		<a href="https://github.com/christoph3r3w/Monytri-dev-pwa-v1/issues/new">Send a feedback or issue </a>
 	</div>
 	<br>
 	<PTest/>
