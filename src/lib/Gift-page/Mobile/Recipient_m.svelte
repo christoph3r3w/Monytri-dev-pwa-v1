@@ -38,9 +38,11 @@
 						class="search-input"
 						bind:value={formData.searchQuery}
 						/>
-						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" class="search-icon">
-							<path fill="#A0A0A0" d="m29.295 27.705-5.762-5.761a13.058 13.058 0 0 0 3.092-8.444C26.625 6.263 20.738.375 13.5.375 6.263.375.375 6.263.375 13.5c0 7.238 5.888 13.125 13.125 13.125 3.215 0 6.159-1.166 8.444-3.091l5.761 5.761a1.122 1.122 0 0 0 1.59 0c.44-.438.44-1.15 0-1.59ZM2.625 13.5c0-5.997 4.878-10.875 10.875-10.875S24.375 7.503 24.375 13.5 19.497 24.375 13.5 24.375 2.625 19.497 2.625 13.5Z"/>
-						</svg>
+						{#if formData.searchQuery.length < 1}
+							<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" class="search-icon">
+								<path fill="#A0A0A0" d="M29.295 27.705l-5.762-5.761a13.058 13.058 0 0 0 3.092-8.444C26.625 6.263 20.738.375 13.5.375c-7.238 0-13.125 5.888-13.125 13.125s5.888 13.125 13.125 13.125c3.215 0 6.159-1.166 8.444-3.091l5.761 5.761a1.122 1.122 0 0 0 1.59 0c.44-.438.44-1.15 0-1.59ZM2.625 13.5c0-5.997 4.878-10.875 10.875-10.875S24.375 7.503 24.375 13.5s-4.878 10.875-10.875 10.875S2.625 19.497 2.625 13.5Z"/>
+							</svg>
+						{/if}
 					</label>
 					<h3 class="section-title">Most Recent</h3>
 					<ul class="recipients-list">
@@ -102,7 +104,6 @@
 			justify-content: space-between;
 			align-items: center;
 			padding: clamp(1%,1.5vw,5%);
-			border-bottom: 1px solid #e0e0e0;
 			border-radius: 10px;
 			cursor: pointer;
 		}

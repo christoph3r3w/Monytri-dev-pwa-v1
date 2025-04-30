@@ -15,9 +15,15 @@
 		{id: 8,name: 'New Family Member',value: 'New Family Member',img:'./purpose-assets/image 18 (Traced)pregnant.png'},
 	])
 
+	let searchPurpose = $derived(formData.searchQuery 
+		? PurposeList.filter(purpose => 
+			purpose.name.toLowerCase().includes(formData.searchQuery.toLowerCase())
+		)
+		: PurposeList
+	);
 	
 	onMount(() => {
-		formData.value = '';
+		formData.Purpose = '';
 	});
 
 
@@ -37,8 +43,8 @@
 			<input 
 			type="search" 
 			placeholder="Search purpose" 
-			aria-label="Search Purpose"
 			class="search-input"
+			bind:value={formData.searchQuery}
 			/>
 			
 			<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" class="search-icon">
@@ -49,7 +55,7 @@
 
 	<article class="purpose-selction">
 		<ul class="purpose-options">
-			{#each PurposeList as purpose}
+			{#each searchPurpose as purpose}
 			<li class="purpose-option" >
 				<input 
 					type="radio" 
