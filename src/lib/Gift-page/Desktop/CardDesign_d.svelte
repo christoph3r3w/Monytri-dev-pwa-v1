@@ -21,9 +21,9 @@
 			{@render button('back')}
 			<div class="step-header-text">
 				<h2>Select a gift card</h2>
-				<p>Choose a card and write a message </p>
 			</div>
 		</section>
+		<p>Choose a card and write a message </p>
 	</div>
 
 	<div class="right-step"  transition:fade>

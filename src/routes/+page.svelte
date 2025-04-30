@@ -12,7 +12,7 @@
 
 <div class="home-wrapper">
 	<h1>
-		welcome {$current}
+		{$current}
 	</h1>
 	
 	<br>

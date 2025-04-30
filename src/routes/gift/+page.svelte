@@ -55,37 +55,37 @@
 		name: 'James May',
 		email: 'jamesmay123@gmail.com',
 		lastSent: '12 Aug 2024',
-		profilePic: '/path/to/profile1.jpg',
+		profilePic: './generic.png',
 		linkedCard: 'ambro-bro1',
 		amountMax: 100000,
-		amountMin: 10,
+		amountMin: 0,
 		},
 		{
 		id: 2,
 		name: 'Richard Hammond',
 		email: 'richardhammond@gmail.com',
 		lastSent: '10 Aug 2024',
-		profilePic: '/path/to/profile2.jpg',
+		profilePic: '/generic 2.png',
 		linkedCard: 'card-1234',
 		amountMax: 100000,
-		amountMin: 60,
+		amountMin: 0,
 		},
 		{
 		id: 3,
 		name: 'Jeremy Clarkson',
 		email: 'jeremyclarkson@gmail.com',
 		lastSent: '15 Aug 2024',
-		profilePic: '/path/to/profile3.jpg',
+		profilePic: '',
 		linkedCard: null,
 		amountMax: 4000,
-		amountMin: 26,
+		amountMin: 0,
 		},
 		{
 		id: 4,
-		name: 'James May',
+		name: 'James June',
 		email: 'jamesmay123@gmail.com',
 		lastSent: '12 Aug 2024',
-		profilePic: '/path/to/profile1.jpg',
+		profilePic: '/generic.png',
 		linkedCard: 'ambro-bro2',
 		amountMax: 1000,
 		amountMin: 0,
@@ -95,20 +95,20 @@
 		name: 'Richard Hammond',
 		email: 'richardhammond@gmail.com',
 		lastSent: '10 Aug 2024',
-		profilePic: '/path/to/profile2.jpg',
+		profilePic: '',
 		linkedCard: 'card-4334',
 		amountMax: 50000,
-		amountMin: 10,
+		amountMin: 0,
 		},
 		{
 		id: 6,
 		name: 'Jeremy Clarkson',
 		email: 'jeremyclarkson@gmail.com',
 		lastSent: '15 Aug 2024',
-		profilePic: '/path/to/profile3.jpg',
+		profilePic: '/generic 2.png',
 		linkedCard: null,
 		amountMax: 10,
-		amountMin: 1,
+		amountMin: 0,
 		}
 	]);
 	
@@ -233,42 +233,42 @@
 			}
 
 			// Show success alert and redirect
-			const alertContent = `
-				<div style="
-					background-color: #f5f5f5;
-					padding: 20px;
-					border-radius: 8px;
-					border: 2px solid #4B7A5B;
-					font-family: sans-serif;
-				">
-					<h3 style="color: #4B7A5B; margin: 0 0 15px 0;">Transfer Completed</h3>
-					<div style="display: grid; gap: 10px;">
-						<div><span style="color: #666;">Recipient:</span> ${formData.recipient.name}</div>
-						<div><span style="color: #666;">Amount:</span> €${formData.amount}</div>
-						<div><span style="color: #666;">Purpose:</span> ${formData.Purpose}</div>
-						<div><span style="color: #666;">Card Design:</span> ${formData.cardDesign}</div>
-						<div><span style="color: #666;">Message:</span> ${formData.message || 'None'}</div>
-						<div><span style="color: #666;">Payment:</span> ${formData.PaymentMethod}</div>
-					</div>
-				</div>
-			`;
+			// const alertContent = `
+			// 	<div style="
+			// 		background-color: #f5f5f5;
+			// 		padding: 20px;
+			// 		border-radius: 8px;
+			// 		border: 2px solid #4B7A5B;
+			// 		font-family: sans-serif;
+			// 	">
+			// 		<h3 style="color: #4B7A5B; margin: 0 0 15px 0;">Transfer Completed</h3>
+			// 		<div style="display: grid; gap: 10px;">
+			// 			<div><span style="color: #666;">Recipient:</span> ${formData.recipient.name}</div>
+			// 			<div><span style="color: #666;">Amount:</span> €${formData.amount}</div>
+			// 			<div><span style="color: #666;">Purpose:</span> ${formData.Purpose}</div>
+			// 			<div><span style="color: #666;">Card Design:</span> ${formData.cardDesign}</div>
+			// 			<div><span style="color: #666;">Message:</span> ${formData.message || 'None'}</div>
+			// 			<div><span style="color: #666;">Payment:</span> ${formData.PaymentMethod}</div>
+			// 		</div>
+			// 	</div>
+			// `;
 
-			const alertDialog = document.createElement('div');
-			alertDialog.innerHTML = alertContent;
-			alertDialog.style.cssText = `
-				position: fixed;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				z-index: 1000;
-				box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-			`;
+			// const alertDialog = document.createElement('div');
+			// alertDialog.innerHTML = alertContent;
+			// alertDialog.style.cssText = `
+			// 	position: fixed;
+			// 	top: 50%;
+			// 	left: 50%;
+			// 	transform: translate(-50%, -50%);
+			// 	z-index: 1000;
+			// 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			// `;
 
 			currentProgress = 100;
-			document.body.appendChild(alertDialog);
+			// document.body.appendChild(alertDialog);
 			
-			await new Promise(resolve => setTimeout(resolve, 2000));
-			alertDialog.remove();
+			await new Promise(resolve => setTimeout(resolve, 1000));
+			// alertDialog.remove();
 			// Store form data in localStorage before redirecting
 			// localStorage.setItem('giftFormData', JSON.stringify(formData));
 			localStorage.setItem('giftFormData', 'hi');
@@ -367,10 +367,6 @@
 				selected={selectRecipient}
 				button={buttonType}
 			/>
-			<!-- <Process_success_S
-				formData={formData}
-				button={buttonType}
-			/> -->
 		<!-- Step 2: Enter Amount -->
 		{:else if currentStep === 2}
 			<EnterAmount_D
@@ -505,12 +501,6 @@
 		width: 100%;
 		background-color: var(--general-background-color);
 
-		
-		& > p {
-			position: relative;
-			margin-bottom: 1.5rem;
-		}
-
 		& h3{
 			position: relative;
 			margin-bottom: 1%;
@@ -518,8 +508,13 @@
 		}
 
 		.search-container {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
 			background-color: #f5f5f5;
+			padding-block: 1rem;
 			margin-bottom: 4%;
+			gap: 1cqh;
 		}
 		
 		.search-input {
@@ -540,12 +535,66 @@
 		flex-direction: column;
 		height: 100%;
 		width: 100%;
-		overflow: hidden;
+		overflow: clip;
+		overflow-x: visible;
 		flex-wrap: wrap;
+		padding-block: 1rem;
+		padding-inline: 3rem;
+	}
+
+	:global(.left-step p)  {
+		font-size: clamp(1rem,3vw,1.9rem);
+		font-weight: 300;
+		max-width: 50ch;
+		margin-bottom: 1.813rem;
+	}
+
+	:global(label:has([type="search"])) {
+		position: relative;
+		display: flex;
+		align-self: center;
+		justify-self: center;
+		width: 100%;
+		height: fit-content;
+
+		& .search-icon{
+			top: 0.6rem;
+			left: 1rem;
+			position: absolute;
+			scale: 0.85;
+		}
+			
+		&:focus-within .search-icon {
+			display: none;
+		}
+	}
+
+
+	:global(input[type="search"]) {
+		border: none;
+		background-color: var(--white);
+		width: 100%;
+		font-size: clamp(1rem,1.1rem,2.5rem);
+		padding: 1.5rem;
+		padding-block: 1rem;
+		border-radius: 6rem;
+		transition: 0.8s ease;
+		
+		&:focus,:focus-within {
+			outline: none;
+			background-color: #4b7a5b2a;
+		}
+
+		&::placeholder {
+			padding-left: 2rem;
+		}
+
+		&:focus::placeholder {
+			padding: 0;
+		}
 	}
 
 	:global(.right-step) {
-		
 		position: relative;
 		grid-column: right;
 		display: flex;
@@ -554,13 +603,10 @@
 		width: 100%;
 		overflow: hidden;
 		padding-inline: 1%;
-
-		/* outline:crimson solid; */
 	}
 	
 	
 	:global(.step-header) {
-		position: relative;
 		display: flex;
 		align-items: center;
 		height: clamp(fit-content,1vh ,4rem);
@@ -570,7 +616,6 @@
 			flex: 0 1 20%;
 			height: 100%;
 			align-items: baseline;
-
 
 			@container style(--mobile:1) {
 				display: flex;
@@ -601,6 +646,9 @@
 		}
 		
 		& .back-button {
+			position: absolute;
+			top: 1rem;
+			left:-2rem ;
 			background: none;
 			border: none;
 			display: flex;
@@ -608,6 +656,7 @@
 			height: clamp(1rem,5vh ,4rem);
 			padding-left: 4%;
 			cursor: pointer;
+			z-index: 5;
 		}
 
 		& .back-button svg{
@@ -617,9 +666,7 @@
 
 		& .back-button svg path{
 			fill: var(--black);
-			stroke: var(--black);
-		}
-		
+		}	
 	}
 
 	:global(.amount-number-input-container ){
@@ -633,7 +680,6 @@
 		padding: 0.75rem;
 		border: 1px solid #e0e0e0;
 		border-radius: 4px;
-		/* background-color: yellowgreen; */
 	}
 
 	:global(.right-step .button-container)  {
@@ -693,7 +739,6 @@
 		cursor: pointer;
 		font-weight: 500;
 
-	
 		@container style(--mobile:1) {
 			position: relative;
 			width: 100%;
@@ -749,6 +794,13 @@
 			grid-row: 1 / span 1;
 			/* outline: red solid; */
 		}
+
+		:global(.step-header) .back-button{
+				position: relative !important;
+				top: 0;
+				left: 0;
+		}
+
 		:global(.right-step) {
 			grid-column: 1 / -1 !important;
 			grid-row: 2 / span 1;
@@ -757,26 +809,26 @@
 		:global(.step-container) {
 			grid-column: 1 / -1 !important;
 			grid-row: 2 / -1;
-			background-color: var(--white) !important;
 			/* outline: olivedrab solid; */
 		}
 	}
-
+	
 	@media 
-		(-webkit-min-device-pixel-ratio: 3),
-		screen and (device-width < 900px) and (width <= 900px) and (orientation: portrait) , 
-		screen and (device-height <= 900px) and (height <= 900px) and  (orientation: landscape)
+	(-webkit-min-device-pixel-ratio: 3),
+	screen and (device-width < 900px) and (width <= 900px) and (orientation: portrait) , 
+	screen and (device-height <= 900px) and (height <= 900px) and  (orientation: landscape)
 	{
-
-				:global(.step-container) {
-					display: flex ;
-					flex-direction: column;
-					width: 100%;
-					gap: 0;
-					padding: 0 ;
-					padding-top: 3% ;
-					padding-inline: var(--body-padding) !important;
-				}
+		
+		:global(.step-container) {
+			display: flex ;
+			flex-direction: column;
+			width: 100%;
+			gap: 1cqh;
+			padding: 0 ;
+			padding-top: 3% ;
+			padding-inline: var(--body-padding) !important;
+			background-color: var(--white) !important;
+		}
 	}
 
 </style>
