@@ -22,7 +22,7 @@
 		{@render button('skip',4)}
 
 	</section>
-
+	<p>Choose a card and write a message</p>
 	<span class="option-select">
 		{#each cardDesigns as cardDesign}
 		<input type="radio" id={cardDesign.id} name="cardDesign" value={cardDesign.id}
@@ -278,6 +278,7 @@
 		flex: 1 1 auto;
 		text-align: right;
 		width: 25cqh;
+		height: fit-content;
 		padding: 0.75rem;
 		border-bottom: 1px solid var(--card-color,#e0e0e0);
 		resize:none;
@@ -286,9 +287,9 @@
 		&::placeholder {
 			color: var(--black);
 			font-size: 1.1rem;
-			padding-top: 8cqh;
 			text-wrap: no-wrap;
 			width: 100%;
+			height: fit-content;
 		}
 	}
 
@@ -305,6 +306,7 @@
 		color: var(--black);
 		border-radius: 8px;
 		padding: 1%;
+		
 	}
 
 

@@ -59,38 +59,43 @@
 	</section>
 
 	<article class="review-summary">
-		<h2>Please confirm your payment</h2>
-		<hr />
-		
-		<p class="review-item">
-			<span class="review-label">Recipient:</span>
-			<span class="review-value">{formData.recipient.name}</span>
-		</p>
+		<div>
+			<h2>Please confirm your payment</h2>
+			<hr />
 			
-		<p class="review-item">
-			<span class="review-label">Gift Amount:</span>
-			<span class="review-value">{formData.amount}</span>
-		</p>
-			
-		<p class="review-item">
-			<span class="review-label">Card Design:</span>
-			<span class="review-value">{formData.cardDesign}</span>
-		</p>
-			
-		{#if formData.message}
-		<p class="review-item message">
-			<span class="review-label">Message:</span>
-			<span class="review-value">{formData.message}</span>
-		</p>
-		{/if}
-
-		{#if formData.Purpose}
 			<p class="review-item">
-				<span class="review-label">Occasion:</span>
-				<span class="review-value">{formData.Purpose}</span>
+				<span class="review-label">Recipient:</span>
+				<span class="review-value">{formData.recipient.name}</span>
 			</p>
-		{/if}
+				
+			<p class="review-item">
+				<span class="review-label">Gift Amount:</span>
+				<span class="review-value">&euro;{formData.amount}</span>
+			</p>
 
+			<p class="review-item">
+				<span class="review-label">Delivery Date:</span>
+				<span class="review-value">{formData.currentDate}</span>
+				
+			<p class="review-item">
+				<span class="review-label">Card Design:</span>
+				<span class="review-value">{formData.cardDesign}</span>
+			</p>
+				
+			{#if formData.message}
+			<p class="review-item message">
+				<span class="review-label">Message:</span>
+				<span class="review-value">{formData.message}</span>
+			</p>
+			{/if}
+	
+			{#if formData.Purpose}
+				<p class="review-item">
+					<span class="review-label">Occasion:</span>
+					<span class="review-value">{formData.Purpose}</span>
+				</p>
+			{/if}
+		</div>
 	</article>
 		
 	<div class="button-container">
@@ -117,8 +122,6 @@
 		gap: 1rem;
 		padding: 3%;
 		font-size: clamp(1rem, 3vw, 1.5rem);
-		background-color: var(--general-background-color);
-		box-shadow: 0 4px 8px -5px rgba(0, 0, 0, 0.1);
 		border-radius: 10px;
 	}
 
@@ -127,43 +130,67 @@
 		align-items: start;
 		gap: 1rem;
 	}
-	
-	.review-summary {
-		align-self: baseline;
-		place-self: center;
+
+	.payment-input-container input[type="radio"] {
+		width: 22px;
+		color: var(--black);
+		aspect-ratio: 1;
+	}
+
+	.payment-input-container:has(input[type="radio"]:checked) .payment-info {
+		color: var(--primary-darkgreen-550);
+	}
+
+	.review-summary{
+		flex: 1 1 70%;
 		display: flex;
 		flex-direction: column;
-		background-color: var(--general-background-color);
+		align-items: baseline;
+		justify-content: flex-end;
 		border-radius: 10px;
-		padding: clamp(5px, 40px, 2rem);
 		box-shadow: 0 4px 8px -5px rgba(0, 0, 0, 0.1);
 		width: 100%;
-		
+		height: fit-content;
+
 		@container style(--mobile:1) {
-			flex: 0 1 50%;
-			place-self: center;
+			flex: 0 1 90%;
+			place-self: baseline;
 			width: 100%;
-			margin-block: 3vh;
+			/* margin-block: 3vh; */
 		}
+	}
+	
+	.review-summary div {
+		align-self: baseline;
+		place-self: baseline;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: fit-content;
+		border-radius: 10px;
+		padding: clamp(5px, 40px, 2rem);
+		margin-bottom: 3rem;
+		background-color: var(--general-background-color);
 
 		h2 {
 			text-align: start;
-			font-size: clamp(1rem,3vw,1.5rem);
+			font-size: clamp(1rem,4vw,1.5rem);
 			margin-bottom: 10px;
 		}
 		
 		hr {
 			margin-bottom: 15px;
 			height: 1px;
-			background-color: #1e1e1e;
+			background-color: color-mix(in srgb, var(--general-background-color) , var(--grey-400) 30%);
 		}
 
 		.review-item {
 			display: flex;
 			gap: 1rem;
-			margin-top: 3%;
 			width: 100%;
-			padding-right: 3%;
+			padding-right: 5%;
+			margin-top: 3%;
+			margin-bottom: 3%;
 			font-size:clamp(1rem,2vw,1.2rem);
 		}
 
@@ -183,7 +210,7 @@
 		}
 		
 		.review-label {
-			font-weight: 500;
+			font-weight: 300;
 			text-wrap: nowrap;
 		}
 	}

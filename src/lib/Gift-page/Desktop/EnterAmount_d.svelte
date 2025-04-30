@@ -9,7 +9,7 @@
 	<div class="left-step"  >
 		<section class="step-header"  transition:fade>
 			{@render button('back')}
-			<h2>Enter Amount</h2>
+			<h2>Select your gift amount</h2>
 		</section>
 	</div>
 
@@ -49,14 +49,6 @@
 	.right-step {
 		grid-row: 1 / span 1;
 	}
-
-	.step-container {
-		/* outline: solid blue; */
-	}
-
-	.step-header {
-		/* outline: solid red; */
-	}
 	
 	form:has(.amount-input-container){
 		display: flex;
@@ -72,7 +64,6 @@
 		justify-content: center;
 		padding-inline: 10%;
 		padding-block: 5%;
-		/* margin-bottom: 20%; */
 	}
 
 	form .amount-input-container:nth-of-type(1){
@@ -85,8 +76,6 @@
 		padding-top: 8dvh;
 		align-items: center;
 		justify-content: center;
-		
-		/* outline: solid green; */
 	}
 
 	form .amount-input-container:nth-of-type(1) label {

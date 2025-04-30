@@ -2,6 +2,15 @@
 	import { fade } from 'svelte/transition';
 	let { formData, recipients, selected, button } = $props();
 
+	let filteredRecipients = $derived(
+		formData.searchQuery 
+		? recipients.filter(recipient => 
+			recipient.name.toLowerCase().includes(formData.searchQuery.toLowerCase()) ||
+			recipient.email.toLowerCase().includes(formData.searchQuery.toLowerCase())
+		)
+		: recipients
+	);
+
 </script>
 
 <section class="step-container" >
@@ -14,17 +23,26 @@
 		<p>Please select your recipient to send to.</p>
 		
 		<section class="search-container">
-			<input 
-			type="search" 
-			placeholder="Search Recipients" 
-			aria-label="Search Recipients"
-			class="search-input"
-			/>
+			<label for="search" class="search-label">
+				<input 
+				type="search" 
+				placeholder="Search Recipients" 
+				class="search-input"
+				bind:value={formData.searchQuery}
+				/>
+				<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="none" class="search-icon">
+					<path fill="#A0A0A0" d="m29.295 27.705-5.762-5.761a13.058 13.058 0 0 0 3.092-8.444C26.625 6.263 20.738.375 13.5.375 6.263.375.375 6.263.375 13.5c0 7.238 5.888 13.125 13.125 13.125 3.215 0 6.159-1.166 8.444-3.091l5.761 5.761a1.122 1.122 0 0 0 1.59 0c.44-.438.44-1.15 0-1.59ZM2.625 13.5c0-5.997 4.878-10.875 10.875-10.875S24.375 7.503 24.375 13.5 19.497 24.375 13.5 24.375 2.625 19.497 2.625 13.5Z"/>
+				</svg>
+			</label>
 		</section>
+		{#if formData.errors[1]}
+			<div class="error-message" transition:fade>
+					{formData.errors[1]}
+			</div>
+		{/if}
 	</div>
 	
 	<div class="right-step"  transition:fade>
-		<h3 class="section-title">Most Recent</h3>
 		<ul class="recipients-list">
 			{#each recipients as recipient}
 				<li 
@@ -32,15 +50,22 @@
 					onclick={() => selected(recipient)}
 					>
 					<article class="recipient-info">
-						<!-- <img src={recipient.profilePic} alt={''||recipient.name} class="profile-pic" /> -->
 						<div class="recipient-details">
-							<h3>{recipient.name}</h3>
-							<p>{recipient.email}</p>
-							<p class="last-sent">Last sent: {recipient.lastSent}</p>
+							{#if recipient.profilePic.length > 0 || recipient.profilePic !== ''}
+								<img src={recipient.profilePic} alt={''||recipient.name} class="profile-pic" />
+							{:else}
+								<div class="profile-letter">{recipient.name[0].toUpperCase()}</div>
+							{/if}
+							<span>
+								<h3>{recipient.name}</h3>
+								<p class="mail">{recipient.email}</p>
+								<button class="more-options">...</button>
+							</span>
 						</div>
+						<p class="last-sent">Last sent: {recipient.lastSent}</p>
 					</article>
-					<button class="more-options">...</button>
 				</li>
+				<hr>
 			{/each}
 		</ul>
 		
@@ -52,6 +77,21 @@
 
 <style>
 
+	.left-step {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		border-radius: 10px;
+	}
+
+	.step-header {
+		display: flex;
+		align-items: center;
+		margin-bottom: 1rem;
+		width: 100%;
+	}
+
+
 	.recipients-list{ 
 		flex: 1 1 70%;
 		display: flex;
@@ -60,23 +100,28 @@
 		overflow-y: scroll;
 		background-color: var(--white);
 		gap: 1rem;
+		margin-block: 1rem;
+		padding-block: 1rem;
+		padding-inline: 2rem;
 
-		scrollbar-width: thin;
+		border-radius: 10px;
+
+		scrollbar-width:auto;
 		overflow-y: scroll;
+		overscroll-behavior: contain;
 		
 		.recipient-item {
 			display: flex;
-			width: 90%;
+			width: 95%;
 			justify-content: space-between;
 			align-items: center;
-			padding: clamp(1%,1.5vw,5%);
-			border-bottom: 1px solid #e0e0e0;
-			border-radius: 10px;
+			padding: clamp(1%,1.5vw,3%);
 			cursor: pointer;
 		}
 		
 		.recipient-item:where(.selected) {
-			border: solid 2px var(--primary-darkgreen-550);	
+			outline: solid 2px var(--primary-darkgreen-550);	
+			border-radius: 10px;
 
 			.recipient-details p {
 				color: var(--primary-darkgreen-550);
@@ -85,7 +130,19 @@
 		
 		.recipient-info {
 			display: flex;
-			align-items: center;
+			flex-direction: column;
+			align-items: start;
+			gap: 1rem;
+			width: 100%;
+			padding: min(2%,0.5rem);
+			/* outline: solid green; */
+		}
+
+		.recipient-details {
+			display: flex;
+			width: 100%;
+			/* outline: solid blue; */
+			
 		}
 		
 		.profile-pic {
@@ -94,27 +151,64 @@
 			border-radius: 50%;
 			margin-right: 1rem;
 		}
+
+		.profile-letter {	
+			width: 40px;
+			aspect-ratio: 1;
+			border-radius: 50%;
+			margin-right: 1rem;
+			background-color: var(--primary-darkgreen-550);
+			color: white;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: bold;
+		}
 		
-		.recipient-details h3 {
+		.recipient-details span {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+			width: 100%;
+			/* outline: solid red; */
+		}
+		
+		.recipient-details span h3 {
 			margin: 0;
 			font-size: 1rem;
 		}
 		
-		.recipient-details p {
+		.recipient-details span p {
 			margin: 0;
 			font-size: 0.875rem;
 			color: #666;
 		}
 
-		/* @container style(--mobile:1) {
-			flex: 2 1 50%;
-			
-		} */
+		.recipient-details span button {
+			position: absolute;
+			top: -30%;
+			right: 0;
+			background-color: transparent;
+			border: none;
+			font-size: 1.5rem;
+			cursor: pointer;
+			letter-spacing: 3px;
+
+			&:is(:hover,:focus) {
+				color: var(--primary-darkgreen-550);
+			}
+		}
+
 	}
 
 	.last-sent {
 		font-size: 0.8rem;
 		color: #666;
+	}
+
+	hr:nth-last-of-type(1) {
+		display: none !important;
 	}
 
 
