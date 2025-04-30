@@ -11,4 +11,4 @@
 
 <a href="/" style="font-size: 3rem;">go home</a>
 <span></span>
-<a href="/gift" style="font-size: 3rem;">send a gift</a>
+<a href="/gift" rel="noopener" style="font-size: 3rem;">send a gift</a>
