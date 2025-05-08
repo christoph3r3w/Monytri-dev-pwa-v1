@@ -142,21 +142,19 @@
 	}
 
 	.review-summary{
-		flex: 1 1 70%;
+		flex: 1 1 108%;
 		display: flex;
 		flex-direction: column;
 		align-items: baseline;
 		justify-content: flex-end;
 		border-radius: 10px;
-		box-shadow: 0 4px 8px -5px rgba(0, 0, 0, 0.1);
 		width: 100%;
 		height: fit-content;
 
 		@container style(--mobile:1) {
-			flex: 0 1 90%;
+			flex: 0 1 120%;
 			place-self: baseline;
 			width: 100%;
-			/* margin-block: 3vh; */
 			overflow-y: auto;
 		}
 	}
@@ -172,6 +170,8 @@
 		padding: clamp(5px, 40px, 2rem);
 		margin-bottom: 3rem;
 		background-color: var(--general-background-color);
+		box-shadow: 0 4px 8px -5px rgba(0, 0, 0, 0.1);
+
 
 		h2 {
 			text-align: start;

@@ -206,11 +206,12 @@
 		);
 	}
 	
-	function validateCardDesign() {
-		if (!formData.cardDesign || formData.cardDesign === 'default') {
+	function validateCardDesign(cardDesignId) {
+		if (!cardDesignId || cardDesignId === 'default') {
 			handleError(4, 'Please select a card design');
 			return;
 		}
+		formData.cardDesign = cardDesignId;
 		stepValidation[4] = true;
 	}
 
@@ -554,15 +555,16 @@
 		display: flex;
 		/* align-self: center; */
 		justify-self: center;
+		/* align-items: center; */
 		width: 100%;
 		/* max-width: 500px; */
 		height: fit-content;
 
 		& .search-icon{
-			top: 0.6rem;
+			top: 7%;
 			left: 1rem;
 			position: absolute;
-			scale: 0.85;
+			scale: clamp(0.2,0.85,0.89);
 		}
 			
 		&:focus-within .search-icon {
@@ -577,7 +579,7 @@
 		width: 100%;
 		font-size: clamp(1rem,1.1rem,2.5rem);
 		padding: 1.5rem;
-		padding-block: 1rem;
+		padding-block: clamp(1%,.8rem,1rem);
 		border-radius: 6rem;
 		transition: 0.8s ease;
 		
@@ -721,7 +723,7 @@
 		width: 100%;
 		height: fit-content;
 		margin-bottom:5%;
-		margin-top: 3rem;
+		margin-top: min(2dvh,3rem);
 		
 		container-type: inline-size;
 		

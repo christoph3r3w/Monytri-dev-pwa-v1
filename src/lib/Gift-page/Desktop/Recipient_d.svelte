@@ -145,7 +145,6 @@
 			display: flex;
 			width: 100%;
 			/* outline: solid blue; */
-			
 		}
 		
 		.profile-pic {
@@ -202,7 +201,6 @@
 				color: var(--primary-darkgreen-550);
 			}
 		}
-
 	}
 
 	.last-sent {

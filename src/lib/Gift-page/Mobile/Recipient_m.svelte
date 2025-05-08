@@ -20,9 +20,6 @@
 				</section>
 					
 				<p>Please select your recipient to send to.</p>
-					
-				<section class="search-container">
-				</section>
 				
 				{#if formData.errors[1]}
 				<div class="error-message" transition:fade>
@@ -158,7 +155,7 @@
 	}
 
 	section:has(label) {
-		flex: 1 1 70%;
+		flex: 1 1 90%;
 		/* padding-inline: 3% ; */
 		background-color: var(--white);
 		border-radius: 12px;

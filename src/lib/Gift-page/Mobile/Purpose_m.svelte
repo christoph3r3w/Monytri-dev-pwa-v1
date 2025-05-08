@@ -95,7 +95,7 @@
 		flex-direction: column;
 		margin-bottom: 1rem;
 		border-radius: clamp(5px, 11cqw, 10px);
-		/* overflow: hidden; */
+		overflow: auto;
 		/* outline: solid green; */
 	}
 	

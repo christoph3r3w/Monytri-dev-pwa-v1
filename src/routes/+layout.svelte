@@ -212,6 +212,10 @@
     	}
 	}
 
+	html{
+		
+	}
+
 	:global(*):is(:focus-visible) {
 		outline: 2px solid var(--primary-orange-500);
 		outline-offset: 2px;
@@ -315,7 +319,7 @@
 
 		:root{
 			--mobile: 1;
-			--body-padding: max(5%, env(safe-area-inset-left), env(safe-area-inset-right));
+			--body-padding: calc(5%);
 		}
 
 		:global(body){
