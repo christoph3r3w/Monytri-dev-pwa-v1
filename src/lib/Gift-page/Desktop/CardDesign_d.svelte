@@ -1,8 +1,11 @@
 <script>
 	import { goto } from '$app/navigation';
 	import {fade} from 'svelte/transition';
+	import { observe } from '../Shared/useViewportAction.js';
 	let { formData, validateCardDesign,button } = $props();
-	let date = $state(new Date())
+	let cardContainer;
+	let currentCardIndex = $state(0);
+	let observer;
 
 	let cardDesigns = $state([
 		{ id: 'design1', name: 'Design 1',cardBackground: './gift-page-assets/Gift card 1.png',cardbackgroundMessage:'./gift-page-assets/Message Card.png' ,primaryColor:'#AFABED'},
@@ -14,6 +17,42 @@
 		{ id: 'design7', name: 'Design 7',cardBackground: '',cardbackgroundMessage:'' ,primaryColor:'orange'},
 		{ id: 'design8', name: 'Design 8',cardBackground: '',cardbackgroundMessage:'' ,primaryColor:'red'}
 	]);
+
+	function setupCardObserver() {
+		observer = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					const index = cardDesigns.findIndex(card => card.id === entry.target.id);
+					if (index !== -1) {
+						currentCardIndex = index;
+						validateCardDesign(cardDesigns[index].id);
+					}
+				}
+			});
+		}, {
+			threshold: 0.5,
+			root: cardContainer
+		});
+
+		// Observe all cards
+		cardContainer.querySelectorAll('.card-option').forEach(card => {
+			observer.observe(card);
+		});
+	}
+
+	function selectCard(index) {
+		const cards = cardContainer.querySelectorAll('.card-option');
+		if (cards[index]) {
+			cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+			validateCardDesign(cardDesigns[index].id);
+		}
+	}
+
+	$effect(() => {
+		if (cardContainer) {
+			setupCardObserver();
+		}
+	});
 </script>
 <section class="step-container">
 	<div class="left-step" >
@@ -28,21 +67,32 @@
 
 	<div class="right-step"  transition:fade>
 		<span class="option-select">
-			{#each cardDesigns as cardDesign}
+			{#each cardDesigns as cardDesign, index}
 			<input type="radio" id={cardDesign.id} name="cardDesign" value={cardDesign.id}
-			onclick={() => {
-				formData.cardDesign = cardDesign.id;
-				validateCardDesign();
-			}}>
+			checked={currentCardIndex === index}
+			onclick={() => selectCard(index)}>
 			{/each}
 		</span>
-		<article class="card-designs-container">
+		<article class="card-designs-container" bind:this={cardContainer}>
 			<ul class="card-design-options">
-				{#each cardDesigns as cardDesign}
+				{#each cardDesigns as cardDesign, index}
 					<li 
 					id="{cardDesign.id}"
-					class="card-option {formData.cardDesign === cardDesign.id ? 'selected' : ''}" 
-					style="--card-color:{cardDesign.primaryColor};--card-background:{cardDesign.cardBackground};--card-background-message:{cardDesign.cardbackgroundMessage};">
+					class="card-option {currentCardIndex === index ? 'selected' : ''}" 
+					style="--card-color:{cardDesign.primaryColor};--card-background:{cardDesign.cardBackground};--card-background-message:{cardDesign.cardbackgroundMessage};"
+					use:observe={{
+						onEnter: () => {
+							console.log(`Card ${cardDesign.id} entered view!`);
+							// Find and check the radio input
+							const radioInput = document.getElementById(cardDesign.id);
+							if (cardDesign.id) {
+								radioInput.checked = true;
+								// Trigger the onclick handler to update formData
+								validateCardDesign(cardDesign.id);
+							}
+						},
+						threshold: .8
+					}}>
 						<label for="{cardDesign.id}">
 						<section class="card simple-card" 
 							  style="background-image: url('{encodeURI(cardDesign.cardBackground)}');"
@@ -56,15 +106,15 @@
 							  style="background-image: url('{encodeURI(cardDesign.cardbackgroundMessage)}');"
 							>
 							  <h4>Monytri</h4>
-							<p>{formData.currentDate}</p>
+							<p>{formData.currentDate || ''}</p>
 							<label for="message"> 
 								<textarea 
 								id="message" 
 								bind:value={formData.message}
 								rows="3"
-								maxlength="100"
+								maxlength="150"
 								placeholder="Create a custom message"
-								tabindex="{formData.cardDesign === cardDesign.id ? 0 : -1}"
+								tabindex="{currentCardIndex === index ? 0 : -1}"
 									></textarea>
 							</label>
 							<span>€{formData.amount}</span>
@@ -98,8 +148,10 @@
 		display: flex;
 		align-items: end;
 		justify-content: end;
-		outline: solid red;
+		overflow: auto;
+		/* outline: solid red; */
 	}
+
 
 	@media (max-width: 930px), (max-height: 600px) {
 		.card-designs-container {
@@ -149,6 +201,10 @@
 		scroll-snap-type: x mandatory;
 		
 		container-type: inline-size;
+		anchor-name: --myAnchor;
+		counter-increment: markers;
+		scroll-marker-group:after;
+
 		
 		/* outline: solid rgb(0, 255, 21); */
 		
@@ -167,6 +223,49 @@
 		} */
 
 	}
+
+	@supports selector(ul::scroll-button(*)){
+		.card-design-options::scroll-button(right){
+			content: 'next';
+			right: 0;
+			right: anchor(right);
+		}
+	
+		.card-design-options::scroll-button(left){
+			content:'prev';
+			left: 0;
+			left: anchor(left);
+		}
+
+		.card-design-options::scroll-button(*){
+			background-color: var(--white);
+			padding: 2%;
+			position: absolute;
+			bottom: 15%;
+			position-anchor: --myAnchor;
+			border-radius: 10px;
+			border: none;
+			z-index: 50;
+			cursor: pointer;
+			background-color: var(--primary-darkgreen-200);
+
+			&:disabled{
+				background-color: var(--grey-400);
+				opacity: 0.5;
+			}
+		}
+
+		.card-design-options::scroll-marke-group{
+			position-anchor: --myAnchor;
+			display: flex;
+			gap: 3%;
+			position: absolute;
+			bottom: 0;
+			bottom: anchor(bottom);
+			outline: solid red;
+		}
+	}
+
 	
 	.card-option {
 		position: relative;
@@ -226,9 +325,9 @@
 		--_inline-padding:1.6rem;
 		--_block-padding:1.6rem;
 		position: relative;
+		width: clamp(200px,420px 30cqw);
 		height: clamp(10cqi,50cqi,30cqh);
 		aspect-ratio: 14/9;
-		width: clamp(200px,420px 30cqw);
 		background-color: var(--white);
 		display: grid;
 		grid-template-areas: a;
@@ -238,7 +337,7 @@
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
-
+		user-select: none;
 		/* outline: solid rgb(0, 255, 21); */
 	}
 	

@@ -1,7 +1,12 @@
 <script>
-	import { fade } from 'svelte/transition';
-	let { formData, validateCardDesign, button } = $props();
-
+	import { goto } from '$app/navigation';
+	import {fade} from 'svelte/transition';
+	import { observe } from '../Shared/useViewportAction.js';
+	let { formData, validateCardDesign,button } = $props();
+	let cardContainer;
+	let currentCardIndex = $state(0);
+	let observer;
+	
 	let cardDesigns = $state([
 		{ id: 'design1', name: 'Design 1',cardBackground: './gift-page-assets/Gift card 1.png',cardbackgroundMessage:'./gift-page-assets/Message Card.png' ,primaryColor:'#AFABED'},
 		{ id: 'design2', name: 'Design 2',cardBackground: './gift-page-assets/Gift card 6.png',cardbackgroundMessage:'./gift-page-assets/Message Card6.png' ,primaryColor:'#82A6C5'},
@@ -12,6 +17,41 @@
 		{ id: 'design7', name: 'Design 7',cardBackground: 'green',cardbackgroundMessage:'' ,primaryColor:'orange'},
 		{ id: 'design8', name: 'Design 8',cardBackground: 'green',cardbackgroundMessage:'' ,primaryColor:'red'}
 	]);
+
+	function selectCard(index) {
+		const cards = cardContainer.querySelectorAll('.card-option');
+		if (cards[index]) {
+			cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+			validateCardDesign(cardDesigns[index].id);
+		}
+	}
+
+	function handleCardVisibility(entries) {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				const index = cardDesigns.findIndex(card => card.id === entry.target.id);
+				if (index !== -1) {
+					currentCardIndex = index;
+					validateCardDesign(cardDesigns[index].id);
+				}
+			}
+		});
+	}
+
+	$effect(() => {
+		if (cardContainer) {
+			const observer = new IntersectionObserver(handleCardVisibility, {
+				threshold: 0.8,
+				root: cardContainer
+			});
+
+			cardContainer.querySelectorAll('.card-option').forEach(card => {
+				observer.observe(card);
+			});
+
+			return () => observer.disconnect();
+		}
+	});
 
 </script>
 
@@ -24,53 +64,48 @@
 	</section>
 	<p>Choose a card and write a message</p>
 	<span class="option-select">
-		{#each cardDesigns as cardDesign}
+		{#each cardDesigns as cardDesign, index}
 		<input type="radio" id={cardDesign.id} name="cardDesign" value={cardDesign.id}
-		onclick={() => {
-			formData.cardDesign = cardDesign.id;
-			validateCardDesign();
-		}}>
+		checked={currentCardIndex === index}
+		onclick={() => selectCard(index)}>
 		{/each}
 	</span>
-	<article class="card-designs-container">
+	<article class="card-designs-container" bind:this={cardContainer}>
 		<ul class="card-design-options">
-			{#each cardDesigns as cardDesign}
-				<li 
-				id="{cardDesign.id}"
-				class="card-option {formData.cardDesign === cardDesign.id ? 'selected' : ''}" 
-					style="--card-color:{cardDesign.primaryColor};--card-background:{cardDesign.cardBackground};--card-background-message:{cardDesign.cardbackgroundMessage};">
-					<label for="{cardDesign.id}">
-					<section 
-						  class="card simple-card" 
-						  style="background-image: url('{encodeURI(cardDesign.cardBackground)}');"
-						>
-						  <h3>{'Monytri'|| cardDesign.name}</h3>
-						  <p>Stock gift card</p>
-						  <span>€{formData.amount}</span>
-					</section>
-					<p>Tap the card below to customise your message </p>
-					
-					<section 
-						  class="card message-input" 
-						  style="background-image: url('{encodeURI(cardDesign.cardbackgroundMessage)}');"
-						>
-						  <h4>Monytri</h4>
-						<p>{formData.currentDate || ' '}</p>
-						<label for="message"> 
-							<textarea 
-							id="message" 
-							bind:value={formData.message}
-							rows="3"
-							placeholder="Create a custom message"
-							tabindex="{formData.cardDesign === cardDesign.id ? 0 : -1}"
-
+			{#each cardDesigns as cardDesign, index}
+			<li 
+			id="{cardDesign.id}"
+			class="card-option {currentCardIndex === index ? 'selected' : ''}" 
+			style="--card-color:{cardDesign.primaryColor};--card-background:{cardDesign.cardBackground};--card-background-message:{cardDesign.cardbackgroundMessage};">
+				<label for="{cardDesign.id}">
+				<section class="card simple-card" 
+					  style="background-image: url('{encodeURI(cardDesign.cardBackground)}');"
+					>
+					  <h3>{'Monytri'|| cardDesign.name}</h3>
+					  <p>Stock gift card</p>
+					  <span>€{formData.amount}</span>
+				</section>
+				<p>Tap the card below to customise your message </p>
+				<section class="card message-input" 
+					  style="background-image: url('{encodeURI(cardDesign.cardbackgroundMessage)}');"
+					>
+					  <h4>Monytri</h4>
+					<p>{formData.currentDate || ''}</p>
+					<label for="message"> 
+						<textarea 
+						id="message" 
+						bind:value={formData.message}
+						rows="3"
+						maxlength="150"
+						placeholder="Create a custom message"
+						tabindex="{currentCardIndex === index ? 0 : -1}"
 							></textarea>
-						</label>
-						<span>€{formData.amount}</span>
-					</section>
 					</label>
-				</li>
-			{/each}
+					<span>€{formData.amount}</span>
+				</section>
+				</label>
+			</li>
+		{/each}
 		</ul>
 		
 	</article>
@@ -111,9 +146,9 @@
 
 	/* main container */
 	.card-designs-container {
-		flex: 2 1 90%;
+		flex: 2 1 100%;
 		position: relative;
-		/* background-color: yellow; */
+		overflow-y: auto;
 	}
 
 	/* card list */
@@ -186,6 +221,10 @@
 		/* outline: solid red; */
 	}
 
+	.card-option label > p{
+		/* outline: solid red;	 */
+	}
+
 	.card-option .card{
 		--_inline-padding:1.6rem;
 		--_block-padding:1.6rem;
@@ -194,6 +233,7 @@
 		aspect-ratio: 14/9;
 		max-width: 424px;
 		margin-inline: 1rem;
+		user-select: none;
 		
 		display: grid;
 		grid-template-areas: a;
