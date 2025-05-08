@@ -52,8 +52,8 @@
 			case '/stock-overview':
 				current.set('stock');
 				break;
-			case '/inbox':
-				current.set('inbox');
+			case '/settings':
+				current.set('settings');
 				break;
 			case '/profile':
 				current.set('profile');
