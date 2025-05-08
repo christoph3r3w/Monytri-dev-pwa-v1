@@ -211,7 +211,7 @@
 		padding: 1%;
 		height: 100%;
 		min-width: 300px;
-		flex: 0 0 100cqw;
+		flex: 1 0 99cqw;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
