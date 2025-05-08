@@ -193,7 +193,7 @@
 		/* and other styling properties */
 		--body-padding: 2%;
 		--header-height: calc(8dvh + var(--safe-area-inset-top));
-		--footer-height: calc(81px + var(--safe-area-inset-bottom));
+		--footer-height: calc(70px + var(--safe-area-inset-bottom));
 
 		/* all the elements that will be animated */
 		will-change: transform, height, background-color, box-shadow, border-radius,position;
@@ -212,6 +212,9 @@
     	}
 	}
 
+	html{
+		
+	}
 
 	:global(*):is(:focus-visible) {
 		outline: 2px solid var(--primary-orange-500);
@@ -411,7 +414,7 @@
 			right: 0;
 			left: 0;
 			width: 100dvw;
-			height: clamp(50px, 10dvh, var(--footer-height));
+			height: clamp(50px, 12dvh, var(--footer-height));
 			border-radius: var(--_nav-radius) var(--_nav-radius) 0 0;
 			transform: translate3d(0,0,0);
 			padding-bottom: env(safe-area-inset-bottom);
