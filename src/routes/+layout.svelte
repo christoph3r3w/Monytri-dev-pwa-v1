@@ -319,7 +319,7 @@
 
 		:root{
 			--mobile: 1;
-			--body-padding: calc(5%);
+			--body-padding: 5%;
 		}
 
 		:global(body){
@@ -364,7 +364,7 @@
 			max-height: 100%;
 			overflow-y: scroll;
 			/* padding-bottom: calc(5rem + env(safe-area-inset-bottom)); */
-			padding-top: calc(var(--header-height) + 4px);
+			padding-top: calc(var(--header-height) );
 			margin-bottom: -1rem;
 			/* background-color: rgb(61, 112, 153);
 			background-color: rgb(200, 224, 124);

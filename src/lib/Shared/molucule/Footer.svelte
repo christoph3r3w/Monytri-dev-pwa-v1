@@ -1,9 +1,9 @@
 <script>
-    import { Logo } from '$lib';
-    import { onMount } from 'svelte';
-	import { current } from '../../store.js';
+	import { onMount } from 'svelte';
 	import {afterNavigate,onNavigate} from '$app/navigation'
-	import{goto} from '$app/navigation'
+	import{ goto } from '$app/navigation'
+    import { Logo } from '$lib';
+	import { current } from '../../store.js';
 
 	// create a store to keep track of the current page
 	// this will be used to set the active class on the mobile navigation

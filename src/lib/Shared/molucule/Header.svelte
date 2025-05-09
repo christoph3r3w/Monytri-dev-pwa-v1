@@ -80,9 +80,11 @@
 	</nav>
 	<!-- page title -->
 	<nav class="pageTitle">
-		<h2>
-			{$current}
-		</h2>
+		{#if $current !== 'home'}
+			<h2>
+				{$current}
+			</h2>
+		{/if}
 	</nav>
 	<!-- profile menu -->
 	<nav class="profile">
@@ -187,7 +189,6 @@
 			height: 100%;
 			border-bottom: none;
 			padding-inline: 0 !important;
-			/* outline: solid aqua; */
 		}
 
 		.goBack{
