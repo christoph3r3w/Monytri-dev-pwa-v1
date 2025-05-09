@@ -1,13 +1,21 @@
 <script>
 	import {current} from '$lib/store.js';
+	import {Menu} from '$lib'
 </script>
 
-<!-- <svelte:head>
-	<title>{$current}</title>
-</svelte:head> -->
+<div>
+	<Menu></Menu>
+</div>
 
-<h1>
-	{$current}
-</h1>
-
-<a href="/" style="font-size: 3rem;">go home</a>
+<style>
+	div{
+		grid-column: 1 / -1;
+		grid-row: 1 / span 1;
+		display: flex;
+		flex-direction: column;
+		align-content: start;
+		width: 100%;
+		max-height: calc(120dvh - var(--footer-height)) ;
+		/* padding-bottom: calc(var(--header-height) + env(safe-area-inset-bottom)); */
+	}
+</style>
