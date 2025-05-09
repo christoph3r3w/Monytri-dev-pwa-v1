@@ -14,7 +14,7 @@
 
 
 <div class="home-wrapper">
-	<section class="intro-view-section">
+	<section class="home-intro-section">
 		<div class="balance-section">
 			<div class="balance-info">
 				<h1>&euro;{'1500.00'||'balance'}</h1>
@@ -29,6 +29,68 @@
 			<button onclick={goto("/gift")}>svg + send</button>
 			<button onclick={goto("/request")} disabled>svg + request</button>
 		</nav>
+	</section>
+	<section class="home-articles">
+		<article class="invest-tips">
+			<h2>Grow your investing skills!<span>arrow right</span></h2>
+			<ul>
+				<li>
+					<a href="/"></a>
+					<figure>
+						<figcaption></figcaption>
+					</figure>
+					<p></p>
+					<p></p>
+				</li>
+				<li>
+					<a href="/"></a>
+					<figure>
+						<figcaption></figcaption>
+					</figure>
+					<p></p>
+					<p></p>
+				</li>
+				<li>
+					<a href="/"></a>
+					<figure>
+						<figcaption></figcaption>
+					</figure>
+					<p></p>
+					<p></p>
+				</li>	
+			</ul>
+		</article>
+		<article class="recent-blogs">
+			<h2>Recent Blogs<span>arrow right</span></h2>
+			<ul>
+				<li>
+					<a href="/"></a>
+					<figure>
+						<figcaption></figcaption>
+					</figure>
+					<p></p>
+					<p></p>
+				</li>
+				<li>
+					<a href="/"></a>
+					<figure>
+						<figcaption></figcaption>
+					</figure>
+					<p></p>
+					<p></p>
+				</li>
+				<li>
+					<a href="/"></a>
+					<figure>
+						<figcaption></figcaption>
+					</figure>
+					<p></p>
+					<p></p>
+				</li>		
+			</ul>
+		</article>
+	
+
 	</section>
 	<br>
 	<div class="button-conatiner-dev">
@@ -77,7 +139,7 @@
 		}
 	}
 
-	.intro-view-section{
+	.home-intro-section{
 		display: none;
 	}
 
@@ -88,6 +150,7 @@
 		screen and (device-height <= 900px) and (height <= 900px) and (orientation: landscape) {
 			&{
 				--body-padding: 0;
+				--header-intro-height: 27dvh;
 			}
 
 			:global(header){
@@ -97,16 +160,21 @@
 				/* outline: solid red 5px; */
 			}
 			
-			.intro-view-section{
+			:global(main){
+				margin-top: var(--header-intro-height);
+			}
+			
+			.home-intro-section{
 				--_background-cut-off: 80%;
-				position: sticky;
-				top: 0;
+				position: fixed;
+				top: var(--header-height);
+				
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 				justify-content: space-between;
 				width: 100%;
-				height: 25dvh;
+				height: var(--header-intro-height);
 				background: linear-gradient(180deg, var(--primary-green-500) var(--_background-cut-off), transparent var(--_background-cut-off));
 				z-index: 10;
 				text-align: center;
@@ -132,7 +200,8 @@
 			.add-money-link{
 				border: solid var(--white) 2px;
 				border-radius: 82px;
-				padding: 16px 12px;
+				padding: 9% 2%;
+				margin-bottom: 2%;
 			}
 			
 			.button-container{
