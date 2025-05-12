@@ -1,5 +1,5 @@
 <script>
-		import { fade } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 	import { onMount } from 'svelte';
 	
 	let { formData, validatePurpose, button } = $props();
@@ -21,12 +21,11 @@
 		)
 		: PurposeList
 	);
-	
-	onMount(() => {
-		formData.Purpose = '';
-	});
 
-
+	function handlePurposeSelect(purpose) {
+		formData.Purpose = purpose.value;
+		validatePurpose();
+	}
 </script>
 
 <section class="step-container" transition:fade>			
@@ -62,10 +61,7 @@
 					id="purpose{purpose.id}" 
 					name="purpose" 
 					value={purpose.value}
-					onclick={() => {
-						formData.Purpose = purpose.value;
-						validatePurpose();
-					}}
+					onclick={() => handlePurposeSelect(purpose)}
 				/>
 				<label for="purpose{purpose.id}">
 					{#if purpose.img}

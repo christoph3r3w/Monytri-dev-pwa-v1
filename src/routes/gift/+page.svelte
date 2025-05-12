@@ -523,9 +523,7 @@
 			padding: 0.75rem;
 			border: 1px solid #e0e0e0;
 			border-radius: 8px;
-			/* outline: springgreen solid !important; */
 		}
-
 	}
 
 	:global(.left-step) {
@@ -553,11 +551,8 @@
 	:global(label:has([type="search"])) {
 		position: relative;
 		display: flex;
-		/* align-self: center; */
 		justify-self: center;
-		/* align-items: center; */
 		width: 100%;
-		/* max-width: 500px; */
 		height: fit-content;
 
 		& .search-icon{
@@ -608,7 +603,6 @@
 		padding-inline: 1%;
 		padding-top: 3rem;
 	}
-	
 	
 	:global(.step-header) {
 		display: flex;
@@ -690,10 +684,6 @@
 		display: flex;
 		width: 100%;
 
-		button{
-			/* padding-inline: ; */
-		}
-
 		& .continue-button{
 			flex: 0 1 50%;
 			min-width: 50%;
@@ -715,7 +705,6 @@
 
 	
 	:global(div.button-container) {
-		/* flex: 1 1 1%; */
 		position: relative;
 		grid-column: 1/-1;
 		display: flex;
@@ -806,13 +795,12 @@
 			grid-column: 1 / -1 !important;
 			grid-row: 1 / span 1;
 			padding: 0 !important;
-			/* outline: red solid; */
 		}
 
 		:global(.step-header) .back-button{
-				position: relative !important;
-				top: 0;
-				left: 0;
+			position: relative !important;
+			top: 0;
+			left: 0;
 		}
 
 		:global(.right-step) {

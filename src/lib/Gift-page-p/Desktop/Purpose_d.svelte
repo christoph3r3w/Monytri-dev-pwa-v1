@@ -22,10 +22,10 @@
 		: PurposeList
 	);
 
-	onMount(() => {
-		formData.Purpose = '';
-	});
-
+	function handlePurposeSelect(purpose) {
+		formData.Purpose = purpose.value;
+		validatePurpose();
+	}
 </script>
 
 
@@ -65,10 +65,7 @@
 						id="purpose{purpose.id}" 
 						name="purpose" 
 						value={purpose.value}
-						onclick={() => {
-							formData.Purpose = purpose.value;
-							validatePurpose();
-						}}
+						onclick={() => handlePurposeSelect(purpose)}
 					/>
 					<label for="purpose{purpose.id}">
 						{#if purpose.img}

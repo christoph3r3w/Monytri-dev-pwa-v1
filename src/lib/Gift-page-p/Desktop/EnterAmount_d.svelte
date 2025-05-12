@@ -1,7 +1,34 @@
 <script>
+	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	let { selected, button ,validateAmount,nextStep, formData, min,max} = $props();
+	let { selected, button, validateAmount, nextStep, min, max } = $props();
+	
+	let selectedAmount = $state('');
 
+	onMount(() => {
+		selectedAmount = '';
+	});
+
+	function handleRadioInput(value) {
+		const event = {
+			target: {
+				type: 'radio',
+				id: value,
+				value: value
+			}
+		};
+		validateAmount(event);
+	}
+
+	function handleNumberInput(e) {
+		const event = {
+			target: {
+				type: 'number',
+				value: e.target.value
+			}
+		};
+		validateAmount(event);
+	}
 </script>
 
 
@@ -16,17 +43,17 @@
 	<div class="right-step"  transition:fade>
 		<form onsubmit={nextStep}>
 			<fieldset class="amount-input-container">
-				<label for='fixedAmount1'><input type="radio" id='fixedAmount1' name="fixedAmount" oninput={validateAmount} value="€25">&euro; 25</label>
-				<label for='fixedAmount2'><input type="radio" id='fixedAmount2' name="fixedAmount" oninput={validateAmount} value="€50">&euro; 50</label>
-				<label for='fixedAmount3'><input type="radio" id='fixedAmount3' name="fixedAmount" oninput={validateAmount} value="€100">&euro; 100</label>
-				<label for='fixedAmount4'><input type="radio" id='fixedAmount4' name="fixedAmount" oninput={validateAmount} value="€500">&euro; 500</label>
+				<label for='fixedAmount1'><input type="radio" id='fixedAmount1' name="fixedAmount" oninput={() => handleRadioInput('€25')} value="€25">&euro; 25</label>
+				<label for='fixedAmount2'><input type="radio" id='fixedAmount2' name="fixedAmount" oninput={() => handleRadioInput('€50')} value="€50">&euro; 50</label>
+				<label for='fixedAmount3'><input type="radio" id='fixedAmount3' name="fixedAmount" oninput={() => handleRadioInput('€100')} value="€100">&euro; 100</label>
+				<label for='fixedAmount4'><input type="radio" id='fixedAmount4' name="fixedAmount" oninput={() => handleRadioInput('€500')} value="€500">&euro; 500</label>
 			</fieldset>
 			<fieldset class="amount-input-container custom-amount-fieldset">
 				<label for="amount">Or enter a custom amount</label>
 				<input 
 				type="number" 
 				id="amount" 
-				oninput={validateAmount}
+				oninput={handleNumberInput}
 				placeholder="&euro;"
 				min={min} 
 				max={max}
