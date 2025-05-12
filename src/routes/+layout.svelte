@@ -58,6 +58,9 @@
 			case '/profile':
 				current.set('profile');
 				break;
+			case '/blog':
+				current.set('blog');
+				break;
 			default:
 				current.set('/');
 				break;
