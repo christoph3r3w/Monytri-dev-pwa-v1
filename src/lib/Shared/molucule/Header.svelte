@@ -87,7 +87,7 @@
 			</h2>
 
 		{:else}
-				<!-- <Balance_M/> -->
+			<!-- <Balance_M/> -->
 		{/if}
 	</nav>
 	<!-- profile menu -->
@@ -201,12 +201,12 @@
 
 
 	@media 
-			(-moz-min-device-pixel-ratio: 3),	
-			(-webkit-min-device-pixel-ratio: 3),
-			(pointer: coarse) and (hover: none) and (min-resolution: 400dpi) ,
-			screen and (device-width <= 900px) and (width <= 900px) and (orientation: portrait) , 
-			screen and (device-height <= 900px) and (height <= 900px) and (orientation: landscape)
-			{
+		(-moz-min-device-pixel-ratio: 3),	
+		(-webkit-min-device-pixel-ratio: 3),
+		(pointer: coarse) and (hover: none) and (min-resolution: 400dpi) ,
+		screen and (device-width <= 900px) and (width <= 900px) and (orientation: portrait) , 
+		screen and (device-height <= 900px) and (height <= 900px) and (orientation: landscape)
+		{
 
 		.header{
 			grid-column: content;
@@ -223,7 +223,7 @@
 			width: 100%;
 			height: 100%;
 			border-bottom: none;
-			padding-inline: calc(var(--body-padding) + 5% ) ;
+			padding-inline: calc(var(--body-padding) ) ;
 		}
 
 		.goBack{
@@ -283,9 +283,8 @@
 		}
 
 		:global(html:has(.home-wrapper) ){
-			
-			
-				--body-padding: 0;
+				
+			--body-padding: 0;
 			/* .header{
 				padding-inline: var(--body-padding) ;
 			} */
@@ -297,13 +296,15 @@
 				top: 0;
 				inset-inline: 0;
 				min-height: calc(var(--header-intro-height) + var(--header-height));
-				clip-path: polygon(0 0, 100% 0, 100% calc(var(--header-intro-height) + var(--header-height)), 0 calc(var(--header-intro-height) + var(--header-height)));
+				/* clip-path: polygon(0 0, 100% 0, 100% calc(var(--header-intro-height) + var(--header-height)), 0 calc(var(--header-intro-height) + var(--header-height))); */
 				background: 
-				url('./home-page/homepage-intro-deco.png'),
-				linear-gradient(180deg, var(--primary-green-500) var(--_background-cut-off), transparent var(--_background-cut-off));
+				url('./home-page/homepage-intro-deco.png') no-repeat center -3vw / cover,
+				linear-gradient(180deg, var(--primary-green-500) var(--_background-cut-off), transparent var(--_background-cut-off))
+				;
 				background-repeat: no-repeat;
 				background-size: cover;
 				overflow: clip;
+				
 
 			}
 

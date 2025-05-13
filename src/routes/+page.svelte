@@ -9,10 +9,6 @@
 	<title>Monytri</title>	
 </svelte:head>
 
-		<!-- <h1>Welcome to Monytri</h1>
-		<p>We are a community of people who want to help each other out. We are not a bank, we are not a credit union, we are just a group of people who want to help each other out.</p>
-		<p>We are not a bank, we are not a credit union, we are just a group of people who want to help each other out.</p> -->
-
 <div class="home-wrapper">
 	
 	<HomeArticles_M/>
@@ -23,8 +19,6 @@
 		<p>send feedback or issues here ⬇️</p>
 		<a href="https://github.com/christoph3r3w/Monytri-dev-pwa-v1/issues/new">report issues </a>
 	</div>
-	<br>
-	<PTest/>
 </div>
 
 <style>
@@ -85,9 +79,9 @@
 	
 			:global(.home-wrapper){
 				padding-top: var(--header-intro-height);
+				min-height: 0;
 			}
 			
-
 			.button-conatiner-dev{
 				display: none;
 			}
