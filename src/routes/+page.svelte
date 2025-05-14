@@ -10,15 +10,15 @@
 </svelte:head>
 
 <div class="home-wrapper">
-	
 	<HomeArticles_M/>
-	<br>
+	
 	<div class="button-conatiner-dev">
 		<button onclick={goto("/gift")}>send a gift</button>
 		<button onclick={goto("/request")} disabled>request a gift</button>
 		<p>send feedback or issues here ⬇️</p>
 		<a href="https://github.com/christoph3r3w/Monytri-dev-pwa-v1/issues/new">report issues </a>
 	</div>
+	<br>
 </div>
 
 <style>
@@ -41,6 +41,7 @@
 		gap: 2rem;
 		width: 100%;
 		height: fit-content;
+		margin-bottom: 5rem;
 	}
 	
 	.button-conatiner-dev :is(a,button) {
@@ -79,11 +80,15 @@
 	
 			:global(.home-wrapper){
 				padding-top: var(--header-intro-height);
-				min-height: 0;
 			}
 			
-			.button-conatiner-dev{
-				display: none;
+			div.button-conatiner-dev {
+				position: relative;
+				margin-inline: 5%;
+				
+				button{
+					display: none;
+				}
 			}
 		}
 	}	
