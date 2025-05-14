@@ -1,8 +1,5 @@
-<!-- <svelte:head>
-	<title>how it works</title>
-</svelte:head> -->
-<h1>
-	how it works
-</h1>
+<script>
+	import {InProgress_S} from '$lib';
+</script>
 
-<a href="/" style="font-size: 3rem;">go home</a>
+<InProgress_S />
