@@ -121,7 +121,7 @@
 			height: calc(100% - 16svh);
 			background-color: unset;
 			padding: unset;
-			padding-top: 15dvh;
+			padding-top: 5lvh;
 		}
 
 		.message-body p {

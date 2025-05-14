@@ -50,10 +50,6 @@
 		height: 100% ;
 		gap: 0;
 		margin-top: 5% ;
-
-		@starting-style{
-			
-		}
 	}
 	
 	.error-header {
