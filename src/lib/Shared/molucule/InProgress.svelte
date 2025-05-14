@@ -15,18 +15,7 @@
 <style>
 
 	:global(html:has(.message-container) main)  {
-			overflow: hidden;
-
-		&::after{
-			@container style(--mobile:1) {
-				content: '';
-				position: absolute;
-				inset: 0 -30dvw;
-				background-color: color-mix( in srgb, rgba(243, 243, 243, 0.549), var(--primary-green-500) 20%);
-				backdrop-filter: blur(5px);
-				z-index: 10;
-			}
-		}
+		overflow: hidden;
 	}
 
 	*{
@@ -41,15 +30,6 @@
 		inset-inline: 31vw;
 		padding-top: 30%;
 		z-index: 101;
-		
-		@container style(--mobile:1) {
-			position: relative;
-			padding: 20px;
-			grid-column: content;
-			top: 0;
-			left: 0;
-			height: 100dvh;
-		}
 	}
 
 	.message-header {
@@ -58,22 +38,15 @@
 		padding: 10px;
 		border-radius: var(--rad) var(--rad) 0 0;
 		width: 100%;
-
 		height: 10%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center	;
-
+		justify-content: center;
 		/* display: none; */
-
-		@container style(--mobile:1) {
-			display: none;
-		}
 	}
 
 	.message-body {
-		
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -85,21 +58,11 @@
 		width: 100%;
 		height: 50%;
 		text-align: center;
-
-		@container style(--mobile:1) {
-			grid-column: 1 / -1;
-			width: 100%;
-			height: calc(100% - 16svh);
-			background-color: unset;
-			padding: unset;
-			padding-top: 15dvh;
-		}
 	}
 
 	.message-body img {
 		width: auto;
 		height: auto;
-
 	}
 
 	.message-body p {
@@ -107,13 +70,6 @@
 		font-size: 1.2rem;
 		max-width: 50vw;
 		margin-bottom: 1rem;
-
-		@container style(--mobile:1) {
-			width: 100%;
-			max-width: 100%;
-			margin-bottom: 0;
-			padding-top: 10dvh;
-		}
 	}
 
 	a{
@@ -121,7 +77,6 @@
 		bottom: var(--body-padding);
 		right:0;
 		width:50%;
-		
 		padding: clamp(1rem,1vw,1rem);
 		background-color: #4B7A5B;
 		color: white;
@@ -131,8 +86,52 @@
 		font-weight: 500;
 		align-self: center;
 		margin-top: auto;
+	}
 
-		@container style(--mobile:1) {
+	@media (-webkit-min-device-pixel-ratio: 3),
+	(pointer: coarse) and (hover: none) and (min-resolution: 400dpi),
+	screen and (device-width <= 900px) and (width <= 900px) and (orientation: portrait),
+	screen and (device-height <= 900px) and (height <= 900px) and (orientation: landscape) {
+
+		:global(html:has(.message-container) main)::after {
+			content: '';
+			position: absolute;
+			inset: 0 -30dvw;
+			background-color: color-mix( in srgb, rgba(243, 243, 243, 0.549), var(--primary-green-500) 20%);
+			backdrop-filter: blur(5px);
+			z-index: 10;
+		}
+
+		.message-container {
+			position: relative;
+			padding: 20px;
+			grid-column: content;
+			top: 0;
+			left: 0;
+			height: 100dvh;
+		}
+
+		.message-header {
+			display: none;
+		}
+
+		.message-body {
+			grid-column: 1 / -1;
+			width: 100%;
+			height: calc(100% - 16svh);
+			background-color: unset;
+			padding: unset;
+			padding-top: 15dvh;
+		}
+
+		.message-body p {
+			width: 100%;
+			max-width: 100%;
+			margin-bottom: 0;
+			padding-top: 10dvh;
+		}
+
+		a {
 			position: relative;
 			width: 100%;
 			right: 0;
