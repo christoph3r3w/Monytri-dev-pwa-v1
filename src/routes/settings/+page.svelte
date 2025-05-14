@@ -1,14 +1,26 @@
 <script>
-	import {current} from '$lib/store.js';
-	import {Menu} from '$lib'
+	import {current,isMobile} from '$lib/store.js';
+	import {Menu,InProgress_S} from '$lib'
+	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
+
+	$effect(() => {
+		if ($current && !$isMobile) {
+			goto('/error');
+		} 	
+	});
+
+	
 </script>
 
-<div>
+<InProgress_S />
+
+<div class='settings-container'>
 	<Menu></Menu>
 </div>
 
 <style>
-	div{
+	.settings-container {
 		grid-column: 1 / -1;
 		grid-row: 1 / span 1;
 		display: flex;
@@ -16,6 +28,5 @@
 		align-content: start;
 		width: 100%;
 		max-height: calc(120dvh - var(--footer-height)) ;
-		/* padding-bottom: calc(var(--header-height) + env(safe-area-inset-bottom)); */
 	}
 </style>
