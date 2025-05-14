@@ -108,7 +108,7 @@
 			grid-column: content;
 			top: 0;
 			left: 0;
-			height: 100dvh;
+			height: 99svh;
 		}
 
 		.message-header {
