@@ -275,13 +275,13 @@
 
 		/* grid positioning for all main content */
 		&:nth-of-type(1)  {
+			position: relative;
 			grid-row: main;
 			display: grid;
 			grid-template-columns: subgrid;
 			align-content: start;
 			overflow-x: clip;
 			overflow-y: visible;
-			
 		}
 				
 		&:nth-of-type(1) > :is(:global(*)) {
@@ -355,6 +355,7 @@
 			inset-inline: 0;
 			transform: translate3d(0,0,0);
 			padding-top: env(safe-area-inset-top);
+			z-index: 100;
 		}
 				
 		/* main content layout styling for when the --mobile property is = 1 */
@@ -421,6 +422,7 @@
 			border-radius: var(--_nav-radius) var(--_nav-radius) 0 0;
 			transform: translate3d(0,0,0);
 			padding-bottom: env(safe-area-inset-bottom);
+			z-index: 100;
 		}
 	}
 </style>

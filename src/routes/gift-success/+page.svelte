@@ -35,9 +35,6 @@
 {:else}
 	<section class="step-container" transition:fade={{ duration: 200 }}>
 		<section class="step-header" >
-			<!-- <div class="button-container">
-				{@render button('back')}
-			</div> -->
 			<div class="step-header-text">
 				<h2>Gift Purchase Complete!</h2>
 				<p>{formData.currentDate}</p>
