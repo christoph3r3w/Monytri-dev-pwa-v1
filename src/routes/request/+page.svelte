@@ -4,10 +4,10 @@
 	import QRCode from 'qrcode';
 	import { goto } from '$app/navigation';
 
+	//  vecel does not let a user enter an application from the share page you need to start with the hoem page 
 	const shareUrl = `${window.location.origin}/share`;
 	let qrDataUrl = '';
 
-	// Move generateQR outside of onMount
 	async function generateQR() {
 		try {
 			qrDataUrl = await QRCode.toDataURL(shareUrl, {
@@ -23,13 +23,13 @@
 		}
 	}
 
-	async function share() {
+	async function nativeShare() {
 				if (navigator.share) {
 					try {
 						await navigator.share({
 							title: 'Monytri',
 							text: 'Check out Monytri!',
-							url: currentURL
+							url: shareUrl
 						});
 					} catch (err) {
 						console.error('Share failed:', err);
@@ -68,7 +68,7 @@
 				generate QR code
 			</button>
 	
-			<button onclick={share}>
+			<button onclick={nativeShare}>
 				share
 			</button>
 
