@@ -10,7 +10,7 @@
 	// Move generateQR outside of onMount
 	async function generateQR() {
 		try {
-			qrDataUrl = await QRCode.toDataURL(currentURL + '/share', {
+			qrDataUrl = await QRCode.toDataURL(currentURL, {
 				width: 300,
 				margin: 1,
 				color: {
