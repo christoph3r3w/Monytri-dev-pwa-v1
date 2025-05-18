@@ -4,13 +4,13 @@
 	import QRCode from 'qrcode';
 	import { goto } from '$app/navigation';
 
-	const currentURL = `${window.location.href.replace(/\/$/, '')}/share`;
+	const shareUrl = `${window.location.origin}/share`;
 	let qrDataUrl = '';
 
 	// Move generateQR outside of onMount
 	async function generateQR() {
 		try {
-			qrDataUrl = await QRCode.toDataURL(currentURL, {
+			qrDataUrl = await QRCode.toDataURL(shareUrl, {
 				width: 300,
 				margin: 1,
 				color: {
