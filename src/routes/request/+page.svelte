@@ -210,6 +210,6 @@
 
 	.bottom-logo{
 		background-color: unset;
-		margin-bottom: 5rem;
+		margin-bottom: 2rem;
 	}
 </style>
