@@ -74,7 +74,7 @@
 			</button>
 
 			<button onclick={goto('/share')}>
-				share page
+				install web app
 			</button>
 		</div>
 	</article>
