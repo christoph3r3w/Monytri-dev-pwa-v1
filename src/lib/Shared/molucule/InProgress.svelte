@@ -101,7 +101,7 @@
 			position: absolute;
 			inset: 0 -30dvw;
 			background-color: color-mix( in srgb, rgba(243, 243, 243, 0.549), var(--primary-green-500) 20%);
-			backdrop-filter: blur(5px);
+			/* backdrop-filter: blur(5px); */
 			z-index: 10;
 			/* display: none; */
 		}
