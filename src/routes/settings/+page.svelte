@@ -16,13 +16,13 @@
 <InProgress_S />
 
 <div class='settings-container'>
-	<!-- <Menu></Menu> -->
+	<Menu></Menu>
 </div>
 
 <style>
 
 	:global(html:has(.message-container) nav.dropdown-menu)  {
-		z-index: 5;
+		z-index: 0 !important;
 	}
 	.settings-container {
 		grid-column: 1 / -1;
