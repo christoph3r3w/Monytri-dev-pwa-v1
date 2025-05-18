@@ -4,13 +4,20 @@
 	import QRCode from 'qrcode';
 	import { goto } from '$app/navigation';
 
-	const currentURL = './share';
+	const currentURL = window.location.href;
 	let qrDataUrl = '';
 
 	// Move generateQR outside of onMount
 	async function generateQR() {
 		try {
-			qrDataUrl = await QRCode.toDataURL(currentURL);
+			qrDataUrl = await QRCode.toDataURL(currentURL + '/share', {
+				width: 300,
+				margin: 1,
+				color: {
+					dark: '#000000',
+					light: '#ffffff00'
+				}
+			});
 		} catch (err) {
 			console.error(err);
 		}
@@ -79,7 +86,7 @@
 	</section>
 	
 
-	<figure>
+	<figure class="bottom-logo">
 		<Logo name={false}/>
 	</figure>
 </div>
@@ -112,7 +119,7 @@
 
 	.container > h2{
 		position: relative;
-		margin-block: 3%;
+		margin-block: 3% 1rem;
 		width: 100%;
 
 		&::after{
@@ -147,12 +154,14 @@
 	.share-container{
 		padding-inline: 2rem;
 		padding-block: 1rem;
+		background-color: var(--primary-darkgreen-200);
 	}
 
 	.qr-container{
 		min-height: 20dvh;
 		max-width: 400px;
 		gap: 1rem;
+		margin-block: 6%;
 	}
 
 	.qr-container p{
@@ -163,8 +172,8 @@
 	.qr-container img{
 		width: 60%;
 		height: auto;
+		padding-block: 2%;
 	}
-
 
 	.share-button-container {
 		flex: 1 1 20%;
@@ -187,18 +196,19 @@
 		padding: 1rem 2rem;
 		border-radius: 5px;
 		border: solid var(--primary-green-500) 2px;
+		background-color: var(--white);
 		
 		&:nth-of-type(1) {
 			background-color: var(--primary-green-500);
 			color: var(--white);
 		}
 		
-		&:nth-of-type(2) {
+		&:nth-of-type(2n) {
 			color: var(--primary-green-500);
 		}
 	}
 
-	figure:nth-last-of-type(1){
+	.bottom-logo{
 		background-color: unset;
 		margin-bottom: 5rem;
 	}
