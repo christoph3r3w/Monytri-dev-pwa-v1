@@ -279,6 +279,7 @@
 				grid-template-rows: min(23px, 15%) [content-start] 2fr [content-end] min(30px, 45%);		
 				width: 100cqw;
 				border-radius:inherit;
+				z-index: 100;
 		}
 			
 		.mobile-nav ul{

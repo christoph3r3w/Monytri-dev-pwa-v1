@@ -88,6 +88,7 @@
 
 			.invest-tips ul{
 				overflow-x: auto;
+				overflow-y: hidden;
 				display: grid;
 				grid-auto-flow:column;
 				grid-auto-columns: 50%;

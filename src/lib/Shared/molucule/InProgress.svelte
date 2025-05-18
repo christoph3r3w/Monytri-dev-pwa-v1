@@ -128,7 +128,7 @@
 			width: 100%;
 			max-width: 100%;
 			margin-bottom: 0;
-			padding-top: 10dvh;
+			font-size: clamp(1rem, 2vw, 1.2rem);
 		}
 
 		a {
@@ -139,6 +139,7 @@
 			align-items: end;
 			align-self: flex-end;
 			margin-top: auto;
+			z-index: 0;
 		}
 	}
 

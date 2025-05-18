@@ -10,6 +10,8 @@
 </svelte:head>
 
 <div class="home-wrapper">
+
+	
 	<HomeArticles_M/>
 	
 	<div class="button-conatiner-dev">
@@ -46,7 +48,6 @@
 	
 	.button-conatiner-dev :is(a,button) {
 		font-size: 2rem;
-		color: green;
 		border: solid 2px ;
 		border-radius: 8px;
 		padding: 1rem 2rem;
@@ -61,7 +62,7 @@
 		display: none;
 	}
 
-	:global(html:has(.home-wrapper) ) {
+	:global(html:has(.home-wrapper)){
 		@media (-webkit-min-device-pixel-ratio: 3),
 		(pointer: coarse) and (hover: none) and (min-resolution: 400dpi),
 		screen and (device-width <= 900px) and (width <= 900px) and (orientation: portrait),
@@ -69,9 +70,10 @@
 			&{
 				--body-padding: 0;
 				--header-intro-height: 27dvh;
+				overflow-x: hidden;
 			}
 
-			:global(header){
+			:global(header,footer){
 				--body-padding: 5% ;
 				z-index: 10;
 				/* padding-inline: var(--body-padding) ; */

@@ -296,14 +296,15 @@
 				top: 0;
 				inset-inline: 0;
 				min-height: calc(var(--header-intro-height) + var(--header-height));
-				/* clip-path: polygon(0 0, 100% 0, 100% calc(var(--header-intro-height) + var(--header-height)), 0 calc(var(--header-intro-height) + var(--header-height))); */
 				background: 
-				url('./home-page/homepage-intro-deco.png') no-repeat center -3vw / cover,
-				linear-gradient(180deg, var(--primary-green-500) var(--_background-cut-off), transparent var(--_background-cut-off))
+				/* linear-gradient(180deg, transparent var(--_background-cut-off), var(--general-background-color) var(--_background-cut-off)), */
+				url('./home-page/homepage-intro-deco.png') no-repeat center clamp(-12vh,-3vh,0px) / contain,
+				linear-gradient(180deg, var(--primary-green-500) var(--_background-cut-off), transparent var(--_background-cut-off));
 				;
 				background-repeat: no-repeat;
 				background-size: cover;
 				overflow: clip;
+				mix-blend-mode:normal;
 				
 
 			}
