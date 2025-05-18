@@ -72,7 +72,6 @@
 		text-align: center;
 		font-size: 1.2rem;
 		max-width: 50vw;
-		/* margin-bottom: 1rem; */
 	}
 
 	a{

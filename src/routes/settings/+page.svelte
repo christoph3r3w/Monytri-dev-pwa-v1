@@ -10,7 +10,6 @@
 		} 	
 	});
 
-	
 </script>
 
 <InProgress_S />
@@ -22,8 +21,9 @@
 <style>
 
 	:global(html:has(.message-container) nav.dropdown-menu)  {
-		z-index: 0 !important;
+		display: none;
 	}
+
 	.settings-container {
 		grid-column: 1 / -1;
 		grid-row: 1 / span 1;
