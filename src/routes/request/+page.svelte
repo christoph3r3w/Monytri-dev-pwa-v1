@@ -5,12 +5,13 @@
 	import { goto } from '$app/navigation';
 
 	//  vecel does not let a user enter an application from the share page you need to start with the hoem page 
-	const shareUrl = `${window.location.origin}/share`;
+	const homeUrl = window.location.origin
+	const shareUrl = `${homeUrl}/share`;
 	let qrDataUrl = '';
 
 	async function generateQR() {
 		try {
-			qrDataUrl = await QRCode.toDataURL(shareUrl, {
+			qrDataUrl = await QRCode.toDataURL(homeUrl, {
 				width: 300,
 				margin: 1,
 				color: {
@@ -29,7 +30,7 @@
 						await navigator.share({
 							title: 'Monytri',
 							text: 'Check out Monytri!',
-							url: shareUrl
+							url: homeUrl
 						});
 					} catch (err) {
 						console.error('Share failed:', err);
