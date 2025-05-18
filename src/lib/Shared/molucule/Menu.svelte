@@ -182,7 +182,7 @@
 		{
 			nav.dropdown-menu{
 				position: relative;
-				z-index: 0;
+				z-index: 0 !important;
 				top: 0;
 				bottom: 0;
 				box-shadow: none;
