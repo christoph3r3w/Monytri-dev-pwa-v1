@@ -4,7 +4,7 @@
 	import QRCode from 'qrcode';
 	import { goto } from '$app/navigation';
 
-	const currentURL = window.location.href;
+	const currentURL = `${window.location.href.replace(/\/$/, '')}/share`;
 	let qrDataUrl = '';
 
 	// Move generateQR outside of onMount
