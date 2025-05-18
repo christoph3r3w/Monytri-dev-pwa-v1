@@ -16,7 +16,7 @@
 <InProgress_S />
 
 <div class='settings-container'>
-	<!-- <Menu></Menu> -->
+	<Menu></Menu>
 </div>
 
 <style>
