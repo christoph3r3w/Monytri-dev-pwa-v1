@@ -113,7 +113,6 @@
 			top: 0;
 			left: 0;
 			height: 99svh;
-			/* display: none; */
 		}
 
 		.message-header {

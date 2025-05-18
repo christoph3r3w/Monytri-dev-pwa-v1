@@ -80,7 +80,7 @@
 		padding-inline: 24px;
 		padding-block: 1rem;
 		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;		
-		z-index: 50;
+		z-index: 20;
 	}
 	
 	nav.dropdown-menu section{

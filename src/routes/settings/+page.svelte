@@ -20,6 +20,10 @@
 </div>
 
 <style>
+
+	:global(html:has(.message-container) nav.dropdown-menu)  {
+		z-index: 5;
+	}
 	.settings-container {
 		grid-column: 1 / -1;
 		grid-row: 1 / span 1;
@@ -28,5 +32,6 @@
 		align-content: start;
 		width: 100%;
 		max-height: calc(120dvh - var(--footer-height)) ;
+		z-index: 5;
 	}
 </style>
