@@ -33,6 +33,7 @@
 	}
 
 	.message-header {
+		position: relative;
 		background-color: var(--primary-green-500);
 		color: white;
 		padding: 10px;
@@ -47,6 +48,7 @@
 	}
 
 	.message-body {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -61,15 +63,16 @@
 	}
 
 	.message-body img {
+		position: relative;
 		width: auto;
-		height: auto;
+		height: fit-content;
 	}
 
 	.message-body p {
 		text-align: center;
 		font-size: 1.2rem;
 		max-width: 50vw;
-		margin-bottom: 1rem;
+		/* margin-bottom: 1rem; */
 	}
 
 	a{
@@ -100,7 +103,7 @@
 			background-color: color-mix( in srgb, rgba(243, 243, 243, 0.549), var(--primary-green-500) 20%);
 			backdrop-filter: blur(5px);
 			z-index: 10;
-			display: none;
+			/* display: none; */
 		}
 
 		.message-container {
@@ -120,17 +123,24 @@
 		.message-body {
 			grid-column: 1 / -1;
 			width: 100%;
-			height: calc(100% - 16svh);
+			height: fit-content;
+			/* height: calc(100% - clamp(1rem,16dvh,100%)); */
+			justify-content: flex-start;
 			background-color: unset;
 			padding: unset;
-			padding-top: 5lvh;
+		}
+
+		.message-body img {
+			width: clamp(10dvh,100%,35dvh);
+			height: auto;
 		}
 
 		.message-body p {
 			width: 100%;
 			max-width: 100%;
 			margin-bottom: 0;
-			font-size: clamp(1rem, 2vw, 1.2rem);
+			font-size: clamp(1rem, 2dvh, 1.2rem);
+			margin-bottom: min(10%,10px);
 		}
 
 		a {
@@ -138,7 +148,6 @@
 			width: 100%;
 			right: 0;
 			bottom: auto;
-			align-items: end;
 			align-self: flex-end;
 			margin-top: auto;
 			z-index: 0;
