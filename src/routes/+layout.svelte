@@ -2,7 +2,7 @@
 	import {onMount} from 'svelte';
   	import {onNavigate,afterNavigate} from '$app/navigation'
 	import {Header,Footer,Menu} from '$lib'
-	import {current,isMobile,menuOpen} from '../lib/store.js'
+	import {current,isMobile,menuOpen, updateCurrentFromPath} from '../lib/store.js'
 	import '../app.css';
   
 	let { children } = $props();
@@ -28,45 +28,6 @@
 
 	}
 
-	// function to detect the current page
-	function currentPage(){
-		const currentPath = window.location.pathname;
-
-		switch(currentPath){
-			case '/':
-				current.set('home');
-				break;
-			case '/gift':
-			case '/gift-success':
-				current.set('gift');
-				break;
-			case '/how-it-works':
-				current.set('how-it-works');
-				break;
-			case '/learn-more':
-				current.set('learn-more');
-				break;
-			case '/transactions':
-				current.set('transactions');
-				break;
-			case '/stock-overview':
-				current.set('stock');
-				break;
-			case '/settings':
-				current.set('settings');
-				break;
-			case '/profile':
-				current.set('profile');
-				break;
-			case '/blog':
-				current.set('blog');
-				break;
-			default:
-				current.set('/');
-				break;
-		}
-		return
-	}
 	
 	$effect(() => {
 		detectSWUpdate();
@@ -74,7 +35,7 @@
 		// Function to update isMobile store value
 		const updateIsMobile = () => {
 			isMobile.set(getComputedStyle(document.documentElement).getPropertyValue('--mobile') === '1');
-			currentPage();
+			updateCurrentFromPath();
 		};
 
 		// Debounce the updateIsMobile function to prevent it from running too frequently
@@ -95,7 +56,7 @@
 
 		 // Listen for page navigation
 		window.addEventListener('popstate', () => {
-			currentPage();
+			updateCurrentFromPath();
 		});
 
 		window.addEventListener('resize', debouncedUpdateIsMobile);
@@ -134,7 +95,7 @@
 			resizeObserver.disconnect();
 			window.removeEventListener('orientationchange', updateIsMobile);
 			window.removeEventListener('load', handleFullPageLoad);
-			window.removeEventListener('popstate', currentPage);
+			window.removeEventListener('popstate', updateCurrentFromPath);
 		};
 	});
 
@@ -151,7 +112,7 @@
     // })
 
 	afterNavigate(() => {
-		currentPage();
+		updateCurrentFromPath();
 	});
 
 	// loggoing the current store value

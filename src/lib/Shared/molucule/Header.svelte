@@ -1,4 +1,3 @@
-
 <script>
 	import {goto} from '$app/navigation';
 	import {Logo,Balance_M} from '$lib'
@@ -55,7 +54,7 @@
 {#snippet mobileHeadNav()}
 <section>
 	<!-- goback and search button -->
-	 {#if $current === 'gift' || $current === 'gift-success'}
+	 {#if $current === 'gift' || $current === 'gift-success'  }
 	 <nav class="goBack">
 		<button onclick={iconTask}>
 			<svg width="9" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,7 +62,6 @@
 			</svg>
 		</button>
 	</nav>
-
 	{:else}
 	<nav class="goBack othr">
 		<button onclick={iconTask}>
@@ -85,9 +83,6 @@
 			<h2>
 				{$current}
 			</h2>
-
-		{:else}
-			<!-- <Balance_M/> -->
 		{/if}
 	</nav>
 	<!-- profile menu -->
