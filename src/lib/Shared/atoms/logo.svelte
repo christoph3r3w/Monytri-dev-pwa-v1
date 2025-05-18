@@ -1,8 +1,14 @@
+<script>
+	export let name = false;
+</script>
+
 <a href="/">
 	<picture>
 		<img src="Monytri-01-1.png" alt="logo" width="40px" />
 	</picture>
-	<h1>monytri</h1>
+	{#if name}
+		<h1>monytri</h1>
+	{/if}
 </a>
 
 <style>

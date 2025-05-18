@@ -46,7 +46,7 @@
 <!-- desktop footer -->
 <div class="footer-one">    
     <section>
-        <Logo/>
+        <Logo name={true}/>
     </section>
     <nav>
         <section class="footer-link-list">

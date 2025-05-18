@@ -40,7 +40,7 @@
 
 {#snippet desktopNav()}
 	<nav class="logo">
-		<Logo/>
+		<Logo name={true}/>
 	</nav>
 	<nav class="menu">
 		<menu>
