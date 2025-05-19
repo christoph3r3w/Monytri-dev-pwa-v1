@@ -8,6 +8,11 @@
 	const homeUrl = window.location.origin
 	const shareUrl = `${homeUrl}/share`;
 	let qrDataUrl = '';
+	let canShare = false;
+
+	onMount(() => {
+		canShare = !!navigator.share;
+	});
 
 	async function generateQR() {
 		try {
@@ -25,20 +30,36 @@
 	}
 
 	async function nativeShare() {
-				if (navigator.share) {
-					try {
-						await navigator.share({
-							title: 'Monytri',
-							text: 'Check out Monytri!',
-							url: homeUrl
-						});
-					} catch (err) {
-						console.error('Share failed:', err);
-					}
-				} else {
-					alert('Web Share API is not supported in your browser.');
-				}
-			}
+
+		if (!canShare) {
+			alert('Web Share API is not supported in your browser.');
+			return;
+		}
+
+		try {
+			await navigator.share({
+				title: 'Monytri',
+				text: 'Check out Monytri!',
+				url: homeUrl
+			});
+		} catch (err) {
+			console.error('Share failed:', err);
+		}
+	}
+
+	function copyURL() {
+		if (navigator.clipboard) {
+			navigator.clipboard.writeText(shareUrl)
+				.then(() => {
+					alert('URL copied to clipboard!');
+				})
+				.catch(err => {
+					console.error('Failed to copy URL:', err);
+				});
+		} else {
+			alert('Clipboard API is not supported in your browser.');
+		}
+	}
 
 </script>
 
@@ -62,18 +83,25 @@
 			<img src={qrDataUrl} alt="QR Code" width="300" height="300" onclick={qrDataUrl = ''} />
 			<p>Scan the QR code to share Monytri</p>
 			{/if}
-		</figure>
-
-		<div class="share-button-container">
 			{#if qrDataUrl.length <= 0}
 				<button onclick={generateQR}>
 					generate QR code
 				</button>
 			{/if}
-			<button onclick={nativeShare}>
-				share
-			</button>
+		</figure>
 
+		<div class="share-button-container">
+			
+			{#if canShare}
+				<button onclick={nativeShare}>
+					share
+				</button>
+			{:else}
+				<button onclick={copyURL}>
+					copy to clipboard
+				</button>
+			{/if}
+		
 			<button onclick={goto('/share')}>
 				install web app
 			</button>
@@ -159,7 +187,7 @@
 	}
 
 	.qr-container{
-		min-height: 20dvh;
+		min-height: fit-content;
 		max-width: 400px;
 		gap: 1rem;
 		margin-block: 6%;
@@ -187,7 +215,7 @@
 		justify-content: end;
 	}
 
-	.share-button-container button {
+	:is(.share-button-container,.qr-container) button {
 		width: 100%;
 		padding: clamp(10px, .9rem, 1vw) clamp(10px, .9rem, 1vw);
 		text-decoration: none;
