@@ -34,7 +34,7 @@
 
 <div class="container">
 
-	<figure class="banner">
+	<figure class="banner" style="background: url('./shared-assests/banner-deco.png')">
 		<img src="./shared-assests/Monytri-01.png" alt="">
 	</figure>
 
@@ -120,7 +120,6 @@
 		width: 100%;
 		aspect-ratio: 30/9;
 		background-color: var(--white);
-		background: url('./shared-assests/banner-deco.png');
 		background-size: cover;
 		display: grid;
 		place-items: center;
