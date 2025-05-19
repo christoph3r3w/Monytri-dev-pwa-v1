@@ -25,9 +25,9 @@
 					<a href="/how-it-works"></a>
 					<figure>
 						<img src="./home-page/homescreen-cash.png" alt="cash" width="177px" height="177px">
-						<figcaption>Ep.2</figcaption>
+						<figcaption>Ep.3</figcaption>
 					</figure>
-					<p>Ep.2: Why Monytri?</p>
+					<p>Ep.3: Why Monytri?</p>
 					<p>With Chiara & David</p>
 				</li>
 			</ul>
