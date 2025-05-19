@@ -49,7 +49,7 @@
 
 	function copyURL() {
 		if (navigator.clipboard) {
-			navigator.clipboard.writeText(shareUrl)
+			navigator.clipboard.writeText(homeUrl)
 				.then(() => {
 					alert('URL copied to clipboard!');
 				})
