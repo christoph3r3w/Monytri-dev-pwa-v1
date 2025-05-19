@@ -120,7 +120,7 @@
 		width: 100%;
 		aspect-ratio: 30/9;
 		background-color: var(--white);
-		background-image: url('./shared-assests/banner-deco.png');
+		background: url('./shared-assests/banner-deco.png');
 		background-size: cover;
 		display: grid;
 		place-items: center;

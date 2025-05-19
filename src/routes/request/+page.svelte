@@ -48,7 +48,7 @@
 	<h2>Request coming soon</h2>
 	
 	
-	<figure class="banner">
+	<figure class="banner" style="	background: url('./shared-assests/banner-deco.png')">
 		<img src="./shared-assests/Monytri-01.png" alt="">
 	</figure>
 
@@ -59,16 +59,17 @@
 
 		<figure class="qr-container">
 			{#if qrDataUrl.length > 0}
-			<img src={qrDataUrl} alt="QR Code" width="300" height="300" />
+			<img src={qrDataUrl} alt="QR Code" width="300" height="300" onclick={qrDataUrl = ''} />
 			<p>Scan the QR code to share Monytri</p>
 			{/if}
 		</figure>
 
 		<div class="share-button-container">
-			<button onclick={generateQR}>
-				generate QR code
-			</button>
-	
+			{#if qrDataUrl.length <= 0}
+				<button onclick={generateQR}>
+					generate QR code
+				</button>
+			{/if}
 			<button onclick={nativeShare}>
 				share
 			</button>
@@ -137,11 +138,10 @@
 		}
 	}	
 
-	figure.banner{
+	figure.banner {
 		width: 100%;
 		aspect-ratio: 30/9;
 		background-color: var(--white);
-		background-image: url('./shared-assests/banner-deco.png');
 		background-size: cover;
 		display: grid;
 		place-items: center;
