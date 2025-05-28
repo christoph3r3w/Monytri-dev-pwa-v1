@@ -34,7 +34,7 @@
 			alert('Web Share API is not supported in your browser.');
 			return;
 		} else if (canShare) {
-			await navigator.share({
+			navigator.share({
 				title: 'Monytri',
 				text: 'Check out Monytri!',
 				url: installUrl
