@@ -1,5 +1,8 @@
 // import adapter from '@sveltejs/adapter-auto';
-import adapter from '@sveltejs/adapter-static';
+// adapter  for static sites or conversion to native apps
+// import adapter from '@sveltejs/adapter-static';
+// adapter for vercel
+import adapter from '@sveltejs/adapter-vercel';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
