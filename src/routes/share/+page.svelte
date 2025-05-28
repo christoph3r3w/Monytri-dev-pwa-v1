@@ -4,9 +4,8 @@
 	import QRCode from 'qrcode';
 	import { goto } from '$app/navigation';
 
-	//  vecel does not let a user enter an application from the share page you need to start with the hoem page 
 	const homeUrl = window.location.origin
-	const shareUrl = `${homeUrl}/share`;
+	const installUrl = `${homeUrl}/install`;
 	let qrDataUrl = '';
 	let canShare = false;
 
@@ -16,7 +15,7 @@
 
 	async function generateQR() {
 		try {
-			qrDataUrl = await QRCode.toDataURL(homeUrl, {
+			qrDataUrl = await QRCode.toDataURL(installUrl, {
 				width: 300,
 				margin: 1,
 				color: {
@@ -29,20 +28,18 @@
 		}
 	}
 
-	async function nativeShare() {
+	function nativeShare() {
 
 		if (!canShare) {
 			alert('Web Share API is not supported in your browser.');
 			return;
-		}
-
-		try {
+		} else if (canShare) {
 			await navigator.share({
 				title: 'Monytri',
 				text: 'Check out Monytri!',
-				url: homeUrl
+				url: installUrl
 			});
-		} catch (err) {
+		} else {
 			console.error('Share failed:', err);
 		}
 	}
@@ -60,9 +57,6 @@
 			alert('Clipboard API is not supported in your browser.');
 		}
 	}
-
-	
-
 </script>
 
 
