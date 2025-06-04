@@ -69,7 +69,6 @@
 		flex-direction: column;
 		flex: 1 1 100%;
 		gap: 0;
-		/* outline: teal solid; */
 	}
 
 	form .amount-input-container{
@@ -77,7 +76,6 @@
 		align-items: center;
 		justify-content: center;
 		padding-block: 5%;
-		/* margin-bottom: 20%; */
 	}
 
 	form .amount-input-container:nth-of-type(1){
@@ -88,9 +86,6 @@
 		max-width: 45rem;
 		gap: clamp(1vw,1.2rem,10cqh);
 		overflow: auto;
-		/* align-items: center; */
-		
-		/* outline: solid green; */
 	}
 
 	form .amount-input-container:nth-of-type(1) label {
@@ -134,7 +129,6 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
-		/* outline: solid rgb(128, 0, 0); */
 	}
 
 	form .amount-input-container:nth-of-type(2) label {

@@ -233,40 +233,7 @@
 				throw new Error('Please select a recipient');
 			}
 
-			// Show success alert and redirect
-			// const alertContent = `
-			// 	<div style="
-			// 		background-color: #f5f5f5;
-			// 		padding: 20px;
-			// 		border-radius: 8px;
-			// 		border: 2px solid #4B7A5B;
-			// 		font-family: sans-serif;
-			// 	">
-			// 		<h3 style="color: #4B7A5B; margin: 0 0 15px 0;">Transfer Completed</h3>
-			// 		<div style="display: grid; gap: 10px;">
-			// 			<div><span style="color: #666;">Recipient:</span> ${formData.recipient.name}</div>
-			// 			<div><span style="color: #666;">Amount:</span> €${formData.amount}</div>
-			// 			<div><span style="color: #666;">Purpose:</span> ${formData.Purpose}</div>
-			// 			<div><span style="color: #666;">Card Design:</span> ${formData.cardDesign}</div>
-			// 			<div><span style="color: #666;">Message:</span> ${formData.message || 'None'}</div>
-			// 			<div><span style="color: #666;">Payment:</span> ${formData.PaymentMethod}</div>
-			// 		</div>
-			// 	</div>
-			// `;
-
-			// const alertDialog = document.createElement('div');
-			// alertDialog.innerHTML = alertContent;
-			// alertDialog.style.cssText = `
-			// 	position: fixed;
-			// 	top: 50%;
-			// 	left: 50%;
-			// 	transform: translate(-50%, -50%);
-			// 	z-index: 1000;
-			// 	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-			// `;
-
 			currentProgress = 100;
-			// document.body.appendChild(alertDialog);
 			
 			await new Promise(resolve => setTimeout(resolve, 1000));
 			// alertDialog.remove();
